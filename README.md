@@ -7,3 +7,4 @@ __BioHeal__ - это мобильная стратегия, в которой в
 
 ---
 Более подробную информацию об игре вы можете посмотреть в ТЗ: https://www.overleaf.com/read/hhqzvrjdtmnq
+Диаграммы классов: https://drive.google.com/file/d/13O1L31Sp4muokIRAJtX1SON74lNkZktJ/view?usp=sharing
