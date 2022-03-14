@@ -4,13 +4,26 @@ public class Infection : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    private float velocity = 3f;
+    private const float velocity = 3f;
 
     private int force = 10;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "Heart")
+        {
+            SceneManager.sceneManager.DeleteObject(SceneManager.EntityType.Infection, this.gameObject);
+        }
     }
 
     private void Move()
@@ -24,19 +37,6 @@ public class Infection : MonoBehaviour
             delta.Normalize();
 
             rb.velocity = delta * velocity;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        Move();
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.tag == "Heart")
-        {
-            SceneManager.sceneManager.DeleteObject(SceneManager.EntityType.Infection, this.gameObject);
         }
     }
 }

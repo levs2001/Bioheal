@@ -14,15 +14,6 @@ public class SceneManager : MonoBehaviour
 
     private const string PathToBaseSpawnPoint = "SpawnAreas/BaseSpawnPoint/SpawnPoint";
 
-    public enum EntityType
-    {
-        Infection,
-        Erythrocyte,
-        Toxin,
-        Lymfocyte,
-        Granulocit,
-        Mineral
-    }
 
     public static SceneManager sceneManager { get; private set; }
 
@@ -35,6 +26,7 @@ public class SceneManager : MonoBehaviour
 
     private GameObject heart;
 
+    //Используется для установки цели для эритроцита
     public GameObject Heart
     {
         get
@@ -43,6 +35,7 @@ public class SceneManager : MonoBehaviour
         }
     }
 
+    //Используется для того, чтобы инфекция знала позицию базы
     public Vector3? HeartPosition
     {
         get
@@ -51,6 +44,44 @@ public class SceneManager : MonoBehaviour
                 return heart.transform.position;
             else
                 return null;
+        }
+    }
+
+    private void Awake()
+    {
+        sceneManager = this;
+
+        entityManagers = new Dictionary<EntityType, EntityManager>();
+
+        spawnAreas = new SpawnAreas();
+
+        SetFrequencies();
+
+        Dictionary<EntityType, GameObject> prefabs = SetPrefabs();
+        foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
+        {
+            entityManagers[type] = new EntityManager(prefabs[type]);
+        }
+    }
+
+    private void Start()
+    {
+        GameObject heartPrefab = Resources.Load<GameObject>(PathToHeartPrefab);
+        heart = GameObject.Instantiate(heartPrefab);
+        GameObject baseSpawnPoint = Resources.Load<GameObject>(PathToBaseSpawnPoint);
+        heart.transform.position = baseSpawnPoint.transform.position;
+    }
+
+    private void Update()
+    {
+        foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
+        {
+            if (elapsedTimeSinceLastSpawn[type] >= spawnFrequencies[type])
+            {
+                SpawnEntity(type);
+                elapsedTimeSinceLastSpawn[type] = 0;
+            }
+            elapsedTimeSinceLastSpawn[type] += Time.deltaTime;
         }
     }
 
@@ -113,6 +144,7 @@ public class SceneManager : MonoBehaviour
         return prefabs;
     }
 
+    //Временное решение. В дальнейшем частоты будут считываться из файла
     private void SetFrequencies()
     {
         spawnFrequencies = new Dictionary<EntityType, float>();
@@ -121,7 +153,7 @@ public class SceneManager : MonoBehaviour
         spawnFrequencies[EntityType.Erythrocyte] = 3;
         spawnFrequencies[EntityType.Lymfocyte] = Mathf.Infinity;
         spawnFrequencies[EntityType.Granulocit] = Mathf.Infinity;
-        spawnFrequencies[EntityType.Toxin] = 19;
+        spawnFrequencies[EntityType.Toxin] = 14;
         spawnFrequencies[EntityType.Mineral] = 0.5f;
 
         elapsedTimeSinceLastSpawn = new Dictionary<EntityType, float>();
@@ -131,41 +163,14 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    private void Awake()
+
+    public enum EntityType
     {
-        sceneManager = this;
-
-        entityManagers = new Dictionary<EntityType, EntityManager>();
-
-        spawnAreas = new SpawnAreas();
-
-        SetFrequencies();
-
-        Dictionary<EntityType, GameObject> prefabs = SetPrefabs();
-        foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
-        {
-            entityManagers[type] = new EntityManager(prefabs[type]);
-        }
-    }
-
-    private void Start()
-    {
-        GameObject heartPrefab = Resources.Load<GameObject>(PathToHeartPrefab);
-        heart = GameObject.Instantiate(heartPrefab);
-        GameObject baseSpawnPoint = Resources.Load<GameObject>(PathToBaseSpawnPoint);
-        heart.transform.position = baseSpawnPoint.transform.position;
-    }
-
-    private void Update()
-    {
-        foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
-        {
-            if (elapsedTimeSinceLastSpawn[type] >= spawnFrequencies[type])
-            {
-                SpawnEntity(type);
-                elapsedTimeSinceLastSpawn[type] = 0;
-            }
-            elapsedTimeSinceLastSpawn[type] += Time.deltaTime;
-        }
+        Infection,
+        Erythrocyte,
+        Toxin,
+        Lymfocyte,
+        Granulocit,
+        Mineral
     }
 }

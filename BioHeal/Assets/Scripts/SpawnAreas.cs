@@ -7,6 +7,22 @@ public class SpawnAreas
     private const string PathToAlliedSpawnAreas = "SpawnAreas/AlliedAreas";
     private const string PathToMineralSpawnAreas = "SpawnAreas/MineralAreas";
 
+    private Dictionary<EntityClass, EntitySpawnAreas> areas;
+
+    public SpawnAreas()
+    {
+        areas = new Dictionary<EntityClass, EntitySpawnAreas>();
+
+        areas[EntityClass.allied] = new EntitySpawnAreas(PathToAlliedSpawnAreas);
+        areas[EntityClass.enemy] = new EntitySpawnAreas(PathToEnemySpawnAreas);
+        areas[EntityClass.mineral] = new EntitySpawnAreas(PathToMineralSpawnAreas);
+    }
+
+    public BoxCollider2D GetRandomArea(EntityClass entityClass)
+    {
+        return areas[entityClass].randomEntitySpawnArea;
+    }
+
     private class EntitySpawnAreas
     {
         private BoxCollider2D[] entitySpawnAreas;
@@ -32,21 +48,5 @@ public class SpawnAreas
         enemy,
         allied,
         mineral
-    }
-
-    private Dictionary<EntityClass, EntitySpawnAreas> areas;
-
-    public BoxCollider2D GetRandomArea(EntityClass entityClass)
-    {
-        return areas[entityClass].randomEntitySpawnArea;
-    }
-
-    public SpawnAreas()
-    {
-        areas = new Dictionary<EntityClass, EntitySpawnAreas>();
-
-        areas[EntityClass.allied] = new EntitySpawnAreas(PathToAlliedSpawnAreas);
-        areas[EntityClass.enemy] = new EntitySpawnAreas(PathToEnemySpawnAreas);
-        areas[EntityClass.mineral] = new EntitySpawnAreas(PathToMineralSpawnAreas);
     }
 }

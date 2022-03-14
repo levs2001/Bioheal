@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 public class EntityManager
 {
-    private List<GameObject> freeEntities;
-    private List<GameObject> busyEntities;
+    private readonly List<GameObject> freeEntities;
+    private readonly List<GameObject> busyEntities;
 
     private GameObject prefab;
 
+    //For testing
     public List<GameObject> FreeEntities
     {
         get
@@ -18,6 +19,7 @@ public class EntityManager
         private set { }
     }
 
+    //For testing    
     public List<GameObject> BusyEntities
     {
         get
@@ -61,11 +63,7 @@ public class EntityManager
 
     public void DeleteObject(GameObject entity)
     {
-        if (busyEntities.Contains(entity))
-        {
-            busyEntities.Remove(entity);
-        }
-        else if (freeEntities.Contains(entity))
+        if (!busyEntities.Remove(entity))
         {
             freeEntities.Remove(entity);
         }

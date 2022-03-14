@@ -4,7 +4,7 @@ public class Erythrocyte : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    private float velocity = 3f;
+    private const float velocity = 3f;
 
     private GameObject aim = null;
 
@@ -13,29 +13,10 @@ public class Erythrocyte : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Move()
-    {
-        Vector3 erythrocytePos = transform.position;
-
-        if (aim != null)
-        {
-            Vector3 delta = aim.transform.position - erythrocytePos;
-            delta.Normalize();
-
-            rb.velocity = delta * velocity;
-        }
-        else
-            rb.velocity = Vector2.zero;
-    }
-
-    private void Update()
+    private void FixedUpdate()
     {
         if (aim == null)
             aim = SceneManager.sceneManager.GetAim(SceneManager.EntityType.Mineral, this.transform.position);
-    }
-
-    private void FixedUpdate()
-    {
         Move();
     }
 
@@ -58,5 +39,20 @@ public class Erythrocyte : MonoBehaviour
         {
             SceneManager.sceneManager.SpawnEntity(SceneManager.EntityType.Mineral, transform.position);
         }
+    }
+
+    private void Move()
+    {
+        Vector3 erythrocytePos = transform.position;
+
+        if (aim != null)
+        {
+            Vector3 delta = aim.transform.position - erythrocytePos;
+            delta.Normalize();
+
+            rb.velocity = delta * velocity;
+        }
+        else
+            rb.velocity = Vector2.zero;
     }
 }
