@@ -4,11 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Infection
+  - Eritrocite
+  - Toxin
   - Heart
   - Mineral
-  - Eritrocite
-  - Infection
-  - Toxin
   layers:
   - Default
   - TransparentFX
@@ -43,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI
+    uniqueID: 3643738779
+    locked: 1
   - name: Default
     uniqueID: 0
     locked: 0
