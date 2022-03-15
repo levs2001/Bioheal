@@ -8,73 +8,76 @@ public class Base : MonoBehaviour
     private uint force, money;
     private uint eritroPrice, granuloPrice, limfoPrice;
 
+    //public fields, because I am initializing these fields from Unity API from inspector 
     public GameObject menuBase;
-
     public Text textMoney;
     public Text textLimfo, textGranulo, textEritro;
-
     public GameObject unitInfo;
     public Text textInfo;
 
-    // Start is called before the first frame update
-    void Start(){
-
+    private void Init()
+    {
         //init
         money = 375;
-        if (textMoney != null)
-            textMoney.text = $"{money}";
 
         //init. Later - read from json
         force = 0;
         eritroPrice = 10;
         granuloPrice = 15;
         limfoPrice = 20;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Init();
+
+        textMoney.text = $"{money}";
 
         //add price for units to screen
         textEritro.text += $" {eritroPrice}";
         textGranulo.text += $" {granuloPrice}";
         textLimfo.text += $" {limfoPrice}";
 
-        if (menuBase != null) {
-            menuBase.SetActive(false);
-        }
-
-        if (unitInfo != null) {
-            unitInfo.SetActive(false);
-            textInfo.fontSize = 16;
-        }
+        menuBase.SetActive(false);
+        unitInfo.SetActive(false);
     }
 
     ///////         Public methods, called from buttons         ///////
-    public void OpenMenu() {
-        if (menuBase != null)
-            menuBase.SetActive(true);
+    public void OpenMenu()
+    {
+        menuBase.SetActive(true);
     }
 
-    public void CloseMenu() {
-        if (menuBase != null)
-            menuBase.SetActive(false);
+    public void CloseMenu()
+    {
+        menuBase.SetActive(false);
     }
 
-
-    public void BuyEritro(){
-        if (money >= eritroPrice){
+    public void BuyEritro()
+    {
+        if (money >= eritroPrice)
+        {
             money -= eritroPrice;
             textMoney.text = $"{money}";
             //ask manager to spawn granulocits
         }
-
     }
-    public void BuyGranulo(){
-        if (money >= granuloPrice) {
+
+    public void BuyGranulo()
+    {
+        if (money >= granuloPrice)
+        {
             money -= granuloPrice;
             textMoney.text = $"{money}";
             //ask manager to spawn granulocits
         }
     }
-    public void BuyLimfo(){
 
-        if (money >= limfoPrice){
+    public void BuyLimfo()
+    { 
+        if (money >= limfoPrice)
+        {
             money -= limfoPrice;
             textMoney.text = $"{money}";
             //ask manager to spawn limfocits
@@ -82,9 +85,8 @@ public class Base : MonoBehaviour
     }
 
     //unit == "InfoLimfo" or "InfoGranulo" or "InfoEritro"
-    public void ShowInfoUnit(string unit){
-        if (unitInfo == null)
-            return;
+    public void ShowInfoUnit(string unit)
+    {
         unitInfo.SetActive(true);
 
         //Вывод информации о юнитах. Пока вывожу костыль
@@ -97,15 +99,13 @@ public class Base : MonoBehaviour
         textInfo.text = $"Здесь будет информация" + temp;
     }
 
-    public void CloseInfoUnit(){
-        if (unitInfo != null) {
-            textInfo.text = "";
-            unitInfo.SetActive(false);
-        }
+    public void CloseInfoUnit()
+    {
+        textInfo.text = "";
+        unitInfo.SetActive(false); 
     }
-    //////////////Public methods, called from buttons
+    ///////         Public methods, called from buttons         ///////
 
 
     public void IncreaseMoney() { ++money; }
-
 }
