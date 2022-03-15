@@ -6,9 +6,9 @@ TagManager:
   tags:
   - Heart
   - Mineral
-  - Eritrocite
   - Infection
   - Toxin
+  - Erythrocyte
   layers:
   - Default
   - TransparentFX
@@ -45,4 +45,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Mineral
+    uniqueID: 1594573315
+    locked: 0
+  - name: Infection
+    uniqueID: 929502893
+    locked: 0
+  - name: Erythorocyte
+    uniqueID: 2456730079
+    locked: 0
+  - name: Heart
+    uniqueID: 2241785201
     locked: 0
