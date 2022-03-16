@@ -5,22 +5,21 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 
-public class Loader : MonoBehaviour
+// now just call LoadConfig in Menu Scene 
+// and share config wherever needed
+public class Loader
 {
     
-    private const string configPath = "Assets/Resources/config.json";
+    private static string configPath = "Assets/Resources/config.json";
     public static Config config;
 
-    void Awake()
+    public static void LoadConfig()
     {
-        string json = File.ReadAllText(configPath);
-        config = JsonConvert.DeserializeObject<Config>(json);
-        Debug.Log(config.levels[0].minerals.initialC);
+        if (config == null)
+        {
+            string json = File.ReadAllText(configPath);
+            config = JsonConvert.DeserializeObject<Config>(json);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
