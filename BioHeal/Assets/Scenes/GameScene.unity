@@ -355,7 +355,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362898764}
+      - m_Target: {fileID: 362898761}
         m_TargetAssemblyTypeName: Base, Assembly-CSharp
         m_MethodName: CloseMenu
         m_Mode: 1
@@ -511,7 +511,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4687761987433723502, guid: 07a1cddfab6a6af4aa87aa8fab70b37c, type: 3}
   m_PrefabInstance: {fileID: 1399570258}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &362898764
+--- !u!114 &362898761
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -764,10 +764,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362898764}
+      - m_Target: {fileID: 362898761}
         m_TargetAssemblyTypeName: Base, Assembly-CSharp
-        m_MethodName: ShowInfoUnit
-        m_Mode: 5
+        m_MethodName: ShowInfoUnitButton
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1131,14 +1131,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362898764}
+      - m_Target: {fileID: 362898761}
         m_TargetAssemblyTypeName: Base, Assembly-CSharp
-        m_MethodName: ShowInfoUnit
-        m_Mode: 5
+        m_MethodName: ShowInfoUnitButton
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: granulo
           m_BoolArgument: 0
@@ -1496,14 +1496,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362898764}
+      - m_Target: {fileID: 362898761}
         m_TargetAssemblyTypeName: Base, Assembly-CSharp
-        m_MethodName: BuyGranulo
-        m_Mode: 1
+        m_MethodName: BuyUnitButton
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1628,7 +1628,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362898764}
+      - m_Target: {fileID: 362898761}
         m_TargetAssemblyTypeName: Base, Assembly-CSharp
         m_MethodName: CloseInfoUnit
         m_Mode: 1
@@ -2149,10 +2149,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362898764}
+      - m_Target: {fileID: 362898761}
         m_TargetAssemblyTypeName: Base, Assembly-CSharp
-        m_MethodName: BuyEritro
-        m_Mode: 1
+        m_MethodName: BuyUnitButton
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2281,7 +2281,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362898764}
+      - m_Target: {fileID: 362898761}
         m_TargetAssemblyTypeName: Base, Assembly-CSharp
         m_MethodName: OpenMenu
         m_Mode: 1
@@ -2413,14 +2413,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362898764}
+      - m_Target: {fileID: 362898761}
         m_TargetAssemblyTypeName: Base, Assembly-CSharp
-        m_MethodName: ShowInfoUnit
-        m_Mode: 5
+        m_MethodName: ShowInfoUnitButton
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: limfo
           m_BoolArgument: 0
@@ -2626,14 +2626,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362898764}
+      - m_Target: {fileID: 362898761}
         m_TargetAssemblyTypeName: Base, Assembly-CSharp
-        m_MethodName: BuyLimfo
-        m_Mode: 1
+        m_MethodName: BuyUnitButton
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
