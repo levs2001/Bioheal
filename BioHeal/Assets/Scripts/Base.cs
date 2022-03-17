@@ -2,26 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static SceneManager;
 
 public class Base : MonoBehaviour
 {
-    public enum EntityType
-    {
-        Erythrocyte,
-        Lymfocyte,
-        Granulocit,
-    }
-
-    private uint force, money;
-
-    private Dictionary<EntityType, uint> dict = new Dictionary<EntityType, uint>();
-
     //public fields, because I am initializing these fields from Unity API from inspector 
     public GameObject menuBase;
     public Text textMoney;
     public Text textLimfo, textGranulo, textEritro;
     public GameObject unitInfo;
     public Text textInfo;
+
+    private uint force, money;
+    private Dictionary<EntityType, uint> dict = new Dictionary<EntityType, uint>();
+
 
     ///////         Public methods, called from buttons         ///////
     public void OpenMenu()
@@ -37,15 +31,15 @@ public class Base : MonoBehaviour
     public void BuyUnit(string str)
     {
         uint price = 0;
-        EntityType unitType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
+        EntityType entityType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
 
         //method returns price by reference
-        dict.TryGetValue(unitType, out price);
+        dict.TryGetValue(entityType, out price);
         if (money >= price)
         {
             money -= price;
             textMoney.text = $"{money}";
-            //ask manager to spawn [unitType] unit
+            sceneManager.SpawnEntity(entityType);
         }
     }
 
@@ -73,7 +67,7 @@ public class Base : MonoBehaviour
 
     public void IncreaseMoney()
     {
-        ++money; 
+        ++money;
     }
 
     // Start is called before the first frame update
