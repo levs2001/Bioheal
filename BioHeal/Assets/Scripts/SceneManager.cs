@@ -66,10 +66,11 @@ public class SceneManager : MonoBehaviour
 
     private void Start()
     {
-        GameObject heartPrefab = Resources.Load<GameObject>(PathToHeartPrefab);
-        heart = GameObject.Instantiate(heartPrefab);
-        GameObject baseSpawnPoint = Resources.Load<GameObject>(PathToBaseSpawnPoint);
-        heart.transform.position = baseSpawnPoint.transform.position;
+        // TODO: Кнопка базы и меню сейчас заякорены, если сдвинем сердце они не сдвинутся
+        //GameObject heartPrefab = Resources.Load<GameObject>(PathToHeartPrefab);
+        heart = GameObject.FindWithTag("Heart");
+        //GameObject baseSpawnPoint = Resources.Load<GameObject>(PathToBaseSpawnPoint);
+        //heart.transform.position = baseSpawnPoint.transform.position;
     }
 
     private void Update()
@@ -150,7 +151,7 @@ public class SceneManager : MonoBehaviour
         spawnFrequencies = new Dictionary<EntityType, float>();
 
         spawnFrequencies[EntityType.Infection] = 3;
-        spawnFrequencies[EntityType.Erythrocyte] = 3;
+        spawnFrequencies[EntityType.Erythrocyte] = Mathf.Infinity;
         spawnFrequencies[EntityType.Lymfocyte] = Mathf.Infinity;
         spawnFrequencies[EntityType.Granulocit] = Mathf.Infinity;
         spawnFrequencies[EntityType.Toxin] = 14;
