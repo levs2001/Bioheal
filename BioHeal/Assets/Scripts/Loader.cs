@@ -9,17 +9,17 @@ using Newtonsoft.Json;
 // and share config wherever needed
 public class Loader
 {
-    
+
     private static string configPath = "Assets/Resources/config.json";
     private static Config config;
 
     public static void LoadConfig()
     {
         string json = File.ReadAllText(configPath);
-        config = JsonConvert.DeserializeObject<Config>(json);   
+        config = JsonConvert.DeserializeObject<Config>(json);
     }
 
-    public static Config GetConfig()
+    private static Config GetConfig()
     {
         if (config == null)
         {
@@ -28,4 +28,9 @@ public class Loader
         return config;
     }
 
+    public static LevelData GetLevel(int num)
+    {
+        // TODO: Merge with default not filled fields
+        return GetConfig().levels[num];
+    }
 }

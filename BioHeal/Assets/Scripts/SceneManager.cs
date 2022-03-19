@@ -62,6 +62,8 @@ public class SceneManager : MonoBehaviour
         {
             entityManagers[type] = new EntityManager(prefabs[type]);
         }
+
+
     }
 
     private void Start()
@@ -143,6 +145,13 @@ public class SceneManager : MonoBehaviour
         prefabs[EntityType.Mineral] = Resources.Load<GameObject>(PathToMineralPrefab);
 
         return prefabs;
+    }
+
+    private void InitFromDB(Dictionary<EntityType, GameObject> prefabs)
+    {
+        // TODO: Подумать где хранить номер текущего уровня
+        LevelData level = Loader.GetLevel(0);
+        //prefabs[EntityType.Infection].GetComponent<Unit>().Init(level.allies); I
     }
 
     //Временное решение. В дальнейшем частоты будут считываться из файла

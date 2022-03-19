@@ -1,20 +1,7 @@
 using UnityEngine;
 
-public class Toxin : MonoBehaviour
+public class Toxin : Unit
 {
-    private Rigidbody2D rb;
-
-    private const float velocity = 2f;
-
-    private int force;
-
-    private GameObject aim = null;
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
     private void FixedUpdate() {
         if (aim == null)
             aim = SceneManager.sceneManager.GetAim(SceneManager.EntityType.Erythrocyte, this.transform.position);
@@ -27,20 +14,5 @@ public class Toxin : MonoBehaviour
             SceneManager.sceneManager.DeleteObject(SceneManager.EntityType.Erythrocyte, aim);
             aim = null;
         }
-    }
-
-    private void Move()
-    {
-        Vector3 toxinPos = this.transform.position;
-
-        if (aim != null)
-        {
-            Vector3 delta = aim.transform.position - toxinPos;
-            delta.Normalize();
-
-            rb.velocity = delta * velocity;
-        }
-        else
-            rb.velocity = Vector2.zero;
     }
 }

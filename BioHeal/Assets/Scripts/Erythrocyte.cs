@@ -1,18 +1,7 @@
 using UnityEngine;
 
-public class Erythrocyte : MonoBehaviour
+public class Erythrocyte : Unit
 {
-    private Rigidbody2D rb;
-
-    private const float velocity = 3f;
-
-    private GameObject aim = null;
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
     private void FixedUpdate()
     {
         if (aim == null)
@@ -39,20 +28,5 @@ public class Erythrocyte : MonoBehaviour
         {
             SceneManager.sceneManager.SpawnEntity(SceneManager.EntityType.Mineral, transform.position);
         }
-    }
-
-    private void Move()
-    {
-        Vector3 erythrocytePos = transform.position;
-
-        if (aim != null)
-        {
-            Vector3 delta = aim.transform.position - erythrocytePos;
-            delta.Normalize();
-
-            rb.velocity = delta * velocity;
-        }
-        else
-            rb.velocity = Vector2.zero;
     }
 }
