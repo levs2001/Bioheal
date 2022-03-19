@@ -30,6 +30,7 @@ public class Erythrocyte : MonoBehaviour
 
         if (aim == SceneManager.sceneManager.Heart && other.tag == "Heart")
         {
+            SceneManager.sceneManager.Heart.GetComponent<Base>().IncreaseMoney();
             aim = null;
         }
     }
