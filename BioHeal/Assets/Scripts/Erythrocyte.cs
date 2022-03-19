@@ -8,9 +8,15 @@ public class Erythrocyte : MonoBehaviour
 
     private GameObject aim = null;
 
+    [SerializeField] private Sprite erythrocyteWithMineralSprite;
+    [SerializeField] private Sprite erythrocyteSprite;
+
+    private SpriteRenderer spriteRenderer;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -26,11 +32,13 @@ public class Erythrocyte : MonoBehaviour
         {
             SceneManager.sceneManager.DeleteObject(SceneManager.EntityType.Mineral, aim);
             aim = SceneManager.sceneManager.Heart;
+            spriteRenderer.sprite = erythrocyteWithMineralSprite;
         }
 
         if (aim == SceneManager.sceneManager.Heart && other.tag == "Heart")
         {
             SceneManager.sceneManager.Heart.GetComponent<Base>().IncreaseMoney();
+            spriteRenderer.sprite = erythrocyteSprite;
             aim = null;
         }
     }
