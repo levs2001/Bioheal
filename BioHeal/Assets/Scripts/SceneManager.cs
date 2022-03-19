@@ -21,6 +21,7 @@ public class SceneManager : MonoBehaviour
 
     private Dictionary<EntityType, float> spawnFrequencies;
     private Dictionary<EntityType, float> elapsedTimeSinceLastSpawn;
+    private Dictionary<EntityType, GameObject> prefabs;
 
     private SpawnAreas spawnAreas;
 
@@ -57,7 +58,9 @@ public class SceneManager : MonoBehaviour
 
         SetFrequencies();
 
-        Dictionary<EntityType, GameObject> prefabs = SetPrefabs();
+        prefabs = SetPrefabs();
+        
+        InitFromDB();
         foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
         {
             entityManagers[type] = new EntityManager(prefabs[type]);
@@ -102,7 +105,7 @@ public class SceneManager : MonoBehaviour
 
             case EntityType.Erythrocyte:
             case EntityType.Lymfocyte:
-            case EntityType.Granulocit:
+            case EntityType.Granulocyte:
                 spawnArea = spawnAreas.GetRandomArea(SpawnAreas.EntityClass.allied);
                 break;
 
@@ -140,19 +143,13 @@ public class SceneManager : MonoBehaviour
         prefabs[EntityType.Infection] = Resources.Load<GameObject>(PathToInfectionPrefab);
         prefabs[EntityType.Erythrocyte] = Resources.Load<GameObject>(PathToErythrocytePrefab);
         prefabs[EntityType.Lymfocyte] = Resources.Load<GameObject>(PathToLymfocytePrefab);
-        prefabs[EntityType.Granulocit] = Resources.Load<GameObject>(PathToGranulocytePrefab);
+        prefabs[EntityType.Granulocyte] = Resources.Load<GameObject>(PathToGranulocytePrefab);
         prefabs[EntityType.Toxin] = Resources.Load<GameObject>(PathToToxinPrefab);
         prefabs[EntityType.Mineral] = Resources.Load<GameObject>(PathToMineralPrefab);
 
         return prefabs;
     }
 
-    private void InitFromDB(Dictionary<EntityType, GameObject> prefabs)
-    {
-        // TODO: Подумать где хранить номер текущего уровня
-        LevelData level = Loader.GetLevel(0);
-        //prefabs[EntityType.Infection].GetComponent<Unit>().Init(level.allies); I
-    }
 
     //Временное решение. В дальнейшем частоты будут считываться из файла
     private void SetFrequencies()
@@ -162,7 +159,7 @@ public class SceneManager : MonoBehaviour
         spawnFrequencies[EntityType.Infection] = 3;
         spawnFrequencies[EntityType.Erythrocyte] = Mathf.Infinity;
         spawnFrequencies[EntityType.Lymfocyte] = Mathf.Infinity;
-        spawnFrequencies[EntityType.Granulocit] = Mathf.Infinity;
+        spawnFrequencies[EntityType.Granulocyte] = Mathf.Infinity;
         spawnFrequencies[EntityType.Toxin] = 14;
         spawnFrequencies[EntityType.Mineral] = 0.5f;
 
@@ -173,6 +170,40 @@ public class SceneManager : MonoBehaviour
         }
     }
 
+    private void InitFromDB()
+    {
+        // TODO: Подумать где хранить номер текущего уровня
+        LevelData level = Loader.GetLevel(0);
+        //prefabs[EntityType.Infection].GetComponent<Unit>().Init(level.allies); I
+    }
+
+    private static Enemy GetEnemyInfo(EntityType entity, LevelData level)
+    {
+        string entityStr = entity.ToString();
+        foreach (Enemy enemy in level.enemies)
+        {
+            if (entityStr.Equals(enemy.name))
+            {
+                return enemy;
+            }
+        }
+
+        return null;
+    }
+
+    private static Ally GetAllyInfo(EntityType entity, LevelData level)
+    {
+        string entityStr = entity.ToString();
+        foreach (Ally ally in level.allies)
+        {
+            if (entityStr.Equals(ally.name))
+            {
+                return ally;
+            }
+        }
+
+        return null;
+    }
 
     public enum EntityType
     {
@@ -180,7 +211,7 @@ public class SceneManager : MonoBehaviour
         Erythrocyte,
         Toxin,
         Lymfocyte,
-        Granulocit,
+        Granulocyte,
         Mineral
     }
 }

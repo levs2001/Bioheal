@@ -4,13 +4,13 @@
         {
             "enemies": [
                 {
-                    "name": "toxins",
+                    "name": "Toxin",
                     "speed": 10,
                     "force": 1,
                     "frequency": 3.5
                 },
                 {
-                    "name": "bacteries",
+                    "name": "Infection",
                     "speed": 10,
                     "force": 1,
                     "frequency": 5
@@ -30,7 +30,7 @@
             ],
             "allies": [
                 {
-                    "name": "erythrocytes",
+                    "name": "Erythrocyte",
                     "speed": 10,
                     "force": 0,
                     "price": 10,
@@ -38,7 +38,7 @@
                     "timeToSpawn": 1
                 },
                 {
-                    "name": "leukocytes",
+                    "name": "Lymfocyte",
                     "speed": 8,
                     "force": 3,
                     "price": 15,
@@ -46,7 +46,7 @@
                     "timeToSpawn": 3
                 },
                 {
-                    "name": "plaletets",
+                    "name": "Granulocyte",
                     "speed": 5,
                     "force": 1,
                     "price": 20,
