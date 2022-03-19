@@ -50,7 +50,7 @@ public class Base : MonoBehaviour
         //Show information about units
         EntityType unitType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
         string temp;
-        if (unitType == EntityType.Granulocit) temp = $" � ������������";
+        if (unitType == EntityType.Granulocyte) temp = $" � ������������";
         else if (unitType == EntityType.Lymfocyte) temp = $" � ����������";
         else if (unitType == EntityType.Erythrocyte) temp = $" �� �����������";
         else temp = $" ERROR";
@@ -82,7 +82,7 @@ public class Base : MonoBehaviour
         uint price;
         //method returns price by reference
         dict.TryGetValue(EntityType.Erythrocyte, out price); textEritro.text += $" {price}";
-        dict.TryGetValue(EntityType.Granulocit, out price); textGranulo.text += $" {price}";
+        dict.TryGetValue(EntityType.Granulocyte, out price); textGranulo.text += $" {price}";
         dict.TryGetValue(EntityType.Lymfocyte, out price); textLimfo.text += $" {price}";
 
         menuBase.SetActive(false);
@@ -96,7 +96,7 @@ public class Base : MonoBehaviour
 
         //init. Later - read from json
         dict.Add(EntityType.Erythrocyte, 10);
-        dict.Add(EntityType.Granulocit, 15);
+        dict.Add(EntityType.Granulocyte, 15);
         dict.Add(EntityType.Lymfocyte, 20);
 
         force = 0;
