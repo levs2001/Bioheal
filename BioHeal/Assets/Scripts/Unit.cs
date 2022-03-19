@@ -6,9 +6,9 @@ public class Unit : MonoBehaviour
 {
     protected Rigidbody2D rb;
 
-    protected float velocity = 2f;
+    [SerializeField] private float velocity = 2f;
 
-    protected int force;
+    [SerializeField] protected int force;
 
     protected GameObject aim = null;
     // Start is called before the first frame update

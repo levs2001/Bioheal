@@ -59,23 +59,14 @@ public class SceneManager : MonoBehaviour
         SetFrequencies();
 
         prefabs = SetPrefabs();
-        
+
+        heart = GameObject.FindWithTag("Heart");
         InitFromDB();
         foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
         {
             entityManagers[type] = new EntityManager(prefabs[type]);
         }
 
-
-    }
-
-    private void Start()
-    {
-        // TODO: Кнопка базы и меню сейчас заякорены, если сдвинем сердце они не сдвинутся
-        //GameObject heartPrefab = Resources.Load<GameObject>(PathToHeartPrefab);
-        heart = GameObject.FindWithTag("Heart");
-        //GameObject baseSpawnPoint = Resources.Load<GameObject>(PathToBaseSpawnPoint);
-        //heart.transform.position = baseSpawnPoint.transform.position;
     }
 
     private void Update()
@@ -153,7 +144,7 @@ public class SceneManager : MonoBehaviour
     }
 
 
-    //Временное решение. В дальнейшем частоты будут считываться из файла
+    // TODO: Refactor, init in 2 places
     private void SetFrequencies()
     {
         spawnFrequencies = new Dictionary<EntityType, float>();
@@ -171,9 +162,42 @@ public class SceneManager : MonoBehaviour
 
     private void InitFromDB()
     {
-        // TODO: Подумать где хранить номер текущего уровня
+        // TODO: Think about saving num of lvl
         LevelData level = Loader.GetLevel(0);
-        //prefabs[EntityType.Infection].GetComponent<Unit>().Init(level.allies); I
+        heart.GetComponent<Base>().Force = level.heart.force;
+        heart.GetComponent<Base>().Money = level.heart.money;
+
+        foreach (EntityType type in prefabs.Keys)
+        {
+            if (type.Equals(EntityType.Mineral))
+            {
+                continue;
+            }
+
+            if (IsAlly(type))
+            {
+                SetAllyInfo(type, level);
+            }
+            else
+            {
+                SetEnemyInfo(type, level);
+            }
+        }
+    }
+
+    private void SetEnemyInfo(EntityType type, LevelData level)
+    {
+        Enemy enemy = GetEnemyInfo(type, level);
+        spawnFrequencies[type] = enemy.frequency;
+        prefabs[type].GetComponent<Unit>().Init(enemy.speed, enemy.force);
+    }
+
+    private void SetAllyInfo(EntityType type, LevelData level)
+    {
+        Ally ally = GetAllyInfo(type, level);
+        prefabs[type].GetComponent<Unit>().Init(ally.speed, ally.force);
+        heart.GetComponent<Base>().AddPrice(type, ally.price);
+        // TODO: InitialC and timeToSpawn ignored now (
     }
 
     private static Enemy GetEnemyInfo(EntityType entity, LevelData level)
@@ -204,11 +228,16 @@ public class SceneManager : MonoBehaviour
         return null;
     }
 
+    private static bool IsAlly(EntityType type)
+    {
+        return type.Equals(EntityType.Erythrocyte) || type.Equals(EntityType.Lymfocyte) || type.Equals(EntityType.Granulocyte);
+    }
+
     public enum EntityType
     {
         Infection,
-        Erythrocyte,
         Toxin,
+        Erythrocyte,
         Lymfocyte,
         Granulocyte,
         Mineral

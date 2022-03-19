@@ -11,7 +11,7 @@ public class Loader
 {
 
     private static string configPath = "Assets/Resources/config.json";
-    private static Config config;
+    private static Config config = null;
 
     public static void LoadConfig()
     {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5675825463535245700}
   - component: {fileID: 191166370219948850}
   - component: {fileID: 5440757764508559694}
+  - component: {fileID: 6983979848565093734}
   m_Layer: 0
   m_Name: Lymfocyte
   m_TagString: Untagged
@@ -121,3 +122,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6983979848565093734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352819649633507866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f107003ec9464f1499d1fd62ee3103e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

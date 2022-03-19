@@ -7,7 +7,7 @@
                     "name": "Toxin",
                     "speed": 10,
                     "force": 1,
-                    "frequency": 3.5
+                    "frequency": 25
                 },
                 {
                     "name": "Infection",
@@ -56,10 +56,11 @@
             ],
             "mineral": {
                 "initialC": 10,
-                "frequency": 2
+                "frequency": 0.5
             },
             "heart": {
-                "force": 20
+                "force": 20,
+		"money": 300
             }
         }
     ]

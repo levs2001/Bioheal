@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeartData
+public class Lymphocyte : Unit
 {
-    public int force;
-    public int money;
 }
