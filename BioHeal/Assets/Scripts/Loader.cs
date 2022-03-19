@@ -11,15 +11,21 @@ public class Loader
 {
     
     private static string configPath = "Assets/Resources/config.json";
-    public static Config config;
+    private static Config config;
 
     public static void LoadConfig()
     {
+        string json = File.ReadAllText(configPath);
+        config = JsonConvert.DeserializeObject<Config>(json);   
+    }
+
+    public static Config GetConfig()
+    {
         if (config == null)
         {
-            string json = File.ReadAllText(configPath);
-            config = JsonConvert.DeserializeObject<Config>(json);
+            LoadConfig();
         }
+        return config;
     }
 
 }

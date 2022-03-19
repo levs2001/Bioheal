@@ -54,7 +54,7 @@ public class SceneManager : MonoBehaviour
         entityManagers = new Dictionary<EntityType, EntityManager>();
 
         spawnAreas = new SpawnAreas();
-
+        print(Loader.GetConfig().levels[0].mineral.initialC);
         SetFrequencies();
 
         Dictionary<EntityType, GameObject> prefabs = SetPrefabs();
