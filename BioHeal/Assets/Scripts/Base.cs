@@ -6,12 +6,13 @@ using static SceneManager;
 
 public class Base : MonoBehaviour
 {
-    //public fields, because I am initializing these fields from Unity API from inspector 
+    //SerializeField, because I am initializing these fields from Unity API from inspector 
     [SerializeField] private GameObject menuBase;
-    [SerializeField] private Text textMoney;
+    [SerializeField] private Text textMoneyMenu;
     [SerializeField] private Text textLimfo, textGranulo, textEritro;
     [SerializeField] private GameObject unitInfo;
     [SerializeField] private Text textInfo;
+    [SerializeField] private Text textMoneyBase, textForceBase;
 
     private uint force, money;
     private Dictionary<EntityType, uint> dict = new Dictionary<EntityType, uint>();
@@ -38,7 +39,8 @@ public class Base : MonoBehaviour
         if (money >= price)
         {
             money -= price;
-            textMoney.text = $"{money}";
+            textMoneyMenu.text = $"{money}";
+            textMoneyBase.text = $"{money}";
             sceneManager.SpawnEntity(entityType);
         }
     }
@@ -63,12 +65,25 @@ public class Base : MonoBehaviour
         textInfo.text = "";
         unitInfo.SetActive(false);
     }
+
+    public void PauseButton()
+    {
+        //Today we do not have job for this button
+        Debug.Log("Clicking on pause!\n");
+    }
+
+    public void ShowBaseButton()
+    {
+        //Today we do not have job for this button
+        Debug.Log("Showing Base!\n");
+    }
     ///////         Public methods, called from buttons         ///////
 
     public void IncreaseMoney()
     {
         ++money;
-        textMoney.text = $"{money}";
+        textMoneyMenu.text = $"{money}";
+        textMoneyBase.text = $"{money}";
     }
 
     // Start is called before the first frame update
@@ -76,7 +91,9 @@ public class Base : MonoBehaviour
     {
         Init();
 
-        textMoney.text = $"{money}";
+        textMoneyMenu.text = $"{money}";
+        textMoneyBase.text = $"{money}";
+        textForceBase.text = $"{force}";
 
         //add price for units to screen
         uint price;
@@ -99,6 +116,6 @@ public class Base : MonoBehaviour
         dict.Add(EntityType.Granulocit, 15);
         dict.Add(EntityType.Lymfocyte, 20);
 
-        force = 0;
+        force = 10;
     }
 }
