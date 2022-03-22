@@ -75,7 +75,9 @@ public class SceneManager : MonoBehaviour
 
     private void Update()
     {
-        foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
+        List<EntityType> spawnEntityTypes = new List<EntityType>(elapsedTimeSinceLastSpawn.Keys);
+
+        foreach (EntityType type in spawnEntityTypes)
         {
             if (elapsedTimeSinceLastSpawn[type] >= spawnFrequencies[type])
             {
@@ -151,14 +153,11 @@ public class SceneManager : MonoBehaviour
         spawnFrequencies = new Dictionary<EntityType, float>();
 
         spawnFrequencies[EntityType.Infection] = 3;
-        spawnFrequencies[EntityType.Erythrocyte] = Mathf.Infinity;
-        spawnFrequencies[EntityType.Lymfocyte] = Mathf.Infinity;
-        spawnFrequencies[EntityType.Granulocit] = Mathf.Infinity;
         spawnFrequencies[EntityType.Toxin] = 14;
         spawnFrequencies[EntityType.Mineral] = 0.5f;
 
         elapsedTimeSinceLastSpawn = new Dictionary<EntityType, float>();
-        foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
+        foreach (EntityType type in spawnFrequencies.Keys)
         {
             elapsedTimeSinceLastSpawn[type] = 0;
         }

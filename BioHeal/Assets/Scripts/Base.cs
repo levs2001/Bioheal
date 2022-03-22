@@ -6,13 +6,13 @@ using static SceneManager;
 
 public class Base : MonoBehaviour
 {
-    //public fields, because I am initializing these fields from Unity API from inspector 
-    public GameObject menuBase;
-    public Text textMoneyMenu;
-    public Text textLimfo, textGranulo, textEritro;
-    public GameObject unitInfo;
-    public Text textInfo;
-    public Text textMoneyBase, textForceBase;
+    //SerializeField, because I am initializing these fields from Unity API from inspector 
+    [SerializeField] private GameObject menuBase;
+    [SerializeField] private Text textMoneyMenu;
+    [SerializeField] private Text textLimfo, textGranulo, textEritro;
+    [SerializeField] private GameObject unitInfo;
+    [SerializeField] private Text textInfo;
+    [SerializeField] private Text textMoneyBase, textForceBase;
 
     private uint force, money;
     private Dictionary<EntityType, uint> dict = new Dictionary<EntityType, uint>();
@@ -52,12 +52,12 @@ public class Base : MonoBehaviour
         //Show information about units
         EntityType unitType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
         string temp;
-        if (unitType == EntityType.Granulocit) temp = $" о гранулоцитах";
-        else if (unitType == EntityType.Lymfocyte) temp = $" о лимфоцитах";
-        else if (unitType == EntityType.Erythrocyte) temp = $" об эритроцитах";
+        if (unitType == EntityType.Granulocit) temp = $" пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+        else if (unitType == EntityType.Lymfocyte) temp = $" пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+        else if (unitType == EntityType.Erythrocyte) temp = $" пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
         else temp = $" ERROR";
 
-        textInfo.text = $"Здесь будет информация" + temp;
+        textInfo.text = $"пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" + temp;
     }
 
     public void CloseInfoUnit()
@@ -82,6 +82,8 @@ public class Base : MonoBehaviour
     public void IncreaseMoney()
     {
         ++money;
+        textMoneyMenu.text = $"{money}";
+        textMoneyBase.text = $"{money}";
     }
 
     // Start is called before the first frame update
