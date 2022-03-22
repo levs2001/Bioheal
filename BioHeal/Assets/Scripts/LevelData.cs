@@ -6,7 +6,7 @@ using System;
 public class LevelData 
 {
     private LevelJson level;
-    private Dictionary<EntityType, UnitJson> unitsInfo;
+    private Dictionary<EntityType, UnitJson> unitsInfo = new Dictionary<EntityType, UnitJson>();
     
     public LevelData(LevelJson level)
     {
@@ -35,7 +35,7 @@ public class LevelData
         return timeToSpawn;
     }
 
-     public Dictionary<EntityType, float> GetFrequencies() 
+    public Dictionary<EntityType, float> GetFrequencies() 
     {
         Dictionary<EntityType, float> frequency = new Dictionary<EntityType, float>();
         foreach (EnemyJson enemy in level.enemies)
@@ -52,7 +52,6 @@ public class LevelData
     {
         foreach (AllyJson ally in level.allies)
         {
-            Debug.Log(ally.name);
             EntityType entityType = (EntityType) Enum.Parse(typeof(EntityType),  ally.name);
             unitsInfo.Add(entityType, ally);
         }
