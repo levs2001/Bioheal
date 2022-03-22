@@ -101,10 +101,9 @@ public class Base : MonoBehaviour
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
     }
-
-    public void AddPrice(EntityType type, int price)
+    public void SetPrices(Dictionary<EntityType, int> prices)
     {
-        prices.Add(type, price);
+        this.prices = prices;
     }
     //private void Init(InitHeartData data)
     //{

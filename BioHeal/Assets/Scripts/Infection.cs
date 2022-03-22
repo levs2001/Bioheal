@@ -16,7 +16,7 @@ public class Infection : Unit
     {
         if (other.tag == "Heart")
         {
-            SceneManager.sceneManager.DeleteObject(SceneManager.EntityType.Infection, this.gameObject);
+            SceneManager.sceneManager.DeleteObject(EntityType.Infection, this.gameObject);
         }
     }
 }

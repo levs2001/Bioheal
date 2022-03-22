@@ -17,7 +17,7 @@ public class Loader
     public static void LoadConfig()
     {
         string json = File.ReadAllText(configPath);
-        config = JsonConvert.DeserializeObject<Config>(json);
+        config = JsonConvert.DeserializeObject<ConfigJson>(json);
         long size = config.levels.Length;
         levels = new LevelData[size];
         for (int i = 0; i < size; i++)

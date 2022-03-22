@@ -5,6 +5,6 @@ using System.Runtime;
 
 public class ConfigJson 
 {
-    public LevelData defaultLevel;
-    public LevelData[] levels;
+    public LevelJson defaultLevel;
+    public LevelJson[] levels;
 }
