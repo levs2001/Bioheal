@@ -11,26 +11,27 @@ public class Loader
 {
 
     private static string configPath = "Assets/Resources/config.json";
-    private static Config config = null;
+    private static ConfigJson config = null;
+    private static LevelData[] levels;
 
     public static void LoadConfig()
     {
         string json = File.ReadAllText(configPath);
         config = JsonConvert.DeserializeObject<Config>(json);
+        long size = config.levels.Length;
+        levels = new LevelData[size];
+        for (int i = 0; i < size; i++)
+        {
+            levels[i] = new LevelData(config.levels[i]);
+        }
     }
-
-    private static Config GetConfig()
+    public static LevelData GetLevel(int num)
     {
+        // TODO: Merge with default not filled fields
         if (config == null)
         {
             LoadConfig();
         }
-        return config;
-    }
-
-    public static LevelData GetLevel(int num)
-    {
-        // TODO: Merge with default not filled fields
-        return GetConfig().levels[num];
+        return levels[num];
     }
 }

@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Enemy : UnitJson
+public class MineralJson 
 {
-    public float frequency;    
+   public int initialC;
+   public float frequency;
 }

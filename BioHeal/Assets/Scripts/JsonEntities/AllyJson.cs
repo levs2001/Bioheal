@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Ally : UnitJson
+public class AllyJson : UnitJson
 {
     public int price;
     public int initialC;

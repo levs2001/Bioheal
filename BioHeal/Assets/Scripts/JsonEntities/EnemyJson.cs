@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class HeartData
+public class EnemyJson : UnitJson
 {
-    public int force;
-    public int money;
+    public float frequency;    
 }
