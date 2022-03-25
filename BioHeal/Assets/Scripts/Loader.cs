@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 // and share config wherever needed
 public class Loader
 {
-
     private static string configPath = "Assets/Resources/config.json";
     private static ConfigJson config = null;
     private static LevelData[] levels;
@@ -25,6 +24,7 @@ public class Loader
             levels[i] = new LevelData(config.levels[i]);
         }
     }
+
     public static LevelData GetLevel(int num)
     {
         // TODO: Merge with default not filled fields

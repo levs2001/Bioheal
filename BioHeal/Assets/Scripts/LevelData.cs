@@ -18,7 +18,7 @@ public class LevelData
         heart.Money = GetHeartMoney();
         heart.SetPrices(prices);
     }
-
+    
     public void InitUnits(Dictionary<EntityType, GameObject> prefabs)
     {
         // TODO: Think about saving num of lvl            
@@ -72,7 +72,7 @@ public class LevelData
             timeToSpawn.Add(entityType, ally.timeToSpawn);
         }
     }
- 
+
     private void SetFrequencies()
     {
         foreach (EnemyJson enemy in level.enemies)

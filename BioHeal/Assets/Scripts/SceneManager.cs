@@ -63,15 +63,17 @@ public class SceneManager : MonoBehaviour
         elapsedTimeSinceLastSpawn = level.GetElapsedTimeSinceSpawn();
 
         prefabs = SetPrefabs();
+
         level.InitUnits(prefabs);
 
         heart = GameObject.FindWithTag("Heart");
+
         level.InitHeart(heart.GetComponent<Base>());
+        
         foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
         {
             entityManagers[type] = new EntityManager(prefabs[type]);
         }
-
     }
 
     private void Update()
