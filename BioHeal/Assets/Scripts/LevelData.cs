@@ -12,13 +12,13 @@ public class LevelData
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
     private Dictionary<EntityType, float> elapsedTimeSinceLastSpawn = new Dictionary<EntityType, float>();
 
-
     public void InitHeart(Base heart)
     {
         heart.Force = GetHeartForce();
         heart.Money = GetHeartMoney();
         heart.SetPrices(prices);
     }
+
     public void InitUnits(Dictionary<EntityType, GameObject> prefabs)
     {
         // TODO: Think about saving num of lvl            
