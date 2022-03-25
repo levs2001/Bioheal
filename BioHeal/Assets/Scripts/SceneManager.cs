@@ -58,16 +58,15 @@ public class SceneManager : MonoBehaviour
 
         LevelData level = Loader.GetLevel(0);
 
-        spawnFrequencies = Initializer.InitFrequencies(level);
+        spawnFrequencies = level.GetFrequencies();
 
-        var elapsedTimeTypes = new HashSet<EntityType>(spawnFrequencies.Keys);
-        elapsedTimeSinceLastSpawn = Initializer.InitElapsedTimeSinceSpawn(level, elapsedTimeTypes);
+        elapsedTimeSinceLastSpawn = level.GetElapsedTimeSinceSpawn();
 
         prefabs = SetPrefabs();
-        Initializer.InitUnits(level, prefabs);
+        level.InitUnits(prefabs);
 
         heart = GameObject.FindWithTag("Heart");
-        Initializer.InitHeart(heart.GetComponent<Base>(), level);
+        level.InitHeart(heart.GetComponent<Base>());
         foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
         {
             entityManagers[type] = new EntityManager(prefabs[type]);
@@ -149,7 +148,7 @@ public class SceneManager : MonoBehaviour
         return prefabs;
     }
 
-    // Moved to Initializer
+    // Moved to LevelData
     // TODO: Refactor, init in 2 places
     private void SetFrequencies()
     {

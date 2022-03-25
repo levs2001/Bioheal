@@ -105,24 +105,4 @@ public class Base : MonoBehaviour
     {
         this.prices = prices;
     }
-    //private void Init(InitHeartData data)
-    //{
-    //    //init
-    //    money = 375;
-
-    //    //init. Later - read from json
-    //    prices.Add(EntityType.Erythrocyte, 10);
-    //    prices.Add(EntityType.Granulocyte, 15);
-    //    prices.Add(EntityType.Lymfocyte, 20);
-
-    //    force = 0;
-    //}
-
-    //public class InitHeartData
-    //{
-    //    public int money = 300;
-    //    public int force;
-    //    public Dictionary<EntityType, uint> prices = new Dictionary<EntityType, uint>();
-
-    //}
 }
