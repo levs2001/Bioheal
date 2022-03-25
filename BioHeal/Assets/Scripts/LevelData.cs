@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class LevelData 
+public class LevelData
 {
     private LevelJson level;
     private Dictionary<EntityType, UnitJson> unitsInfo = new Dictionary<EntityType, UnitJson>();
@@ -21,7 +21,7 @@ public class LevelData
     }
     public void InitUnits(Dictionary<EntityType, GameObject> prefabs)
     {
-    // TODO: Think about saving num of lvl            
+        // TODO: Think about saving num of lvl            
         HashSet<EntityType> units = new HashSet<EntityType>(prefabs.Keys);
         units.Remove(EntityType.Mineral);
         foreach (EntityType unit in units)
@@ -54,29 +54,30 @@ public class LevelData
         SetPrices();
         SetElapsedTimeSinceSpawn();
     }
-    private void SetPrices() 
+
+    private void SetPrices()
     {
         foreach (AllyJson ally in level.allies)
         {
-            EntityType type = (EntityType) Enum.Parse(typeof(EntityType),  ally.name);
+            EntityType type = (EntityType)Enum.Parse(typeof(EntityType), ally.name);
             prices.Add(type, ally.price);
         }
     }
 
-    private void SetTimeToSpawn() 
+    private void SetTimeToSpawn()
     {
         foreach (AllyJson ally in level.allies)
         {
-            EntityType entityType = (EntityType) Enum.Parse(typeof(EntityType),  ally.name);
+            EntityType entityType = (EntityType)Enum.Parse(typeof(EntityType), ally.name);
             timeToSpawn.Add(entityType, ally.timeToSpawn);
         }
     }
-
-    private void SetFrequencies() 
+ 
+    private void SetFrequencies()
     {
         foreach (EnemyJson enemy in level.enemies)
         {
-            EntityType entityType = (EntityType) Enum.Parse(typeof(EntityType),  enemy.name);
+            EntityType entityType = (EntityType)Enum.Parse(typeof(EntityType), enemy.name);
             frequency.Add(entityType, enemy.frequency);
         }
         frequency.Add(EntityType.Mineral, level.mineral.frequency);
@@ -86,25 +87,27 @@ public class LevelData
     {
         foreach (EnemyJson enemy in level.enemies)
         {
-            EntityType entityType = (EntityType) Enum.Parse(typeof(EntityType),  enemy.name);
+            EntityType entityType = (EntityType)Enum.Parse(typeof(EntityType), enemy.name);
             elapsedTimeSinceLastSpawn.Add(entityType, 0);
         }
         elapsedTimeSinceLastSpawn.Add(EntityType.Mineral, 0);
     }
+
     private void SetUnitsInfo()
     {
         foreach (AllyJson ally in level.allies)
         {
-            EntityType entityType = (EntityType) Enum.Parse(typeof(EntityType),  ally.name);
+            EntityType entityType = (EntityType)Enum.Parse(typeof(EntityType), ally.name);
             unitsInfo.Add(entityType, ally);
         }
 
         foreach (EnemyJson enemy in level.enemies)
         {
-            EntityType entityType = (EntityType) Enum.Parse(typeof(EntityType),  enemy.name);
+            EntityType entityType = (EntityType)Enum.Parse(typeof(EntityType), enemy.name);
             unitsInfo.Add(entityType, enemy);
         }
     }
+
     private void InitSingleUnit(EntityType type, Unit unit)
     {
         int force = GetUnitForce(type);
@@ -115,12 +118,12 @@ public class LevelData
 
     private float GetUnitSpeed(EntityType unit)
     {
-        return unitsInfo[unit].speed; 
+        return unitsInfo[unit].speed;
     }
-    
+
     private int GetUnitForce(EntityType unit)
     {
-        return unitsInfo[unit].force; 
+        return unitsInfo[unit].force;
     }
 
     private int GetHeartForce()
