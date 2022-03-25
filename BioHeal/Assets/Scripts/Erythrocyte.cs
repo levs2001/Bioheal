@@ -1,28 +1,22 @@
 using UnityEngine;
 
-public class Erythrocyte : MonoBehaviour
+public class Erythrocyte : Unit
 {
-    private Rigidbody2D rb;
-
-    private const float velocity = 3f;
-
-    private GameObject aim = null;
-
     [SerializeField] private Sprite erythrocyteWithMineralSprite;
     [SerializeField] private Sprite erythrocyteSprite;
 
     private SpriteRenderer spriteRenderer;
 
-    private void Start()
+    new private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        base.Start();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
     {
         if (aim == null)
-            aim = SceneManager.sceneManager.GetAim(SceneManager.EntityType.Mineral, this.transform.position);
+            aim = SceneManager.sceneManager.GetAim(EntityType.Mineral, this.transform.position);
         Move();
     }
 
@@ -30,7 +24,7 @@ public class Erythrocyte : MonoBehaviour
     {
         if (aim != null && other.tag == "Mineral" && other == aim.GetComponent("Collider2D"))
         {
-            SceneManager.sceneManager.DeleteObject(SceneManager.EntityType.Mineral, aim);
+            SceneManager.sceneManager.DeleteObject(EntityType.Mineral, aim);
             aim = SceneManager.sceneManager.Heart;
             spriteRenderer.sprite = erythrocyteWithMineralSprite;
         }
@@ -43,25 +37,11 @@ public class Erythrocyte : MonoBehaviour
         }
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         if (aim != null && aim == SceneManager.sceneManager.Heart)
         {
-            SceneManager.sceneManager.SpawnEntity(SceneManager.EntityType.Mineral, transform.position);
+            SceneManager.sceneManager.SpawnEntity(EntityType.Mineral, transform.position);
         }
-    }
-
-    private void Move()
-    {
-        Vector3 erythrocytePos = transform.position;
-
-        if (aim != null)
-        {
-            Vector3 delta = aim.transform.position - erythrocytePos;
-            delta.Normalize();
-
-            rb.velocity = delta * velocity;
-        }
-        else
-            rb.velocity = Vector2.zero;
     }
 }

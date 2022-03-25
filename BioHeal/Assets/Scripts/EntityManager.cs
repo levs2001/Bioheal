@@ -11,23 +11,13 @@ public class EntityManager
     //For testing
     public List<GameObject> FreeEntities
     {
-        get
-        {
-            return freeEntities;
-        }
-
-        private set { }
+        get { return freeEntities; }
     }
 
     //For testing    
     public List<GameObject> BusyEntities
     {
-        get
-        {
-            return busyEntities;
-        }
-
-        private set { }
+        get { return busyEntities; }
     }
 
     public EntityManager(GameObject prefab)
