@@ -12,10 +12,36 @@ public class LevelData
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
     private Dictionary<EntityType, float> elapsedTimeSinceLastSpawn = new Dictionary<EntityType, float>();
 
+    
+    public Dictionary<EntityType, float> Frequencies
+    {
+        get
+        {
+            return frequency;
+        }
+    }
+    
+    public Dictionary<EntityType, int> GetTimeToSpawn
+    {
+        get
+        {
+            return timeToSpawn;
+        }
+    }
+    
+    public LevelData(LevelJson level)
+    {
+        this.level = level;
+        SetUnitsInfo();
+        SetTimeToSpawn();
+        SetFrequencies();
+        SetPrices();
+    }
+
     public void InitHeart(Base heart)
     {
-        heart.Force = GetHeartForce();
-        heart.Money = GetHeartMoney();
+        heart.Force = level.heart.force;
+        heart.Money = level.heart.money;
         heart.SetPrices(prices);
     }
     
@@ -28,31 +54,6 @@ public class LevelData
         {
             InitSingleUnit(unit, prefabs[unit].GetComponent<Unit>());
         }
-    }
-
-    public Dictionary<EntityType, float> GetFrequencies()
-    {
-        return frequency;
-    }
-
-    public Dictionary<EntityType, int> GetTimeToSpawn()
-    {
-        return timeToSpawn;
-    }
-
-    public Dictionary<EntityType, float> GetElapsedTimeSinceSpawn()
-    {
-        return elapsedTimeSinceLastSpawn;
-    }
-
-    public LevelData(LevelJson level)
-    {
-        this.level = level;
-        SetUnitsInfo();
-        SetTimeToSpawn();
-        SetFrequencies();
-        SetPrices();
-        SetElapsedTimeSinceSpawn();
     }
 
     private void SetPrices()
@@ -83,16 +84,6 @@ public class LevelData
         frequency.Add(EntityType.Mineral, level.mineral.frequency);
     }
 
-    public void SetElapsedTimeSinceSpawn()
-    {
-        foreach (EnemyJson enemy in level.enemies)
-        {
-            EntityType entityType = (EntityType)Enum.Parse(typeof(EntityType), enemy.name);
-            elapsedTimeSinceLastSpawn.Add(entityType, 0);
-        }
-        elapsedTimeSinceLastSpawn.Add(EntityType.Mineral, 0);
-    }
-
     private void SetUnitsInfo()
     {
         foreach (AllyJson ally in level.allies)
@@ -110,29 +101,7 @@ public class LevelData
 
     private void InitSingleUnit(EntityType type, Unit unit)
     {
-        int force = GetUnitForce(type);
-        float speed = GetUnitSpeed(type);
-        unit.Init(speed, force);
+        unit.Init(unitsInfo[type].speed, unitsInfo[type].force);
         // TODO: InitialC and timeToSpawn ignored now (
-    }
-
-    private float GetUnitSpeed(EntityType unit)
-    {
-        return unitsInfo[unit].speed;
-    }
-
-    private int GetUnitForce(EntityType unit)
-    {
-        return unitsInfo[unit].force;
-    }
-
-    private int GetHeartForce()
-    {
-        return level.heart.force;
-    }
-
-    private int GetHeartMoney()
-    {
-        return level.heart.money;
     }
 }

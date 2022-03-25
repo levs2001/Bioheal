@@ -58,9 +58,8 @@ public class SceneManager : MonoBehaviour
 
         LevelData level = Loader.GetLevel(0);
 
-        spawnFrequencies = level.GetFrequencies();
-
-        elapsedTimeSinceLastSpawn = level.GetElapsedTimeSinceSpawn();
+        spawnFrequencies = level.Frequencies;
+        SetElapsedTimeSinceSpawn();
 
         prefabs = SetPrefabs();
 
@@ -150,16 +149,8 @@ public class SceneManager : MonoBehaviour
         return prefabs;
     }
 
-    // Moved to LevelData
-    // TODO: Refactor, init in 2 places
-    private void SetFrequencies()
+    private void SetElapsedTimeSinceSpawn()
     {
-        spawnFrequencies = new Dictionary<EntityType, float>();
-
-        spawnFrequencies[EntityType.Infection] = 3;
-        spawnFrequencies[EntityType.Toxin] = 14;
-        spawnFrequencies[EntityType.Mineral] = 0.5f;
-
         elapsedTimeSinceLastSpawn = new Dictionary<EntityType, float>();
         foreach (EntityType type in spawnFrequencies.Keys)
         {
