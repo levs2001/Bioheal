@@ -12,23 +12,17 @@ public class LevelData
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
     private Dictionary<EntityType, float> elapsedTimeSinceLastSpawn = new Dictionary<EntityType, float>();
 
-    
+
     public Dictionary<EntityType, float> Frequencies
     {
-        get
-        {
-            return frequency;
-        }
+        get { return frequency; }
     }
-    
+
     public Dictionary<EntityType, int> GetTimeToSpawn
     {
-        get
-        {
-            return timeToSpawn;
-        }
+        get { return timeToSpawn; }
     }
-    
+
     public LevelData(LevelJson level)
     {
         this.level = level;
@@ -42,9 +36,9 @@ public class LevelData
     {
         heart.Force = level.heart.force;
         heart.Money = level.heart.money;
-        heart.SetPrices(prices);
+        heart.Prices = prices;
     }
-    
+
     public void InitUnits(Dictionary<EntityType, GameObject> prefabs)
     {
         // TODO: Think about saving num of lvl            

@@ -11,10 +11,6 @@ public class SceneManager : MonoBehaviour
     private const string PathToLymfocytePrefab = "Entities/Lymfocyte";
     private const string PathToMineralPrefab = "Entities/Mineral";
     private const string PathToToxinPrefab = "Entities/Toxin";
-
-    private const string PathToBaseSpawnPoint = "SpawnAreas/BaseSpawnPoint/SpawnPoint";
-
-
     public static SceneManager sceneManager { get; private set; }
 
     private Dictionary<EntityType, EntityManager> entityManagers;
@@ -30,10 +26,7 @@ public class SceneManager : MonoBehaviour
     //Используется для установки цели для эритроцита
     public GameObject Heart
     {
-        get
-        {
-            return heart;
-        }
+        get { return heart; }
     }
 
     //Используется для того, чтобы инфекция знала позицию базы
@@ -68,7 +61,7 @@ public class SceneManager : MonoBehaviour
         heart = GameObject.FindWithTag("Heart");
 
         level.InitHeart(heart.GetComponent<Base>());
-        
+
         foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
         {
             entityManagers[type] = new EntityManager(prefabs[type]);

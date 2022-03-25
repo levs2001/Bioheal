@@ -5,7 +5,7 @@ public class Infection : Unit
     private new void Start()
     {
         base.Start();
-        base.aim = SceneManager.sceneManager.Heart;
+        aim = SceneManager.sceneManager.Heart;
     }
     private void FixedUpdate()
     {

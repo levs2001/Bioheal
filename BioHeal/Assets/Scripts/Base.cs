@@ -6,30 +6,32 @@ using static SceneManager;
 
 public class Base : MonoBehaviour
 {
-    //public fields, because I am initializing these fields from Unity API from inspector 
+    //SerializeField, because I am initializing these fields from Unity API from inspector 
     [SerializeField] private GameObject menuBase;
-    [SerializeField] private Text textMoney;
+    [SerializeField] private Text textMoneyMenu;
     [SerializeField] private Text textLimfo, textGranulo, textEritro;
     [SerializeField] private GameObject unitInfo;
     [SerializeField] private Text textInfo;
+    [SerializeField] private Text textMoneyBase, textForceBase;
 
     private int force, money;
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
 
     public int Force
     {
-        set
-        {
-            force = value;
-        }
+        set { force = value; }
     }
+
     public int Money
     {
-        set
-        {
-            money = value;
-        }
+        set { money = value; }
     }
+
+    public Dictionary<EntityType, int> Prices
+    {
+        set { prices = value; }
+    }
+
     ///////         Public methods, called from buttons         ///////
     public void OpenMenu()
     {
@@ -51,7 +53,8 @@ public class Base : MonoBehaviour
         if (money >= price)
         {
             money -= price;
-            textMoney.text = $"{money}";
+            textMoneyMenu.text = $"{money}";
+            textMoneyBase.text = $"{money}";
             sceneManager.SpawnEntity(entityType);
         }
     }
@@ -76,12 +79,25 @@ public class Base : MonoBehaviour
         textInfo.text = "";
         unitInfo.SetActive(false);
     }
+
+    public void PauseButton()
+    {
+        //Today we do not have job for this button
+        Debug.Log("Clicking on pause!\n");
+    }
+
+    public void ShowBaseButton()
+    {
+        //Today we do not have job for this button
+        Debug.Log("Showing Base!\n");
+    }
     ///////         Public methods, called from buttons         ///////
 
     public void IncreaseMoney()
     {
         ++money;
-        textMoney.text = $"{money}";
+        textMoneyMenu.text = $"{money}";
+        textMoneyBase.text = $"{money}";
     }
 
     // Start is called before the first frame update
@@ -89,7 +105,9 @@ public class Base : MonoBehaviour
     {
         //Init();
 
-        textMoney.text = $"{money}";
+        textMoneyMenu.text = $"{money}";
+        textMoneyBase.text = $"{money}";
+        textForceBase.text = $"{force}";
 
         //add price for units to screen
         int price;
@@ -100,9 +118,5 @@ public class Base : MonoBehaviour
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
-    }
-    public void SetPrices(Dictionary<EntityType, int> prices)
-    {
-        this.prices = prices;
     }
 }
