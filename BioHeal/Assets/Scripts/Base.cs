@@ -6,16 +6,40 @@ using static SceneManager;
 
 public class Base : MonoBehaviour
 {
+<<<<<<< Updated upstream
     //public fields, because I am initializing these fields from Unity API from inspector 
     public GameObject menuBase;
     public Text textMoney;
     public Text textLimfo, textGranulo, textEritro;
     public GameObject unitInfo;
     public Text textInfo;
+=======
+    //SerializeField, because I am initializing these fields from Unity API from inspector 
+    [SerializeField] private GameObject menuBase;
+    [SerializeField] private Text textMoneyMenu;
+    [SerializeField] private Text textLimfo, textGranulo, textEritro;
+    [SerializeField] private GameObject unitInfo;
+    [SerializeField] private Text textInfo;
+    [SerializeField] private Text textMoneyBase, textForceBase;
+>>>>>>> Stashed changes
 
-    private uint force, money;
-    private Dictionary<EntityType, uint> dict = new Dictionary<EntityType, uint>();
+    private int force, money;
+    private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
 
+    public int Force
+    {
+        set { force = value; }
+    }
+
+    public int Money
+    {
+        set { money = value; }
+    }
+
+    public Dictionary<EntityType, int> Prices
+    {
+        set { prices = value; }
+    }
 
     ///////         Public methods, called from buttons         ///////
     public void OpenMenu()
@@ -30,15 +54,16 @@ public class Base : MonoBehaviour
 
     public void BuyUnit(string str)
     {
-        uint price = 0;
+        int price = 0;
         EntityType entityType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
 
         //method returns price by reference
-        dict.TryGetValue(entityType, out price);
+        prices.TryGetValue(entityType, out price);
         if (money >= price)
         {
             money -= price;
-            textMoney.text = $"{money}";
+            textMoneyMenu.text = $"{money}";
+            textMoneyBase.text = $"{money}";
             sceneManager.SpawnEntity(entityType);
         }
     }
@@ -50,12 +75,21 @@ public class Base : MonoBehaviour
         //Show information about units
         EntityType unitType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
         string temp;
+<<<<<<< Updated upstream
         if (unitType == EntityType.Granulocit) temp = $" о гранулоцитах";
         else if (unitType == EntityType.Lymfocyte) temp = $" о лимфоцитах";
         else if (unitType == EntityType.Erythrocyte) temp = $" об эритроцитах";
         else temp = $" ERROR";
 
         textInfo.text = $"Здесь будет информация" + temp;
+=======
+        if (unitType == EntityType.Granulocyte) temp = $"granulocyte";
+        else if (unitType == EntityType.Lymfocyte) temp = $"lymfocyte";
+        else if (unitType == EntityType.Erythrocyte) temp = $"erythrocyte";
+        else temp = $" ERROR";
+
+        textInfo.text = $"Here will be some information about " + temp;
+>>>>>>> Stashed changes
     }
 
     public void CloseInfoUnit()
@@ -63,41 +97,47 @@ public class Base : MonoBehaviour
         textInfo.text = "";
         unitInfo.SetActive(false);
     }
+
+    public void PauseButton()
+    {
+        //Today we do not have job for this button
+        Debug.Log("Clicking on pause!\n");
+    }
+
+    public void ShowBaseButton()
+    {
+        //Today we do not have job for this button
+        Debug.Log("Showing Base!\n");
+    }
     ///////         Public methods, called from buttons         ///////
 
     public void IncreaseMoney()
     {
         ++money;
+<<<<<<< Updated upstream
+=======
+        textMoneyMenu.text = $"{money}";
+        textMoneyBase.text = $"{money}";
+>>>>>>> Stashed changes
     }
 
     // Start is called before the first frame update
     private void Start()
     {
-        Init();
+        //Init();
 
-        textMoney.text = $"{money}";
+        textMoneyMenu.text = $"{money}";
+        textMoneyBase.text = $"{money}";
+        textForceBase.text = $"{force}";
 
         //add price for units to screen
-        uint price;
+        int price;
         //method returns price by reference
-        dict.TryGetValue(EntityType.Erythrocyte, out price); textEritro.text += $" {price}";
-        dict.TryGetValue(EntityType.Granulocit, out price); textGranulo.text += $" {price}";
-        dict.TryGetValue(EntityType.Lymfocyte, out price); textLimfo.text += $" {price}";
+        prices.TryGetValue(EntityType.Erythrocyte, out price); textEritro.text += $" {price}";
+        prices.TryGetValue(EntityType.Granulocyte, out price); textGranulo.text += $" {price}";
+        prices.TryGetValue(EntityType.Lymfocyte, out price); textLimfo.text += $" {price}";
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
-    }
-
-    private void Init()
-    {
-        //init
-        money = 375;
-
-        //init. Later - read from json
-        dict.Add(EntityType.Erythrocyte, 10);
-        dict.Add(EntityType.Granulocit, 15);
-        dict.Add(EntityType.Lymfocyte, 20);
-
-        force = 0;
     }
 }

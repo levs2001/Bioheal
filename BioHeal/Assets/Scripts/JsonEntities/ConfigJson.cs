@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime;
 
-public class Config 
+public class ConfigJson 
 {
-    public LevelData defaultLevel;
-    public LevelData[] levels;
+    public LevelJson defaultLevel;
+    public LevelJson[] levels;
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class SceneManager : MonoBehaviour
 {
@@ -11,16 +12,13 @@ public class SceneManager : MonoBehaviour
     private const string PathToLymfocytePrefab = "Entities/Lymfocyte";
     private const string PathToMineralPrefab = "Entities/Mineral";
     private const string PathToToxinPrefab = "Entities/Toxin";
-
-    private const string PathToBaseSpawnPoint = "SpawnAreas/BaseSpawnPoint/SpawnPoint";
-
-
     public static SceneManager sceneManager { get; private set; }
 
     private Dictionary<EntityType, EntityManager> entityManagers;
 
     private Dictionary<EntityType, float> spawnFrequencies;
     private Dictionary<EntityType, float> elapsedTimeSinceLastSpawn;
+    private Dictionary<EntityType, GameObject> prefabs;
 
     private SpawnAreas spawnAreas;
 
@@ -29,53 +27,44 @@ public class SceneManager : MonoBehaviour
     //Используется для установки цели для эритроцита
     public GameObject Heart
     {
-        get
-        {
-            return heart;
-        }
+        get { return heart; }
     }
 
     //Используется для того, чтобы инфекция знала позицию базы
     public Vector3? HeartPosition
     {
-        get
-        {
-            if (heart != null)
-                return heart.transform.position;
-            else
-                return null;
-        }
+        get { return heart != null ? (Vector3?)heart.transform.position : null; }
     }
 
     private void Awake()
     {
         sceneManager = this;
-
-        entityManagers = new Dictionary<EntityType, EntityManager>();
-
         spawnAreas = new SpawnAreas();
 
-        SetFrequencies();
+        LevelData level = Loader.GetLevel(0);
 
-        Dictionary<EntityType, GameObject> prefabs = SetPrefabs();
-        foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
-        {
-            entityManagers[type] = new EntityManager(prefabs[type]);
-        }
-    }
+        // TODO: подумать об оъединении 2х этих сущностей в один класс
+        spawnFrequencies = level.Frequencies;
+        elapsedTimeSinceLastSpawn = spawnFrequencies.Keys.ToDictionary(type => type, type => 0f);
 
-    private void Start()
-    {
-        // TODO: Кнопка базы и меню сейчас заякорены, если сдвинем сердце они не сдвинутся
-        //GameObject heartPrefab = Resources.Load<GameObject>(PathToHeartPrefab);
+        InitPrefabs(level);
+
         heart = GameObject.FindWithTag("Heart");
-        //GameObject baseSpawnPoint = Resources.Load<GameObject>(PathToBaseSpawnPoint);
-        //heart.transform.position = baseSpawnPoint.transform.position;
+        level.InitHeart(heart.GetComponent<Base>());
+
+        entityManagers = prefabs.ToDictionary(pair => pair.Key, pair => new EntityManager(pair.Value));
     }
 
     private void Update()
     {
+<<<<<<< Updated upstream
         foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
+=======
+        //A copy of the keys is made, since it is impossible to change the value by key and iterate over the dictionary at the same time
+        List<EntityType> spawnEntityTypes = new List<EntityType>(elapsedTimeSinceLastSpawn.Keys);
+
+        foreach (EntityType type in spawnEntityTypes)
+>>>>>>> Stashed changes
         {
             if (elapsedTimeSinceLastSpawn[type] >= spawnFrequencies[type])
             {
@@ -88,6 +77,7 @@ public class SceneManager : MonoBehaviour
 
     public void SpawnEntity(EntityType entityType, Vector3? position = null)
     {
+        // TODO: В EntityManager перенести SpawnArea. SpawnArea лучше перенести в Prefab. От этого метода избавиться
         EntityManager entityManager = entityManagers[entityType];
         BoxCollider2D spawnArea = null;
 
@@ -100,7 +90,7 @@ public class SceneManager : MonoBehaviour
 
             case EntityType.Erythrocyte:
             case EntityType.Lymfocyte:
-            case EntityType.Granulocit:
+            case EntityType.Granulocyte:
                 spawnArea = spawnAreas.GetRandomArea(SpawnAreas.EntityClass.allied);
                 break;
 
@@ -131,17 +121,18 @@ public class SceneManager : MonoBehaviour
         Destroy(objectToDelete);
     }
 
-    private Dictionary<EntityType, GameObject> SetPrefabs()
+    private void InitPrefabs(LevelData level)
     {
-        Dictionary<EntityType, GameObject> prefabs = new Dictionary<EntityType, GameObject>();
+        prefabs = new Dictionary<EntityType, GameObject>();
 
         prefabs[EntityType.Infection] = Resources.Load<GameObject>(PathToInfectionPrefab);
         prefabs[EntityType.Erythrocyte] = Resources.Load<GameObject>(PathToErythrocytePrefab);
         prefabs[EntityType.Lymfocyte] = Resources.Load<GameObject>(PathToLymfocytePrefab);
-        prefabs[EntityType.Granulocit] = Resources.Load<GameObject>(PathToGranulocytePrefab);
+        prefabs[EntityType.Granulocyte] = Resources.Load<GameObject>(PathToGranulocytePrefab);
         prefabs[EntityType.Toxin] = Resources.Load<GameObject>(PathToToxinPrefab);
         prefabs[EntityType.Mineral] = Resources.Load<GameObject>(PathToMineralPrefab);
 
+<<<<<<< Updated upstream
         return prefabs;
     }
 
@@ -173,5 +164,8 @@ public class SceneManager : MonoBehaviour
         Lymfocyte,
         Granulocit,
         Mineral
+=======
+        level.InitUnits(prefabs);
+>>>>>>> Stashed changes
     }
 }

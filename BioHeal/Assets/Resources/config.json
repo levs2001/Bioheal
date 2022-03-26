@@ -4,41 +4,29 @@
         {
             "enemies": [
                 {
-                    "name": "toxins",
-                    "speed": 10,
+                    "name": "Toxin",
+                    "speed": 4,
                     "force": 1,
-                    "frequency": 3.5
+                    "frequency": 25
                 },
                 {
-                    "name": "bacteries",
-                    "speed": 10,
+                    "name": "Infection",
+                    "speed": 4,
                     "force": 1,
-                    "frequency": 5
-                },
-                {
-                    "name": "fungus",
-                    "speed": 10,
-                    "force": 2,
-                    "frequency": 3.5
-                },
-                {
-                    "name": "viruses",
-                    "speed": 10,
-                    "force": 3,
-                    "frequency": 2
+                    "frequency": 1
                 }
             ],
             "allies": [
                 {
-                    "name": "erythrocytes",
-                    "speed": 10,
+                    "name": "Erythrocyte",
+                    "speed": 4,
                     "force": 0,
                     "price": 10,
                     "initialC": 10,
                     "timeToSpawn": 1
                 },
                 {
-                    "name": "leukocytes",
+                    "name": "Lymfocyte",
                     "speed": 8,
                     "force": 3,
                     "price": 15,
@@ -46,7 +34,7 @@
                     "timeToSpawn": 3
                 },
                 {
-                    "name": "plaletets",
+                    "name": "Granulocyte",
                     "speed": 5,
                     "force": 1,
                     "price": 20,
@@ -56,10 +44,11 @@
             ],
             "mineral": {
                 "initialC": 10,
-                "frequency": 2
+                "frequency": 0.5
             },
             "heart": {
-                "force": 20
+                "force": 20,
+		"money": 300
             }
         }
     ]
