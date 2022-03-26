@@ -57,10 +57,10 @@ public class SceneManager : MonoBehaviour
 
     private void Update()
     {
+        //A copy of the keys is made, since it is impossible to change the value by key and iterate over the dictionary at the same time
         List<EntityType> spawnEntityTypes = new List<EntityType>(elapsedTimeSinceLastSpawn.Keys);
 
         foreach (EntityType type in spawnEntityTypes)
-        //foreach (EntityType type in elapsedTimeSinceLastSpawn.Keys)
         {
             if (elapsedTimeSinceLastSpawn[type] >= spawnFrequencies[type])
             {
