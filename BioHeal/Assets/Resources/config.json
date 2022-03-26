@@ -13,7 +13,7 @@
                     "name": "Infection",
                     "speed": 4,
                     "force": 1,
-                    "frequency": 5
+                    "frequency": 1
                 }
             ],
             "allies": [
