@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class SceneManager : MonoBehaviour
 {
@@ -32,47 +33,31 @@ public class SceneManager : MonoBehaviour
     //Используется для того, чтобы инфекция знала позицию базы
     public Vector3? HeartPosition
     {
-        get
-        {
-            if (heart != null)
-                return heart.transform.position;
-            else
-                return null;
-        }
+        get { return heart != null ? (Vector3?)heart.transform.position : null; }
     }
 
     private void Awake()
     {
         sceneManager = this;
-
-        entityManagers = new Dictionary<EntityType, EntityManager>();
-
         spawnAreas = new SpawnAreas();
 
         LevelData level = Loader.GetLevel(0);
 
+        // TODO: подумать об оъединении 2х этих сущностей в один класс
         spawnFrequencies = level.Frequencies;
-        SetElapsedTimeSinceSpawn();
+        elapsedTimeSinceLastSpawn = spawnFrequencies.Keys.ToDictionary(type => type, type => 0f);
 
-        prefabs = SetPrefabs();
-
-        level.InitUnits(prefabs);
+        InitPrefabs(level);
 
         heart = GameObject.FindWithTag("Heart");
-
         level.InitHeart(heart.GetComponent<Base>());
 
-        foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
-        {
-            entityManagers[type] = new EntityManager(prefabs[type]);
-        }
+        entityManagers = prefabs.ToDictionary(pair => pair.Key, pair => new EntityManager(pair.Value));
     }
 
     private void Update()
     {
-        List<EntityType> spawnEntityTypes = new List<EntityType>(elapsedTimeSinceLastSpawn.Keys);
-
-        foreach (EntityType type in spawnEntityTypes)
+        foreach (EntityType type in elapsedTimeSinceLastSpawn.Keys)
         {
             if (elapsedTimeSinceLastSpawn[type] >= spawnFrequencies[type])
             {
@@ -85,6 +70,7 @@ public class SceneManager : MonoBehaviour
 
     public void SpawnEntity(EntityType entityType, Vector3? position = null)
     {
+        // TODO: В EntityManager перенести SpawnArea. SpawnArea лучше перенести в Prefab. От этого метода избавиться
         EntityManager entityManager = entityManagers[entityType];
         BoxCollider2D spawnArea = null;
 
@@ -128,9 +114,9 @@ public class SceneManager : MonoBehaviour
         Destroy(objectToDelete);
     }
 
-    private Dictionary<EntityType, GameObject> SetPrefabs()
+    private void InitPrefabs(LevelData level)
     {
-        Dictionary<EntityType, GameObject> prefabs = new Dictionary<EntityType, GameObject>();
+        prefabs = new Dictionary<EntityType, GameObject>();
 
         prefabs[EntityType.Infection] = Resources.Load<GameObject>(PathToInfectionPrefab);
         prefabs[EntityType.Erythrocyte] = Resources.Load<GameObject>(PathToErythrocytePrefab);
@@ -139,15 +125,6 @@ public class SceneManager : MonoBehaviour
         prefabs[EntityType.Toxin] = Resources.Load<GameObject>(PathToToxinPrefab);
         prefabs[EntityType.Mineral] = Resources.Load<GameObject>(PathToMineralPrefab);
 
-        return prefabs;
-    }
-
-    private void SetElapsedTimeSinceSpawn()
-    {
-        elapsedTimeSinceLastSpawn = new Dictionary<EntityType, float>();
-        foreach (EntityType type in spawnFrequencies.Keys)
-        {
-            elapsedTimeSinceLastSpawn[type] = 0;
-        }
+        level.InitUnits(prefabs);
     }
 }
