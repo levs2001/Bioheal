@@ -57,7 +57,10 @@ public class SceneManager : MonoBehaviour
 
     private void Update()
     {
-        foreach (EntityType type in elapsedTimeSinceLastSpawn.Keys)
+        List<EntityType> spawnEntityTypes = new List<EntityType>(elapsedTimeSinceLastSpawn.Keys);
+
+        foreach (EntityType type in spawnEntityTypes)
+        //foreach (EntityType type in elapsedTimeSinceLastSpawn.Keys)
         {
             if (elapsedTimeSinceLastSpawn[type] >= spawnFrequencies[type])
             {
