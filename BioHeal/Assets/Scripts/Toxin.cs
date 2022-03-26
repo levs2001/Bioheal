@@ -15,4 +15,11 @@ public class Toxin : Unit
             aim = null;
         }
     }
+
+    private void OnDestroy() {
+        if (aim != null)
+        {
+            SceneManager.sceneManager.TransferEntityFromBusyToFree(EntityType.Erythrocyte, aim);
+        }
+    }
 }

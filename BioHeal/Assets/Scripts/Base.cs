@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +19,7 @@ public class Base : MonoBehaviour
     public int Force
     {
         set { force = value; }
+        get { return force; }
     }
 
     public int Money
@@ -118,5 +118,21 @@ public class Base : MonoBehaviour
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
+    }
+
+    private void OnTriggerStay2D(Collider2D other) {
+        if (other.tag == "Infection")
+        {
+            int damageTaken = other.GetComponent<Infection>().Force;
+            other.GetComponentInParent<Infection>().TakeDamage(force);
+
+            force -= damageTaken;
+            textForceBase.text = force < 0 ? $"{0}" : $"{force}";
+            if (force <= 0)
+            {
+                Destroy(this.gameObject);
+                CloseMenu();
+            }
+        }
     }
 }

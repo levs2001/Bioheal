@@ -1,16 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
     protected Rigidbody2D rb;
 
-    [SerializeField] private float velocity = 2f;
+    [SerializeField] protected float velocity = 2f;
 
     [SerializeField] protected int force;
 
     protected GameObject aim = null;
+
+    protected EntityType entityType;
+
+    public int Force
+    {
+        get { return force; }
+    }
+
     // Start is called before the first frame update
     protected void Start()
     {
@@ -37,4 +43,13 @@ public class Unit : MonoBehaviour
         this.velocity = velocity;
         this.force = force;
     } 
+
+    public void TakeDamage(int damage)
+    {
+        force -= damage;
+        if (force <= 0)
+        {
+            SceneManager.sceneManager.DeleteObject(entityType, this.gameObject);
+        }
+    }
 }
