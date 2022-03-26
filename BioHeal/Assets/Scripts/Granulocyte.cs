@@ -4,6 +4,12 @@ public class Granulocyte : Unit
 {
     private float moveRadius = 3f;
 
+    new private void Start()
+    {
+        base.Start();
+        entityType = EntityType.Granulocyte;
+    }
+
     private void FixedUpdate()
     {
         if (aim == null)
@@ -49,7 +55,8 @@ public class Granulocyte : Unit
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other) {
+    private void OnTriggerStay2D(Collider2D other)
+    {
         if (aim != null && other.CompareTag("Infection") && other == aim.GetComponent("Collider2D"))
         {
             Infection aimInfectionComponent = aim.GetComponent<Infection>();
@@ -59,7 +66,8 @@ public class Granulocyte : Unit
         }
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         if (aim != null)
         {
             SceneManager.sceneManager.TransferEntityFromBusyToFree(EntityType.Infection, aim);

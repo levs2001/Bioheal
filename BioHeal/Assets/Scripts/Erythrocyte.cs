@@ -11,6 +11,7 @@ public class Erythrocyte : Unit
     {
         base.Start();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        entityType = EntityType.Erythrocyte;
     }
 
     private void FixedUpdate()

@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class Lymphocyte : Unit
 {
+    new private void Start()
+    {
+        base.Start();
+        entityType = EntityType.Lymfocyte;
+    }
+
     private void FixedUpdate()
     {
         if (aim == null)
@@ -22,7 +28,8 @@ public class Lymphocyte : Unit
         }
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         if (aim != null)
         {
             SceneManager.sceneManager.TransferEntityFromBusyToFree(EntityType.Toxin, aim);
