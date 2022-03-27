@@ -6,29 +6,24 @@ public class Toxin : Unit
     {
         base.Start();
         entityType = EntityType.Toxin;
-    }
-
-    private void FixedUpdate()
-    {
-        if (aim == null)
-            aim = SceneManager.sceneManager.GetAim(EntityType.Erythrocyte, this.transform.position);
-        Move();
+        aim = new Aim(EntityType.Erythrocyte);
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (aim != null && other.tag == "Erythrocyte" && other == aim.GetComponent("Collider2D"))
+        if (aim.entity != null && other.tag == "Erythrocyte" && other == aim.entity.GetComponent("Collider2D"))
         {
-            SceneManager.sceneManager.DeleteObject(EntityType.Erythrocyte, aim);
-            aim = null;
+            aim.entity.GetComponent<Erythrocyte>().ThrowAwayTheMineral();
+            SceneManager.sceneManager.DeleteObject(EntityType.Erythrocyte, aim.entity);
+            aim.entity = null;
         }
     }
 
     private void OnDestroy()
     {
-        if (aim != null)
+        if (aim.entity != null)
         {
-            SceneManager.sceneManager.TransferEntityFromBusyToFree(EntityType.Erythrocyte, aim);
+            SceneManager.sceneManager.TransferEntityFromBusyToFree(EntityType.Erythrocyte, aim.entity);
         }
     }
 }

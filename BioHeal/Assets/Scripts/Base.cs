@@ -100,6 +100,17 @@ public class Base : MonoBehaviour
         textMoneyBase.text = $"{money}";
     }
 
+    public void TakeDamage(int damage)
+    {
+            force -= damage;
+            textForceBase.text = force < 0 ? $"{0}" : $"{force}";
+            if (force <= 0)
+            {
+                Destroy(this.gameObject);
+                CloseMenu();
+            }
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -118,21 +129,5 @@ public class Base : MonoBehaviour
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
-    }
-
-    private void OnTriggerStay2D(Collider2D other) {
-        if (other.tag == "Infection")
-        {
-            int damageTaken = other.GetComponent<Infection>().Force;
-            other.GetComponentInParent<Infection>().TakeDamage(force);
-
-            force -= damageTaken;
-            textForceBase.text = force < 0 ? $"{0}" : $"{force}";
-            if (force <= 0)
-            {
-                Destroy(this.gameObject);
-                CloseMenu();
-            }
-        }
     }
 }

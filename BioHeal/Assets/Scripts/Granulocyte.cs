@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Granulocyte : Unit
+public class Granulocyte : Warrior 
 {
     private float moveRadius = 3f;
 
@@ -8,22 +8,20 @@ public class Granulocyte : Unit
     {
         base.Start();
         entityType = EntityType.Granulocyte;
-    }
+        aim = new Aim(EntityType.Infection);
+    } 
 
-    private void FixedUpdate()
-    {
-        if (aim == null)
-        {
-            aim = SceneManager.sceneManager.GetAim(EntityType.Infection, this.transform.position);
-        }
+    new private void FixedUpdate() {
+        
+        FindNewAimIfNeeded();
         Move();
     }
 
-    private new void Move()
+    new private void Move()
     {
-        if (aim != null)
+        if (aim.entity != null)
         {
-            Vector3 vectorFromHeartToAim = aim.transform.position - SceneManager.sceneManager.Heart.transform.position;
+            Vector3 vectorFromHeartToAim = aim.entity.transform.position - SceneManager.sceneManager.Heart.transform.position;
             float distanseBetweenHeartAndAim = vectorFromHeartToAim.magnitude;
 
             if (distanseBetweenHeartAndAim > moveRadius)
@@ -54,23 +52,12 @@ public class Granulocyte : Unit
             rb.velocity = Vector2.zero;
         }
     }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (aim != null && other.CompareTag("Infection") && other == aim.GetComponent("Collider2D"))
-        {
-            Infection aimInfectionComponent = aim.GetComponent<Infection>();
-            int damageTaken = aimInfectionComponent.Force;
-            aimInfectionComponent.TakeDamage(force);
-            this.TakeDamage(damageTaken);
-        }
-    }
-
+    
     private void OnDestroy()
     {
-        if (aim != null)
+        if (aim.entity != null)
         {
-            SceneManager.sceneManager.TransferEntityFromBusyToFree(EntityType.Infection, aim);
+            SceneManager.sceneManager.TransferEntityFromBusyToFree(aim.entityType.Value, aim.entity);
         }
     }
 }

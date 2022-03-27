@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
 
     [SerializeField] protected int force;
 
-    protected GameObject aim = null;
+    protected Aim aim;
 
     protected EntityType entityType;
 
@@ -23,13 +23,19 @@ public class Unit : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    protected void Move()
+    protected void FixedUpdate()
+    {
+        FindNewAimIfNeeded();
+        Move();
+    }
+
+    virtual protected void Move()
     {
         Vector3 myPos = this.transform.position;
 
-        if (aim != null)
+        if (aim.entity != null)
         {
-            Vector3 delta = aim.transform.position - myPos;
+            Vector3 delta = aim.entity.transform.position - myPos;
             delta.Normalize();
 
             rb.velocity = delta * velocity;
@@ -38,11 +44,17 @@ public class Unit : MonoBehaviour
             rb.velocity = Vector2.zero;
     }
 
+    protected void FindNewAimIfNeeded()
+    {
+        if (aim.entity == null)
+            aim.entity = SceneManager.sceneManager.GetAim(aim.entityType.Value, this.transform.position);
+    }
+
     public void Init(float velocity, int force)
     {
         this.velocity = velocity;
         this.force = force;
-    } 
+    }
 
     public void TakeDamage(int damage)
     {
@@ -50,6 +62,19 @@ public class Unit : MonoBehaviour
         if (force <= 0)
         {
             SceneManager.sceneManager.DeleteObject(entityType, this.gameObject);
+        }
+    }
+
+    protected struct Aim
+    {
+        public readonly EntityType? entityType;
+
+        public GameObject entity;
+
+        public Aim(EntityType? entityType, GameObject entity = null)
+        {
+            this.entityType = entityType;
+            this.entity = entity;
         }
     }
 }
