@@ -9,4 +9,5 @@ public class LevelJson
    public AllyJson[] allies;
    public MineralJson mineral;
    public HeartJson heart;
+   public bool cleared;
 }

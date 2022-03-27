@@ -48,8 +48,9 @@
             },
             "heart": {
                 "force": 20,
-		"money": 300
-            }
+                "money": 300
+            },
+            "cleared": false
         }
     ]
 }
