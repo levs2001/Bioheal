@@ -10,11 +10,24 @@ using Newtonsoft.Json;
 public class Loader
 {
     private static string configPath = "Assets/Resources/config.json";
-    private static ConfigJson config = null;
-    private static LevelData[] levels;
-    private static int firstNotClearedLevel = 0;
+    private ConfigJson config = null;
+    private LevelData[] levels;
+    private int firstNotClearedLevel = 0;
 
-    public static void LoadConfig()
+    private static Loader loader = null;
+    public static Loader LoaderInstance
+    {
+        get 
+        { 
+            if (loader == null)
+            {
+                loader = new Loader();
+            }
+            return loader;
+        }
+    }
+
+    private Loader()
     {
         string json = File.ReadAllText(configPath);
         config = JsonConvert.DeserializeObject<ConfigJson>(json);
@@ -35,17 +48,13 @@ public class Loader
         } 
     }
 
-    public static LevelData GetLevel(int num)
+    public LevelData GetLevel(int num)
     {
         // TODO: Merge with default not filled fields
-        if (config == null)
-        {
-            LoadConfig();
-        }
         return levels[num];
     }
 
-    public static List<LevelData> GetClearedLevels()
+    public List<LevelData> GetClearedLevels()
     {
         List<LevelData> clearedLevels = new List<LevelData>();
         for (int i = 0; i < levels.Length; i++)
@@ -59,7 +68,7 @@ public class Loader
     }
 
     // throws Exception if all levels are cleared
-    public static LevelData GetFirstNotClearedLevel()
+    public LevelData GetFirstNotClearedLevel()
     {
         if (firstNotClearedLevel >= levels.Length)
         {
@@ -68,14 +77,14 @@ public class Loader
         return levels[firstNotClearedLevel];
     }
 
-    public static void SetLevelCleared(int index)
+    public void SetLevelCleared(int index)
     {
         config.levels[index].cleared = true;
         firstNotClearedLevel = index + 1;
     }
 
     // call when exiting game so progress's saved
-    public static void UpdateJson()
+    public void UpdateJson()
     {
         string jsonText = JsonConvert.SerializeObject(config);
         File.WriteAllText(configPath, jsonText);

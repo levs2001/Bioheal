@@ -41,7 +41,7 @@ public class SceneManager : MonoBehaviour
         sceneManager = this;
         spawnAreas = new SpawnAreas();
 
-        LevelData level = Loader.GetLevel(0);
+        LevelData level = Loader.LoaderInstance.GetLevel(0);
 
         // TODO: подумать об оъединении 2х этих сущностей в один класс
         spawnFrequencies = level.Frequencies;
