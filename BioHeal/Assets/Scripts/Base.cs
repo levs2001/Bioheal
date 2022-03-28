@@ -66,15 +66,9 @@ public class Base : MonoBehaviour
         //Show information about units
         EntityType unitType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
         string temp;
-<<<<<<< HEAD
-        if (unitType == EntityType.Granulocyte) temp = $"granulocyte";
-        else if (unitType == EntityType.Lymfocyte) temp = $"lymfocyte";
-        else if (unitType == EntityType.Erythrocyte) temp = $"erythrocyte";
-=======
         if (unitType == EntityType.Granulocyte) temp = $" � ������������";
         else if (unitType == EntityType.Lymphocyte) temp = $" � ����������";
         else if (unitType == EntityType.Erythrocyte) temp = $" �� �����������";
->>>>>>> main
         else temp = $" ERROR";
 
         textInfo.text = $"Here will be some information about " + temp;
