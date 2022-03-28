@@ -6,8 +6,8 @@ public class MainMenu : MonoBehaviour
 {
     public void LoadGameScene()
     {
-        var loader = Loader.LoaderInstance;
-        // print(Loader.GetConfig().levels[0].mineral.initialC);
+        // get loader to load json in advance    
+        Loader loader = Loader.LoaderInstance;
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
     

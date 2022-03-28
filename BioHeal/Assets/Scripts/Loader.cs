@@ -9,12 +9,13 @@ using Newtonsoft.Json;
 // and share config wherever needed
 public class Loader
 {
-    private static string configPath = "Assets/Resources/config.json";
+    private static const string configPath = "Assets/Resources/config.json";
     private ConfigJson config = null;
     private LevelData[] levels;
     private int firstNotClearedLevel = 0;
 
     private static Loader loader = null;
+    
     public static Loader LoaderInstance
     {
         get 
