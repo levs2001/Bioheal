@@ -67,7 +67,7 @@ public class Base : MonoBehaviour
         EntityType unitType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
         string temp;
         if (unitType == EntityType.Granulocyte) temp = $" � ������������";
-        else if (unitType == EntityType.Lymfocyte) temp = $" � ����������";
+        else if (unitType == EntityType.Lymphocyte) temp = $" � ����������";
         else if (unitType == EntityType.Erythrocyte) temp = $" �� �����������";
         else temp = $" ERROR";
 
@@ -114,7 +114,7 @@ public class Base : MonoBehaviour
         //method returns price by reference
         prices.TryGetValue(EntityType.Erythrocyte, out price); textEritro.text += $" {price}";
         prices.TryGetValue(EntityType.Granulocyte, out price); textGranulo.text += $" {price}";
-        prices.TryGetValue(EntityType.Lymfocyte, out price); textLimfo.text += $" {price}";
+        prices.TryGetValue(EntityType.Lymphocyte, out price); textLimfo.text += $" {price}";
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);

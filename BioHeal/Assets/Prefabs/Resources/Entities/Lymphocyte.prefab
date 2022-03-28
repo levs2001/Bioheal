@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5440757764508559694}
   - component: {fileID: 6983979848565093734}
   m_Layer: 0
-  m_Name: Lymfocyte
+  m_Name: Lymphocyte
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -26,7 +26,7 @@
                     "timeToSpawn": 1
                 },
                 {
-                    "name": "Lymfocyte",
+                    "name": "Lymphocyte",
                     "speed": 8,
                     "force": 3,
                     "price": 15,

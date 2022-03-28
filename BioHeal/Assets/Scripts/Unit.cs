@@ -19,11 +19,11 @@ public class Unit : MonoBehaviour
 
     protected void Move()
     {
-        Vector3 myPos = this.transform.position;
+        Vector2 myPos = this.transform.position;
 
         if (aim != null)
         {
-            Vector3 delta = aim.transform.position - myPos;
+            Vector2 delta = new Vector2(aim.transform.position.x, aim.transform.position.y) - myPos;
             delta.Normalize();
 
             rb.velocity = delta * velocity;
