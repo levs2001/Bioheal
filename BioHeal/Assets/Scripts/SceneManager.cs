@@ -9,7 +9,7 @@ public class SceneManager : MonoBehaviour
     private const string PathToGranulocytePrefab = "Entities/Granulocyte";
     private const string PathToHeartPrefab = "Entities/Heart";
     private const string PathToInfectionPrefab = "Entities/Infection";
-    private const string PathToLymfocytePrefab = "Entities/Lymfocyte";
+    private const string PathToLymphocytePrefab = "Entities/Lymphocyte";
     private const string PathToMineralPrefab = "Entities/Mineral";
     private const string PathToToxinPrefab = "Entities/Toxin";
     public static SceneManager sceneManager { get; private set; }
@@ -85,7 +85,7 @@ public class SceneManager : MonoBehaviour
                 break;
 
             case EntityType.Erythrocyte:
-            case EntityType.Lymfocyte:
+            case EntityType.Lymphocyte:
             case EntityType.Granulocyte:
                 spawnArea = spawnAreas.GetRandomArea(SpawnAreas.EntityClass.allied);
                 break;
@@ -123,7 +123,7 @@ public class SceneManager : MonoBehaviour
 
         prefabs[EntityType.Infection] = Resources.Load<GameObject>(PathToInfectionPrefab);
         prefabs[EntityType.Erythrocyte] = Resources.Load<GameObject>(PathToErythrocytePrefab);
-        prefabs[EntityType.Lymfocyte] = Resources.Load<GameObject>(PathToLymfocytePrefab);
+        prefabs[EntityType.Lymphocyte] = Resources.Load<GameObject>(PathToLymphocytePrefab);
         prefabs[EntityType.Granulocyte] = Resources.Load<GameObject>(PathToGranulocytePrefab);
         prefabs[EntityType.Toxin] = Resources.Load<GameObject>(PathToToxinPrefab);
         prefabs[EntityType.Mineral] = Resources.Load<GameObject>(PathToMineralPrefab);
