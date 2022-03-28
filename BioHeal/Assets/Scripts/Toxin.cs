@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Toxin : Unit
+public class Toxin : Warrior
 {
     new private void Start()
     {
@@ -9,13 +9,12 @@ public class Toxin : Unit
         aim = new Aim(EntityType.Erythrocyte);
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    new private void OnTriggerStay2D(Collider2D other)
     {
-        if (aim.entity != null && other.tag == "Erythrocyte" && other == aim.entity.GetComponent("Collider2D"))
+        base.OnTriggerStay2D(other);
+        if (aim.entity != null && other.tag == aim.entityType.ToString() && other == aim.entity.GetComponent("Collider2D"))
         {
             aim.entity.GetComponent<Erythrocyte>().ThrowAwayTheMineral();
-            SceneManager.sceneManager.DeleteObject(EntityType.Erythrocyte, aim.entity);
-            aim.entity = null;
         }
     }
 

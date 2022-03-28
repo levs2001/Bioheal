@@ -21,17 +21,17 @@ public class Granulocyte : Warrior
     {
         if (aim.entity != null)
         {
-            Vector3 vectorFromHeartToAim = aim.entity.transform.position - SceneManager.sceneManager.Heart.transform.position;
+            Vector2 vectorFromHeartToAim = aim.entity.transform.position - SceneManager.sceneManager.Heart.transform.position;
             float distanseBetweenHeartAndAim = vectorFromHeartToAim.magnitude;
 
             if (distanseBetweenHeartAndAim > moveRadius)
             {
                 float cos = vectorFromHeartToAim.x / distanseBetweenHeartAndAim;
                 float sin = vectorFromHeartToAim.y / distanseBetweenHeartAndAim;
-                Vector3 movePos = new Vector3(moveRadius * cos, moveRadius * sin, 0);
-                movePos += SceneManager.sceneManager.Heart.transform.position;
+                Vector2 movePos = new Vector2(moveRadius * cos, moveRadius * sin);
+                movePos += (Vector2)SceneManager.sceneManager.Heart.transform.position;
 
-                Vector3 delta = movePos - this.transform.position;
+                Vector2 delta = movePos - (Vector2)this.transform.position;
                 if (delta.magnitude > 0.1)
                 {
                     delta.Normalize();

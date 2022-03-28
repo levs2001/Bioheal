@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
 
-public class Base : MonoBehaviour
+public class Base : Alive
 {
     //SerializeField, because I am initializing these fields from Unity API from inspector 
     [SerializeField] private GameObject menuBase;
@@ -13,14 +13,10 @@ public class Base : MonoBehaviour
     [SerializeField] private Text textInfo;
     [SerializeField] private Text textMoneyBase, textForceBase;
 
-    private int force, money;
+    private int money;
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
 
-    public int Force
-    {
-        set { force = value; }
-        get { return force; }
-    }
+    
 
     public int Money
     {
@@ -67,7 +63,7 @@ public class Base : MonoBehaviour
         EntityType unitType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
         string temp;
         if (unitType == EntityType.Granulocyte) temp = $" � ������������";
-        else if (unitType == EntityType.Lymfocyte) temp = $" � ����������";
+        else if (unitType == EntityType.Lymphocyte) temp = $" � ����������";
         else if (unitType == EntityType.Erythrocyte) temp = $" �� �����������";
         else temp = $" ERROR";
 
@@ -100,15 +96,13 @@ public class Base : MonoBehaviour
         textMoneyBase.text = $"{money}";
     }
 
-    public void TakeDamage(int damage)
+    private void ChangeForceTextAndCloseMenuIfNeeded()
     {
-            force -= damage;
-            textForceBase.text = force < 0 ? $"{0}" : $"{force}";
-            if (force <= 0)
-            {
-                Destroy(this.gameObject);
-                CloseMenu();
-            }
+        textForceBase.text = force < 0 ? $"{0}" : $"{force}";
+        if (force <= 0)
+        {
+            CloseMenu();
+        }
     }
 
     // Start is called before the first frame update
@@ -125,9 +119,11 @@ public class Base : MonoBehaviour
         //method returns price by reference
         prices.TryGetValue(EntityType.Erythrocyte, out price); textEritro.text += $" {price}";
         prices.TryGetValue(EntityType.Granulocyte, out price); textGranulo.text += $" {price}";
-        prices.TryGetValue(EntityType.Lymfocyte, out price); textLimfo.text += $" {price}";
+        prices.TryGetValue(EntityType.Lymphocyte, out price); textLimfo.text += $" {price}";
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
+
+        entityTakeDamageEvent += ChangeForceTextAndCloseMenuIfNeeded;
     }
 }

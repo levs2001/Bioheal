@@ -5,7 +5,7 @@ public class Lymphocyte : Warrior
     new private void Start()
     {
         base.Start();
-        entityType = EntityType.Lymfocyte;
+        entityType = EntityType.Lymphocyte;
         aim = new Aim(EntityType.Toxin);
     }
 

@@ -7,7 +7,8 @@ public enum EntityType
         Infection,
         Toxin,
         Erythrocyte,
-        Lymfocyte,
+        Lymphocyte,
         Granulocyte,
-        Mineral
+        Mineral,
+        Heart
     }
