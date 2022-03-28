@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
 {
     public void LoadGameScene()
     {
-        Loader.LoadConfig();
+        var loader = Loader.LoaderInstance;
         // print(Loader.GetConfig().levels[0].mineral.initialC);
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
