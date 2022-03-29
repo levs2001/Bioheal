@@ -59,6 +59,14 @@ public class EntityManager
         }
     }
 
+    public void TransferFromBusyToFree(GameObject entity)
+    {
+        if (busyEntities.Remove(entity))
+        {
+            freeEntities.Add(entity);
+        }
+    }
+
     public void SpawnByCoordinates(Vector3 position)
     {
         GameObject entity = GameObject.Instantiate(prefab);

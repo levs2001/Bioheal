@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
 
-public class Base : MonoBehaviour
+public class Base : Alive
 {
     //SerializeField, because I am initializing these fields from Unity API from inspector 
     [SerializeField] private GameObject menuBase;
@@ -14,13 +13,10 @@ public class Base : MonoBehaviour
     [SerializeField] private Text textInfo;
     [SerializeField] private Text textMoneyBase, textForceBase;
 
-    private int force, money;
+    private int money;
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
 
-    public int Force
-    {
-        set { force = value; }
-    }
+    
 
     public int Money
     {
@@ -100,6 +96,15 @@ public class Base : MonoBehaviour
         textMoneyBase.text = $"{money}";
     }
 
+    private void ChangeForceTextAndCloseMenuIfNeeded()
+    {
+        textForceBase.text = force < 0 ? $"{0}" : $"{force}";
+        if (force <= 0)
+        {
+            CloseMenu();
+        }
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -118,5 +123,7 @@ public class Base : MonoBehaviour
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
+
+        entityTakeDamageEvent += ChangeForceTextAndCloseMenuIfNeeded;
     }
 }

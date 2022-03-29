@@ -9,5 +9,6 @@ public enum EntityType
         Erythrocyte,
         Lymphocyte,
         Granulocyte,
-        Mineral
+        Mineral,
+        Heart
     }

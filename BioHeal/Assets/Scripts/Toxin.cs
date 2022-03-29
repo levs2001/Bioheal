@@ -1,18 +1,28 @@
 using UnityEngine;
 
-public class Toxin : Unit
+public class Toxin : Warrior
 {
-    private void FixedUpdate() {
-        if (aim == null)
-            aim = SceneManager.sceneManager.GetAim(EntityType.Erythrocyte, this.transform.position);
-        Move();
+    new private void Start()
+    {
+        base.Start();
+        entityType = EntityType.Toxin;
+        aim = new Aim(EntityType.Erythrocyte);
     }
 
-    private void OnTriggerStay2D(Collider2D other) {
-        if (aim != null && other.tag == "Erythrocyte" && other == aim.GetComponent("Collider2D"))
+    new private void OnTriggerStay2D(Collider2D other)
+    {
+        base.OnTriggerStay2D(other);
+        if (aim.entity != null && other.tag == aim.entityType.ToString() && other == aim.entity.GetComponent("Collider2D"))
         {
-            SceneManager.sceneManager.DeleteObject(EntityType.Erythrocyte, aim);
-            aim = null;
+            aim.entity.GetComponent<Erythrocyte>().ThrowAwayTheMineral();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (aim.entity != null)
+        {
+            SceneManager.sceneManager.TransferEntityFromBusyToFree(EntityType.Erythrocyte, aim.entity);
         }
     }
 }

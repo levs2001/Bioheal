@@ -6,14 +6,14 @@
                 {
                     "name": "Toxin",
                     "speed": 4,
-                    "force": 1,
-                    "frequency": 25
+                    "force": 2,
+                    "frequency": 15
                 },
                 {
                     "name": "Infection",
                     "speed": 4,
                     "force": 1,
-                    "frequency": 1
+                    "frequency": 5
                 }
             ],
             "allies": [
@@ -36,7 +36,7 @@
                 {
                     "name": "Granulocyte",
                     "speed": 5,
-                    "force": 1,
+                    "force": 5,
                     "price": 20,
                     "initialC": 2,
                     "timeToSpawn": 7

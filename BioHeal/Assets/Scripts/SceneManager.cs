@@ -117,6 +117,11 @@ public class SceneManager : MonoBehaviour
         Destroy(objectToDelete);
     }
 
+    public void TransferEntityFromBusyToFree(EntityType managerType, GameObject entity)
+    {
+        entityManagers[managerType].TransferFromBusyToFree(entity);
+    }
+
     private void InitPrefabs(LevelData level)
     {
         prefabs = new Dictionary<EntityType, GameObject>();
