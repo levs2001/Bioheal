@@ -71,7 +71,7 @@ public class Base : MonoBehaviour
         else if (unitType == EntityType.Erythrocyte) temp = $" �� �����������";
         else temp = $" ERROR";
 
-        textInfo.text = $"����� ����� ����������" + temp;
+        textInfo.text = $"Here will be some information about " + temp;
     }
 
     public void CloseInfoUnit()
