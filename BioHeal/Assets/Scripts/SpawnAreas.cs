@@ -1,52 +1,38 @@
 using UnityEngine;
-using System.Collections.Generic;
 
-public class SpawnAreas
+class SpawnAreas
 {
     private const string PathToEnemySpawnAreas = "SpawnAreas/EnemyAreas";
     private const string PathToAlliedSpawnAreas = "SpawnAreas/AlliedAreas";
     private const string PathToMineralSpawnAreas = "SpawnAreas/MineralAreas";
+    [SerializeField] private BoxCollider2D[] entitySpawnAreas;
 
-    private Dictionary<EntityClass, EntitySpawnAreas> areas;
-
-    public SpawnAreas()
+    public BoxCollider2D randomEntitySpawnArea
     {
-        areas = new Dictionary<EntityClass, EntitySpawnAreas>();
-
-        areas[EntityClass.allied] = new EntitySpawnAreas(PathToAlliedSpawnAreas);
-        areas[EntityClass.enemy] = new EntitySpawnAreas(PathToEnemySpawnAreas);
-        areas[EntityClass.mineral] = new EntitySpawnAreas(PathToMineralSpawnAreas);
-    }
-
-    public BoxCollider2D GetRandomArea(EntityClass entityClass)
-    {
-        return areas[entityClass].randomEntitySpawnArea;
-    }
-
-    private class EntitySpawnAreas
-    {
-        private BoxCollider2D[] entitySpawnAreas;
-
-        public BoxCollider2D randomEntitySpawnArea
+        get
         {
-            get
-            {
-                int spawnAreaNum = Random.Range(0, entitySpawnAreas.Length);
-                return entitySpawnAreas[spawnAreaNum];
-            }
+            int spawnAreaNum = Random.Range(0, entitySpawnAreas.Length);
+            return entitySpawnAreas[spawnAreaNum];
         }
-        public EntitySpawnAreas(string path)
-        {
-            entitySpawnAreas = Resources.LoadAll<BoxCollider2D>(path);
-        }
-
-
     }
-
-    public enum EntityClass
+    public SpawnAreas(EntityType entityType)
     {
-        enemy,
-        allied,
-        mineral
+        switch (entityType)
+        {
+            case EntityType.Erythrocyte:
+            case EntityType.Lymphocyte:
+            case EntityType.Granulocyte:
+                entitySpawnAreas = Resources.LoadAll<BoxCollider2D>(PathToAlliedSpawnAreas);
+                break;
+            case EntityType.Infection:
+            case EntityType.Toxin:
+                entitySpawnAreas = Resources.LoadAll<BoxCollider2D>(PathToEnemySpawnAreas);
+                break;
+            case EntityType.Mineral:
+                entitySpawnAreas = Resources.LoadAll<BoxCollider2D>(PathToMineralSpawnAreas);
+                break;
+            default:
+                break;
+        }
     }
 }

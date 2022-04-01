@@ -8,6 +8,8 @@ public class EntityManager
 
     private GameObject prefab;
 
+    private SpawnAreas spawnAreas;
+
     //For testing
     public List<GameObject> FreeEntities
     {
@@ -20,11 +22,13 @@ public class EntityManager
         get { return busyEntities; }
     }
 
-    public EntityManager(GameObject prefab)
+    public EntityManager(GameObject prefab, EntityType entityType)
     {
         this.prefab = prefab;
         freeEntities = new List<GameObject>();
         busyEntities = new List<GameObject>();
+
+        spawnAreas = new SpawnAreas(entityType);
     }
 
     public GameObject GetClosestEntity(Vector3 finderPosition)
@@ -76,8 +80,10 @@ public class EntityManager
         freeEntities.Add(entity);
     }
 
-    public void Spawn(BoxCollider2D spawnArea)
+    public void Spawn()
     {
+        BoxCollider2D spawnArea = spawnAreas.randomEntitySpawnArea;
+
         float x = Random.Range(spawnArea.bounds.center.x - spawnArea.size.x / 2, spawnArea.bounds.center.x + spawnArea.size.x / 2);
         float y = Random.Range(spawnArea.bounds.center.y - spawnArea.size.y / 2, spawnArea.bounds.center.y + spawnArea.size.y / 2);
 

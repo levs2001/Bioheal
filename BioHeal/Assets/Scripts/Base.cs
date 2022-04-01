@@ -51,7 +51,7 @@ public class Base : Alive
             money -= price;
             textMoneyMenu.text = $"{money}";
             textMoneyBase.text = $"{money}";
-            sceneManager.SpawnEntity(entityType);
+            sceneManager.EntityManagers[entityType].Spawn();
         }
     }
 
