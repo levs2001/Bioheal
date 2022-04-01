@@ -1,6 +1,6 @@
 using UnityEngine;
 
-class SpawnAreas
+public class SpawnAreas
 {
     private const string PathToEnemySpawnAreas = "SpawnAreas/EnemyAreas";
     private const string PathToAlliedSpawnAreas = "SpawnAreas/AlliedAreas";
