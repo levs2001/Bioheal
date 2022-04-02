@@ -7,13 +7,15 @@
                     "name": "Toxin",
                     "speed": 4,
                     "force": 2,
-                    "frequency": 15
+                    "frequency": 15,
+                    "amountPerLevel" : 1
                 },
                 {
                     "name": "Infection",
                     "speed": 4,
                     "force": 1,
-                    "frequency": 5
+                    "frequency": 5,
+                    "amountPerLevel" : 2
                 }
             ],
             "allies": [
@@ -22,7 +24,7 @@
                     "speed": 4,
                     "force": 0,
                     "price": 10,
-                    "initialC": 10,
+                    "initialC": 2,
                     "timeToSpawn": 1
                 },
                 {
@@ -30,7 +32,7 @@
                     "speed": 8,
                     "force": 3,
                     "price": 15,
-                    "initialC": 5,
+                    "initialC": 1,
                     "timeToSpawn": 3
                 },
                 {
@@ -38,7 +40,7 @@
                     "speed": 5,
                     "force": 5,
                     "price": 20,
-                    "initialC": 2,
+                    "initialC": 1,
                     "timeToSpawn": 7
                 }
             ],

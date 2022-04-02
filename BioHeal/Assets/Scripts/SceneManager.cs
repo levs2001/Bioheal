@@ -10,8 +10,11 @@ public class SceneManager : MonoBehaviour
 
     private Dictionary<EntityType, EntityManager> entityManagers;
 
-    private Dictionary<EntityType, ActionTimer> actionTimers;
     private Dictionary<EntityType, GameObject> prefabs;
+
+    private Dictionary<EntityType, float> timeToSpawn;
+
+    private Dictionary<EntityType, int> amountEnemiesPerLevel;
 
     private GameObject heart;
 
@@ -32,6 +35,11 @@ public class SceneManager : MonoBehaviour
         get { return entityManagers; }
     }
 
+    public Dictionary<EntityType, float> TimeToSpawn
+    {
+        get { return timeToSpawn; }
+    }
+
     private void Awake()
     {
         sceneManager = this;
@@ -44,14 +52,36 @@ public class SceneManager : MonoBehaviour
         level.InitHeart(heart.GetComponent<Base>());
 
         entityManagers = prefabs.ToDictionary(pair => pair.Key, pair => new EntityManager(pair.Value, pair.Key));
-        actionTimers = level.Frequencies.ToDictionary(pair => pair.Key, pair => new ActionTimer(pair.Value, entityManagers[pair.Key].Spawn));
-    }
 
-    private void Update()
-    {
-        foreach (EntityType type in actionTimers.Keys)
+        amountEnemiesPerLevel = level.AmountEnemiesPerLevel;
+
+        foreach (EntityType type in amountEnemiesPerLevel.Keys)
         {
-            actionTimers[type].AddTimeAndDoAction(Time.deltaTime);
+            ActionTimer actionTimer = new GameObject(type.ToString() + "Timer").AddComponent<ActionTimer>();
+            actionTimer.Timer = level.Frequencies[type];
+            actionTimer.SomeAction = entityManagers[type].Spawn;
+            actionTimer.SomeAction = (() => amountEnemiesPerLevel[type]--);
+            actionTimer.SomeAction = (() =>
+            {
+                if (amountEnemiesPerLevel[type] == 0)
+                {
+                    Destroy(actionTimer.gameObject);
+                }
+            });
+        }
+
+        ActionTimer actionTimerForMineral = new GameObject(EntityType.Mineral.ToString() + "Timer").AddComponent<ActionTimer>();
+        actionTimerForMineral.Timer = level.Frequencies[EntityType.Mineral];
+        actionTimerForMineral.SomeAction = entityManagers[EntityType.Mineral].Spawn;
+
+        timeToSpawn = level.TimeToSpawn;
+
+        foreach (EntityType type in level.InitialCount.Keys)
+        {
+            for (int i = 0; i < level.InitialCount[type]; i++)
+            {
+                entityManagers[type].Spawn();
+            }
         }
     }
 
@@ -76,12 +106,12 @@ public class SceneManager : MonoBehaviour
     private void InitPrefabs(LevelData level)
     {
         prefabs = new Dictionary<EntityType, GameObject>();
-        
+
         foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
         {
             if (type == EntityType.Heart)
                 continue;
-                
+
             prefabs[type] = Resources.Load<GameObject>(PathPrefabs + type.ToString());
         }
 

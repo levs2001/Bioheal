@@ -1,4 +1,6 @@
-public class ActionTimer
+using UnityEngine;
+
+public class ActionTimer : MonoBehaviour 
 {
     private float elapsedTime = 0f;
 
@@ -7,14 +9,18 @@ public class ActionTimer
     public delegate void Action();
     private Action someAction;
 
-    public ActionTimer(float timerResetTime, Action action)
+    public Action SomeAction
     {
-        this.timerResetTime = timerResetTime;
-        someAction += action;
+        set { someAction += value; }
     }
 
-    public void AddTimeAndDoAction(float deltaTime) {
-        elapsedTime += deltaTime;
+    public float Timer
+    {
+        set { timerResetTime = value; }
+    }
+
+    public void Update() {
+        elapsedTime += Time.deltaTime;
         if (elapsedTime >= timerResetTime)
         {
             elapsedTime = 0;
