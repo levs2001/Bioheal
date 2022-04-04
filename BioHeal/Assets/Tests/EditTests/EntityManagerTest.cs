@@ -10,7 +10,7 @@ public class EntityManagerTest
     public void SetUp()
     {
         GameObject prefab = Resources.Load<GameObject>(PathToErythrocytePrefab);
-        entityManager = new EntityManager(prefab);
+        entityManager = new EntityManager(prefab, EntityType.Erythrocyte);
     }
 
     [Test]
@@ -19,7 +19,7 @@ public class EntityManagerTest
         GameObject gameObject = new GameObject();
         BoxCollider2D spawnArea = gameObject.AddComponent<BoxCollider2D>();
         spawnArea.size = new Vector2(10, 10);
-        entityManager.Spawn(spawnArea);
+        entityManager.Spawn();
 
         Assert.NotNull(entityManager.FreeEntities);
         Assert.AreEqual(1, entityManager.FreeEntities.Count);
@@ -31,8 +31,8 @@ public class EntityManagerTest
         GameObject gameObject = new GameObject();
         BoxCollider2D spawnArea = gameObject.AddComponent<BoxCollider2D>();
         spawnArea.size = new Vector2(10, 10);
-        entityManager.Spawn(spawnArea);
-        entityManager.Spawn(spawnArea);
+        entityManager.Spawn();
+        entityManager.Spawn();
 
         Vector3 hunter = new Vector3(0, 0, 0);
         GameObject closestEntity = entityManager.GetClosestEntity(hunter);
@@ -53,8 +53,8 @@ public class EntityManagerTest
         GameObject gameObject = new GameObject();
         BoxCollider2D spawnArea = gameObject.AddComponent<BoxCollider2D>();
         spawnArea.size = new Vector2(10, 10);
-        entityManager.Spawn(spawnArea);
-        entityManager.Spawn(spawnArea);
+        entityManager.Spawn();
+        entityManager.Spawn();
 
         Vector3 hunter = new Vector3(0, 0, 0);
         GameObject closestEntity = entityManager.GetClosestEntity(hunter);

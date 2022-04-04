@@ -15,9 +15,7 @@ public class Base : Alive
 
     private int money;
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
-
     
-
     public int Money
     {
         set { money = value; }
@@ -51,7 +49,11 @@ public class Base : Alive
             money -= price;
             textMoneyMenu.text = $"{money}";
             textMoneyBase.text = $"{money}";
-            sceneManager.SpawnEntity(entityType);
+
+            ActionTimer actionTimer = new GameObject(entityType.ToString() + "Timer").AddComponent<ActionTimer>();
+            actionTimer.Timer = sceneManager.TimeToSpawn[entityType];
+            actionTimer.SomeAction = (() => sceneManager.SpawnEntity(entityType));
+            actionTimer.SomeAction = (() => Destroy(actionTimer.gameObject));
         }
     }
 
