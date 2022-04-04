@@ -4,38 +4,9 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    public enum MenuChapterType
-    {
-        Settings,
-        HowToPlay,
-        ChooseLevel
-    }
-
-    public class MenuChapter
-    {
-        private GameObject image;
-
-        //C# does not let create local instances using constructor with 
-        //argument as another local instance. So we need initialize this object after creating it
-        public void Init(GameObject _image) { image = _image; }
-
-        public void OpenChapter()
-        {
-            image.SetActive(true);
-        }
-        public void CloseChapter()
-        {
-            image.SetActive(false);
-        }
-    }
-
     [SerializeField] private GameObject settingsImage;
     [SerializeField] private GameObject howToPlayImage;
     [SerializeField] private GameObject chooseLevelImage;
-
-    public MenuChapter chooseLevelChapter = new MenuChapter();
-    public MenuChapter howToPlayChapter = new MenuChapter();
-    public MenuChapter settingsChapter = new MenuChapter();
 
     private Dictionary<MenuChapterType, MenuChapter> chapters = new Dictionary<MenuChapterType, MenuChapter>();
 
@@ -44,7 +15,6 @@ public class MainMenu : MonoBehaviour
         MenuChapter chapter;
         MenuChapterType chapterType = (MenuChapterType)System.Enum.Parse(typeof(MenuChapterType), str);
         chapters.TryGetValue(chapterType, out chapter);
-
         chapter.OpenChapter();
     }
 
@@ -53,7 +23,6 @@ public class MainMenu : MonoBehaviour
         MenuChapter chapter;
         MenuChapterType chapterType = (MenuChapterType)System.Enum.Parse(typeof(MenuChapterType), str);
         chapters.TryGetValue(chapterType, out chapter);
-
         chapter.CloseChapter();
     }
 
@@ -70,27 +39,39 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        settingsImage.SetActive(false);
-        settingsImage.SetActive(false);
-        howToPlayImage.SetActive(false);
-        chooseLevelImage.SetActive(false);
-
-        chooseLevelChapter.Init(chooseLevelImage);
-        howToPlayChapter.Init(howToPlayImage);
-        settingsChapter.Init(settingsImage);
-
-        chapters.Add(MenuChapterType.ChooseLevel, chooseLevelChapter);
-        chapters.Add(MenuChapterType.HowToPlay, howToPlayChapter);
-        chapters.Add(MenuChapterType.Settings, settingsChapter);
+        chapters.Add(MenuChapterType.ChooseLevel, new MenuChapter(chooseLevelImage));
+        chapters.Add(MenuChapterType.HowToPlay, new MenuChapter(howToPlayImage));
+        chapters.Add(MenuChapterType.Settings, new MenuChapter(settingsImage));
     }
 
-    // Update is called once per frame
-    void Update()
+    private class MenuChapter
     {
+        private GameObject image;
 
+        public MenuChapter(GameObject image)
+        {
+            this.image = image;
+            this.image.SetActive(false);
+        }
+
+        public void OpenChapter()
+        {
+            image.SetActive(true);
+        }
+
+        public void CloseChapter()
+        {
+            image.SetActive(false);
+        }
+    }
+
+    private enum MenuChapterType
+    {
+        Settings,
+        HowToPlay,
+        ChooseLevel
     }
 }
