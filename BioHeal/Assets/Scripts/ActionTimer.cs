@@ -19,8 +19,8 @@ public class ActionTimer : MonoBehaviour
         set { timerResetTime = value; }
     }
 
-    public void Update() {
-        elapsedTime += Time.deltaTime;
+    public void FixedUpdate() {
+        elapsedTime += Time.fixedDeltaTime;
         if (elapsedTime >= timerResetTime)
         {
             elapsedTime = 0;
