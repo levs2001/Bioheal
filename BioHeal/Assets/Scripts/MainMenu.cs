@@ -47,12 +47,6 @@ public class MainMenu : MonoBehaviour
         chapters.Add(MenuChapterType.Settings, new MenuChapter(settingsImage));
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-
-    }
-
     private class MenuChapter
     {
         private GameObject image;
