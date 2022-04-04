@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ChooseLevel : MonoBehaviour
 {
-    //TODO: read it from somewhere
+    //TODO: read it from Loader
     private int countOpenedLevel = 24;
     private int page, levels_per_page = 15, last_page = 4, first_page = 1;
 
@@ -14,7 +14,7 @@ public class ChooseLevel : MonoBehaviour
 
     public void OpenNextPage()
     {
-        if(page < last_page)
+        if (page < last_page)
             ++page;
         UpdateButtons();
     }
@@ -54,7 +54,7 @@ public class ChooseLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void UpdateButtons()
@@ -73,7 +73,7 @@ public class ChooseLevel : MonoBehaviour
                 transform.GetChild(i).GetComponent<Button>().interactable = false;
             }
 
-            transform.GetChild(i).GetComponentInChildren<Text>().text = $"{(i + 1)+(levels_per_page*(page-1))}";
+            transform.GetChild(i).GetComponentInChildren<Text>().text = $"{(i + 1) + (levels_per_page * (page - 1))}";
         }
     }
 }
