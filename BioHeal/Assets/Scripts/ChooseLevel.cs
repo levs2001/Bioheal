@@ -45,19 +45,13 @@ public class ChooseLevel : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         page = first_page;
         UpdateButtons();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void UpdateButtons()
+    private void UpdateButtons()
     {
         for (int i = 0; i < transform.childCount; ++i)
         {

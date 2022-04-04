@@ -57,16 +57,17 @@ public class MainMenu : MonoBehaviour
     {
         private GameObject image;
 
-        public MenuChapter(GameObject _image)
+        public MenuChapter(GameObject image)
         {
-            image = _image;
-            image.SetActive(false);
+            this.image = image;
+            this.image.SetActive(false);
         }
 
         public void OpenChapter()
         {
             image.SetActive(true);
         }
+
         public void CloseChapter()
         {
             image.SetActive(false);
