@@ -52,7 +52,7 @@ public class Base : Alive
 
             ActionTimer actionTimer = new GameObject(entityType.ToString() + "Timer").AddComponent<ActionTimer>();
             actionTimer.Timer = sceneManager.TimeToSpawn[entityType];
-            actionTimer.SomeAction = sceneManager.EntityManagers[entityType].Spawn;
+            actionTimer.SomeAction = (() => sceneManager.SpawnEntity(entityType));
             actionTimer.SomeAction = (() => Destroy(actionTimer.gameObject));
         }
     }

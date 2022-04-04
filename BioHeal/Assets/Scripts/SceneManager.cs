@@ -30,11 +30,6 @@ public class SceneManager : MonoBehaviour
         get { return heart != null ? (Vector3?)heart.transform.position : null; }
     }
 
-    public Dictionary<EntityType, EntityManager> EntityManagers
-    {
-        get { return entityManagers; }
-    }
-
     public Dictionary<EntityType, float> TimeToSpawn
     {
         get { return timeToSpawn; }
@@ -83,6 +78,14 @@ public class SceneManager : MonoBehaviour
                 entityManagers[type].Spawn();
             }
         }
+    }
+    
+    public void SpawnEntity(EntityType entityType, Vector3? position = null)
+    {
+        if (position.HasValue)
+            entityManagers[entityType].SpawnByCoordinates(position.Value);
+        else
+            entityManagers[entityType].Spawn();
     }
 
     public GameObject GetAim(EntityType aimType, Vector3 finderPosition)

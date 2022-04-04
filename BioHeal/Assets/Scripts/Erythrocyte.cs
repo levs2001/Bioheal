@@ -36,7 +36,7 @@ public class Erythrocyte : Unit
     {
         if (aim.entity != null && aim.entity == SceneManager.sceneManager.Heart)
         {
-            SceneManager.sceneManager.EntityManagers[aim.entityType.Value].SpawnByCoordinates(transform.position);
+            SceneManager.sceneManager.SpawnEntity(aim.entityType.Value, transform.position);
         }
     }
 }
