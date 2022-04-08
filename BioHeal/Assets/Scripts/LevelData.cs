@@ -76,6 +76,7 @@ public class LevelData
         }
 
         frequency.Add(EntityType.Mineral, level.mineral.frequency);
+        initialCount.Add(EntityType.Mineral, level.mineral.initialC);
     }
 
     private void InitSingleUnit(EntityType type, Unit unit)
