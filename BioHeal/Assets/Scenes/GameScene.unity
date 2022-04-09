@@ -659,6 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168ae4097b680c94ca6044f6c87949f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  force: 0
   menuBase: {fileID: 1288344656}
   textMoneyMenu: {fileID: 974130622}
   textLimfo: {fileID: 434380659}

@@ -15,7 +15,7 @@ public class Base : Alive
 
     private int money;
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
-    
+
     public int Money
     {
         set { money = value; }
@@ -29,12 +29,17 @@ public class Base : Alive
     ///////         Public methods, called from buttons         ///////
     public void OpenMenu()
     {
-        menuBase.SetActive(true);
+        if (!menuBase.activeSelf)
+        {
+            menuBase.SetActive(true);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartTap);
+        }
     }
 
     public void CloseMenu()
     {
         menuBase.SetActive(false);
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
     }
 
     public void BuyUnit(string str)
@@ -54,7 +59,10 @@ public class Base : Alive
             actionTimer.Timer = sceneManager.TimeToSpawn[entityType];
             actionTimer.SomeAction = (() => sceneManager.SpawnEntity(entityType));
             actionTimer.SomeAction = (() => Destroy(actionTimer.gameObject));
+            actionTimer.SomeAction = (() => SoundManager.Instance.PlaySound(SoundManager.SoundType.UnitSpawn));
         }
+
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
     }
 
     public void ShowInfoUnit(string str)
@@ -70,22 +78,28 @@ public class Base : Alive
         else temp = $" ERROR";
 
         textInfo.text = $"Here will be some information about " + temp;
+
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
     }
 
     public void CloseInfoUnit()
     {
         textInfo.text = "";
         unitInfo.SetActive(false);
+
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
     }
 
     public void PauseButton()
     {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         //Today we do not have job for this button
         Debug.Log("Clicking on pause!\n");
     }
 
     public void ShowBaseButton()
     {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         //Today we do not have job for this button
         Debug.Log("Showing Base!\n");
     }
@@ -127,5 +141,7 @@ public class Base : Alive
         unitInfo.SetActive(false);
 
         entityTakeDamageEvent += ChangeForceTextAndCloseMenuIfNeeded;
+        entityTakeDamageEvent += (() => SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDamage));
+        entityTakeDamageEvent += (() => { if (force <= 0) SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDead); });
     }
 }
