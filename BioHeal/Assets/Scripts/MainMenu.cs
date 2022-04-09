@@ -59,13 +59,13 @@ public class MainMenu : MonoBehaviour
         public void OpenChapter()
         {
             image.SetActive(true);
-            SoundManager.Instance.PlaySoundEffect(SoundManager.SoundType.AnyTap);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         }
 
         public void CloseChapter()
         {
             image.SetActive(false);
-            SoundManager.Instance.PlaySoundEffect(SoundManager.SoundType.AnyTap);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         }
     }
 

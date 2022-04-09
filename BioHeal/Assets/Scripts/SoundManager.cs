@@ -1,9 +1,15 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private Sound[] sounds;
+    private const string PathSounds = "Sounds/";
+
+    private Dictionary<SoundType, AudioClip> sounds;
+
+    [SerializeField] private AudioSource effectsSource;
+    [SerializeField] private AudioSource musicSource;
 
     private static SoundManager instance = null;
 
@@ -11,7 +17,10 @@ public class SoundManager : MonoBehaviour
     {
         get
         {
-            return instance;
+            if (instance == null)
+                throw new System.Exception("SoundManager not exist");
+            else
+                return instance;
         }
     }
 
@@ -20,6 +29,13 @@ public class SoundManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+
+            sounds = new Dictionary<SoundType, AudioClip>();
+            foreach (SoundType type in Enum.GetValues(typeof(SoundType)))
+            {
+                sounds[type] = Resources.Load<AudioClip>(PathSounds + type.ToString());
+            }
+
             DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
@@ -28,25 +44,17 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private AudioClip GetSound(SoundType type)
+    public void PlaySound(SoundType type)
     {
-        foreach (var sound in sounds)
-        {
-            if (sound.type == type)
-            {
-                return sound.audioClip;
-            }
-        }
-
-        return null;
-    }
-
-    public void PlaySoundEffect(SoundType type)
-    {
-        AudioSource effectsSource = gameObject.AddComponent<AudioSource>();
-        effectsSource.clip = GetSound(type);
-        effectsSource.Play();
-        Destroy(effectsSource, effectsSource.clip.length);
+        AudioSource source;
+        
+        if (type == SoundType.MainTheme)
+            source = musicSource;
+        else
+            source = effectsSource;
+        
+        source.clip = sounds[type];
+        source.Play();
     }
 
     public enum SoundType
@@ -60,12 +68,5 @@ public class SoundManager : MonoBehaviour
         UnitDead,
         UnitFight,
         MineralTake
-    }
-
-    [System.Serializable]
-    private struct Sound
-    {
-        public SoundType type;
-        public AudioClip audioClip;
     }
 }

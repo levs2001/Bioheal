@@ -78,6 +78,8 @@ public class SceneManager : MonoBehaviour
                 entityManagers[type].Spawn();
             }
         }
+
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.MainTheme);
     }
     
     public void SpawnEntity(EntityType entityType, Vector3? position = null)
