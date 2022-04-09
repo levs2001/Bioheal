@@ -26,9 +26,9 @@ public class MainMenu : MonoBehaviour
     }
 
     public void LoadGameScene()
-    {
-        // get loader to load json in advance    
-        Loader loader = Loader.LoaderInstance;
+    {   
+        Loader.LoaderInstance.CurrentLevel = Loader.LoaderInstance.FirstNotClearedLevel;
+        Debug.Log($"Load level #{Loader.LoaderInstance.CurrentLevel + 1}");
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
