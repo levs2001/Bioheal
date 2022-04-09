@@ -28,6 +28,7 @@ public class MainMenu : MonoBehaviour
     public void LoadGameScene()
     {
         // get loader to load json in advance    
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         Loader loader = Loader.LoaderInstance;
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
@@ -35,6 +36,7 @@ public class MainMenu : MonoBehaviour
     public void ExitGame()
     {
         //It does not work in editor, only at game's runtime 
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         Application.Quit();
     }
 
