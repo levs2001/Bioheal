@@ -39,14 +39,14 @@ public class LevelData
         heart.Prices = prices;
     }
 
-    public void InitUnits(Dictionary<EntityType, GameObject> prefabs)
+    public void InitUnits(Dictionary<EntityType, GameObject> prefabs, GameObject healthbarPrefab)
     {
         // TODO: Think about saving num of lvl            
         HashSet<EntityType> units = new HashSet<EntityType>(prefabs.Keys);
         units.Remove(EntityType.Mineral);
         foreach (EntityType unit in units)
         {
-            InitSingleUnit(unit, prefabs[unit].GetComponent<Unit>());
+            InitSingleUnit(unit, prefabs[unit].GetComponent<Unit>(), healthbarPrefab);
         }
     }
 
@@ -93,9 +93,9 @@ public class LevelData
         }
     }
 
-    private void InitSingleUnit(EntityType type, Unit unit)
+    private void InitSingleUnit(EntityType type, Unit unit, GameObject healthbarPrefab)
     {
-        unit.Init(unitsInfo[type].speed, unitsInfo[type].force);
+        unit.Init(unitsInfo[type].speed, unitsInfo[type].force, healthbarPrefab);
         // TODO: InitialC and timeToSpawn ignored now (
     }
 }

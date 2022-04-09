@@ -7,11 +7,13 @@ public class Unit : Alive
     [SerializeField] protected float velocity = 2f;
 
     protected Aim aim;
+    private RectTransform healthbarPos;
 
     // Start is called before the first frame update
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        healthbarPos = this.healthbar.GetComponent<RectTransform>();
     }
 
     protected void FixedUpdate()
@@ -33,6 +35,8 @@ public class Unit : Alive
         }
         else
             rb.velocity = Vector2.zero;
+        
+        // healthbarPos.anchoredPosition = new Vector3(myPos.x, myPos.y, 0);
     }
 
     protected void FindNewAimIfNeeded()
@@ -41,10 +45,12 @@ public class Unit : Alive
             aim.entity = SceneManager.sceneManager.GetAim(aim.entityType.Value, this.transform.position);
     }
 
-    public void Init(float velocity, int force)
+    public void Init(float velocity, int force, GameObject healthbarPrefab)
     {
         this.velocity = velocity;
         this.force = force;
+        this.healthbar = GameObject.Instantiate(healthbarPrefab);
+        healthbar.GetComponent<RectTransform>().sizeDelta = new Vector2 (10, 10);
     }
 
     protected struct Aim

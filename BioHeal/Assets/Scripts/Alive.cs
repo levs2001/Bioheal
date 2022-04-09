@@ -8,6 +8,7 @@ public class Alive : MonoBehaviour
 
     protected delegate void EntityTakeDamage();
     protected event EntityTakeDamage entityTakeDamageEvent = null;
+    protected GameObject healthbar;
     public int Force
     {
         set { force = value; }
@@ -17,6 +18,7 @@ public class Alive : MonoBehaviour
     public void TakeDamage(int damage)
     {
         force -= damage;
+        healthbar.GetComponent<HealthBar>().Force -= damage;
         if (force <= 0)
         {
             SceneManager.sceneManager.DeleteObject(entityType, this.gameObject);
@@ -25,3 +27,4 @@ public class Alive : MonoBehaviour
             entityTakeDamageEvent();
     }
 }
+

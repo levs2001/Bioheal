@@ -12,6 +12,7 @@ public class SceneManager : MonoBehaviour
     private const string PathToLymphocytePrefab = "Entities/Lymphocyte";
     private const string PathToMineralPrefab = "Entities/Mineral";
     private const string PathToToxinPrefab = "Entities/Toxin";
+    private const string PathToHealthbarPrefab = "Entities/HealthBarHandDrawn";
     public static SceneManager sceneManager { get; private set; }
 
     private Dictionary<EntityType, EntityManager> entityManagers;
@@ -19,6 +20,7 @@ public class SceneManager : MonoBehaviour
     private Dictionary<EntityType, float> spawnFrequencies;
     private Dictionary<EntityType, float> elapsedTimeSinceLastSpawn;
     private Dictionary<EntityType, GameObject> prefabs;
+    private GameObject healthbarPrefab;
 
     private SpawnAreas spawnAreas;
 
@@ -132,7 +134,8 @@ public class SceneManager : MonoBehaviour
         prefabs[EntityType.Granulocyte] = Resources.Load<GameObject>(PathToGranulocytePrefab);
         prefabs[EntityType.Toxin] = Resources.Load<GameObject>(PathToToxinPrefab);
         prefabs[EntityType.Mineral] = Resources.Load<GameObject>(PathToMineralPrefab);
+        healthbarPrefab = Resources.Load<GameObject>(PathToHealthbarPrefab);
 
-        level.InitUnits(prefabs);
+        level.InitUnits(prefabs, healthbarPrefab);
     }
 }
