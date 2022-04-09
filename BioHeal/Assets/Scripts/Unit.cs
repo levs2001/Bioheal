@@ -13,7 +13,6 @@ public class Unit : Alive
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        healthbarPos = this.healthbar.GetComponent<RectTransform>();
     }
 
     protected void FixedUpdate()
@@ -49,8 +48,9 @@ public class Unit : Alive
     {
         this.velocity = velocity;
         this.force = force;
-        this.healthbar = GameObject.Instantiate(healthbarPrefab);
-        healthbar.GetComponent<RectTransform>().sizeDelta = new Vector2 (10, 10);
+        // this.healthbar = GameObject.Instantiate(healthbarPrefab);
+        // this.healthbarPos = this.healthbar.GetComponent<RectTransform>();
+        // healthbar.GetComponent<RectTransform>().sizeDelta = new Vector2 (10, 10);
     }
 
     protected struct Aim
