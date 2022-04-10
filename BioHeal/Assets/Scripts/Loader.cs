@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -15,6 +14,8 @@ public class Loader
     private int firstNotClearedLevel = 0;
 
     private static Loader loader = null;
+
+    public HealthDisplayType healthDisplayType = HealthDisplayType.MODEL_SIZE;
     
     public static Loader LoaderInstance
     {
@@ -90,4 +91,5 @@ public class Loader
         string jsonText = JsonConvert.SerializeObject(config);
         File.WriteAllText(configPath, jsonText);
     }
+
 }

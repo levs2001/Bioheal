@@ -10,7 +10,11 @@ public class HealthBar : MonoBehaviour {
     private int force = 50;
 
     private Image healthBar;
-    // private Image dropEffect;
+    public int Force 
+    { 
+        get {return force;} 
+        set {force = value;} 
+    }
 
     public int MaxForce 
     { 
@@ -18,21 +22,14 @@ public class HealthBar : MonoBehaviour {
         set {maxForce = value;} 
     }
 
-    public int Force 
-    { 
-        get {return force;} 
-        set {force = value;} 
-    }
-
     private void Start() {
         healthBar = transform.Find("Health").GetComponent<Image>();
-        healthBar.fillAmount = Mathf.Min(Mathf.Max(0, force / maxForce), 1);
     }
 
-    // private void Update() {
-    //     float healthPercentage = Mathf.Min(Mathf.Max(0, currentHealth / maxHealth), 1);
+    private void Update() {
+        float healthPercentage = Mathf.Min(Mathf.Max(0, Force * 1f / MaxForce), 1);
 
-    //     healthBar.fillAmount = healthPercentage;
+        healthBar.fillAmount = healthPercentage;
 
-    // }
+    }
 }

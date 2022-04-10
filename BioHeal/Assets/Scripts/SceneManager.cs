@@ -5,24 +5,18 @@ using System.Linq;
 
 public class SceneManager : MonoBehaviour
 {
-    private const string PathToErythrocytePrefab = "Entities/Erythrocyte";
-    private const string PathToGranulocytePrefab = "Entities/Granulocyte";
-    private const string PathToHeartPrefab = "Entities/Heart";
-    private const string PathToInfectionPrefab = "Entities/Infection";
-    private const string PathToLymphocytePrefab = "Entities/Lymphocyte";
-    private const string PathToMineralPrefab = "Entities/Mineral";
-    private const string PathToToxinPrefab = "Entities/Toxin";
-    private const string PathToHealthbarPrefab = "Entities/HealthBarHandDrawn";
+    private const string PathPrefabs = "Entities/";
+    private const string PathHealthbarPrefab = "Entities/HealthBarHandDrawn";
     public static SceneManager sceneManager { get; private set; }
 
     private Dictionary<EntityType, EntityManager> entityManagers;
 
-    private Dictionary<EntityType, float> spawnFrequencies;
-    private Dictionary<EntityType, float> elapsedTimeSinceLastSpawn;
     private Dictionary<EntityType, GameObject> prefabs;
-    private GameObject healthbarPrefab;
+    public GameObject healthbarPrefab;
 
-    private SpawnAreas spawnAreas;
+    private Dictionary<EntityType, float> timeToSpawn;
+
+    private Dictionary<EntityType, int> amountEnemiesPerLevel;
 
     private GameObject heart;
 
@@ -38,72 +32,65 @@ public class SceneManager : MonoBehaviour
         get { return heart != null ? (Vector3?)heart.transform.position : null; }
     }
 
+    public Dictionary<EntityType, float> TimeToSpawn
+    {
+        get { return timeToSpawn; }
+    }
+
     private void Awake()
     {
         sceneManager = this;
-        spawnAreas = new SpawnAreas();
 
         LevelData level = Loader.LoaderInstance.GetLevel(0);
-
-        // TODO: подумать об оъединении 2х этих сущностей в один класс
-        spawnFrequencies = level.Frequencies;
-        elapsedTimeSinceLastSpawn = spawnFrequencies.Keys.ToDictionary(type => type, type => 0f);
 
         InitPrefabs(level);
 
         heart = GameObject.FindWithTag("Heart");
         level.InitHeart(heart.GetComponent<Base>());
+       
+        entityManagers = prefabs.ToDictionary(pair => pair.Key, pair => new EntityManager(pair.Value, pair.Key));
 
-        entityManagers = prefabs.ToDictionary(pair => pair.Key, pair => new EntityManager(pair.Value));
-    }
+        amountEnemiesPerLevel = level.AmountEnemiesPerLevel;
 
-    private void Update()
-    {
-        //A copy of the keys is made, since it is impossible to change the value by key and iterate over the dictionary at the same time
-        List<EntityType> spawnEntityTypes = new List<EntityType>(elapsedTimeSinceLastSpawn.Keys);
-
-        foreach (EntityType type in spawnEntityTypes)
+        foreach (EntityType type in amountEnemiesPerLevel.Keys)
         {
-            if (elapsedTimeSinceLastSpawn[type] >= spawnFrequencies[type])
+            ActionTimer actionTimer = new GameObject(type.ToString() + "Timer").AddComponent<ActionTimer>();
+            actionTimer.Timer = level.Frequencies[type];
+            actionTimer.SomeAction = entityManagers[type].Spawn;
+            actionTimer.SomeAction = (() => amountEnemiesPerLevel[type]--);
+            actionTimer.SomeAction = (() =>
             {
-                SpawnEntity(type);
-                elapsedTimeSinceLastSpawn[type] = 0;
-            }
-            elapsedTimeSinceLastSpawn[type] += Time.deltaTime;
+                if (amountEnemiesPerLevel[type] == 0)
+                {
+                    Destroy(actionTimer.gameObject);
+                }
+            });
         }
-    }
 
+        ActionTimer actionTimerForMineral = new GameObject(EntityType.Mineral.ToString() + "Timer").AddComponent<ActionTimer>();
+        actionTimerForMineral.Timer = level.Frequencies[EntityType.Mineral];
+        actionTimerForMineral.SomeAction = entityManagers[EntityType.Mineral].Spawn;
+
+        timeToSpawn = level.TimeToSpawn;
+
+        foreach (EntityType type in level.InitialCount.Keys)
+        {
+            for (int i = 0; i < level.InitialCount[type]; i++)
+            {
+               
+                entityManagers[type].Spawn();
+            }
+        }
+
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.MainTheme);
+    }
+    
     public void SpawnEntity(EntityType entityType, Vector3? position = null)
     {
-        // TODO: В EntityManager перенести SpawnArea. SpawnArea лучше перенести в Prefab. От этого метода избавиться
-        EntityManager entityManager = entityManagers[entityType];
-        BoxCollider2D spawnArea = null;
-
-        switch (entityType)
-        {
-            case EntityType.Infection:
-            case EntityType.Toxin:
-                spawnArea = spawnAreas.GetRandomArea(SpawnAreas.EntityClass.enemy);
-                break;
-
-            case EntityType.Erythrocyte:
-            case EntityType.Lymphocyte:
-            case EntityType.Granulocyte:
-                spawnArea = spawnAreas.GetRandomArea(SpawnAreas.EntityClass.allied);
-                break;
-
-            case EntityType.Mineral:
-                spawnArea = spawnAreas.GetRandomArea(SpawnAreas.EntityClass.mineral);
-                break;
-
-            default:
-                break;
-        }
-
-        if (!position.HasValue)
-            entityManager.Spawn(spawnArea);
+        if (position.HasValue)
+            entityManagers[entityType].SpawnByCoordinates(position.Value);
         else
-            entityManager.SpawnByCoordinates(position.Value);
+            entityManagers[entityType].Spawn();
     }
 
     public GameObject GetAim(EntityType aimType, Vector3 finderPosition)
@@ -128,14 +115,15 @@ public class SceneManager : MonoBehaviour
     {
         prefabs = new Dictionary<EntityType, GameObject>();
 
-        prefabs[EntityType.Infection] = Resources.Load<GameObject>(PathToInfectionPrefab);
-        prefabs[EntityType.Erythrocyte] = Resources.Load<GameObject>(PathToErythrocytePrefab);
-        prefabs[EntityType.Lymphocyte] = Resources.Load<GameObject>(PathToLymphocytePrefab);
-        prefabs[EntityType.Granulocyte] = Resources.Load<GameObject>(PathToGranulocytePrefab);
-        prefabs[EntityType.Toxin] = Resources.Load<GameObject>(PathToToxinPrefab);
-        prefabs[EntityType.Mineral] = Resources.Load<GameObject>(PathToMineralPrefab);
-        healthbarPrefab = Resources.Load<GameObject>(PathToHealthbarPrefab);
+        foreach (EntityType type in Enum.GetValues(typeof(EntityType)))
+        {
+            if (type == EntityType.Heart)
+                continue;
 
-        level.InitUnits(prefabs, healthbarPrefab);
+            prefabs[type] = Resources.Load<GameObject>(PathPrefabs + type.ToString());
+        }
+
+        level.InitUnits(prefabs);
+        healthbarPrefab = Resources.Load<GameObject>(PathHealthbarPrefab);
     }
 }
