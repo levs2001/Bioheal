@@ -32,14 +32,15 @@ public class Loader
     {
         string json = File.ReadAllText(configPath);
         config = JsonConvert.DeserializeObject<ConfigJson>(json);
-        amountOfLevels = config.levels.Length;
-        levels = new LevelData[amountOfLevels];
-        for (int i = 0; i < amountOfLevels; i++)
+        long size = config.levels.Length;
+        amountOfLevels = size - 1; //start numeration with 0
+        levels = new LevelData[size];
+        for (int i = 0; i < size; i++)
         {
             levels[i] = new LevelData(config.levels[i]);
         }
 
-        for (int i = 0; i < amountOfLevels; i++)
+        for (int i = 0; i < size; i++)
         {
             if (config.levels[i].cleared == false)
             {

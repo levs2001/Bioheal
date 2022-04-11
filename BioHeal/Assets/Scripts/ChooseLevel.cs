@@ -7,8 +7,7 @@ using static Loader;
 
 public class ChooseLevel : MonoBehaviour
 {
-    //TODO: read it from Loader
-    private int levels_per_page = 15, first_page = 1;
+    private const int levels_per_page = 15, first_page = 0;
     private int countOpenedLevel, page, last_page;
     private long amountOfLevels;
 
@@ -52,10 +51,10 @@ public class ChooseLevel : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        countOpenedLevel = Loader.LoaderInstance.FirstNotClearedLevel + 1;
+        countOpenedLevel = Loader.LoaderInstance.FirstNotClearedLevel;
         amountOfLevels = Loader.LoaderInstance.AmountOfLevels;
 
-        last_page = (int)Math.Ceiling((double)amountOfLevels / levels_per_page);
+        last_page = (int)Math.Floor((double)amountOfLevels / levels_per_page);
 
         page = first_page;
         UpdateButtons();
@@ -63,35 +62,34 @@ public class ChooseLevel : MonoBehaviour
 
     private void UpdateButtons()
     {
-        for (int i = 0; i < transform.childCount; ++i)
+        for (int butNum = 0; butNum < transform.childCount; ++butNum)
         {
-            transform.GetChild(i).GetComponent<Button>().enabled = true;
-            transform.GetChild(i).GetComponent<Image>().enabled = true;
-            transform.GetChild(i).GetComponentInChildren<Text>().enabled = true;
-
+            transform.GetChild(butNum).GetComponent<Button>().enabled = true;
+            transform.GetChild(butNum).GetComponent<Image>().enabled = true;
+            transform.GetChild(butNum).GetComponentInChildren<Text>().enabled = true;
 
             //if level is open
-            if ((i + 1) + (levels_per_page * (page - 1)) <= countOpenedLevel)
+            if (butNum + levels_per_page * page <= countOpenedLevel)
             {
-                transform.GetChild(i).GetComponent<Image>().sprite = openedIcon;
-                transform.GetChild(i).GetComponent<Button>().interactable = true;
-                transform.GetChild(i).GetComponentInChildren<Text>().text = $"{(i + 1) + (levels_per_page * (page - 1))}";
+                transform.GetChild(butNum).GetComponent<Image>().sprite = openedIcon;
+                transform.GetChild(butNum).GetComponent<Button>().interactable = true;
+                transform.GetChild(butNum).GetComponentInChildren<Text>().text = $"{(butNum + 1) + (levels_per_page * page)}";
             }
 
             //level exists but closed
-            else if ((i + 1) + (levels_per_page * (page - 1)) > countOpenedLevel && (i + 1) + (levels_per_page * (page - 1)) <= amountOfLevels)
+            else if (butNum + levels_per_page * page <= amountOfLevels)
             {
-                transform.GetChild(i).GetComponent<Image>().sprite = closedIcon;
-                transform.GetChild(i).GetComponent<Button>().interactable = false;
-                transform.GetChild(i).GetComponentInChildren<Text>().text = $"{(i + 1) + (levels_per_page * (page - 1))}";
+                transform.GetChild(butNum).GetComponent<Image>().sprite = closedIcon;
+                transform.GetChild(butNum).GetComponent<Button>().interactable = false;
+                transform.GetChild(butNum).GetComponentInChildren<Text>().text = $"{(butNum + 1) + (levels_per_page * page)}";
             }
 
             //level does not exist
-            else if ((i + 1) + (levels_per_page * (page - 1)) > countOpenedLevel && (i + 1) + (levels_per_page * (page - 1)) > amountOfLevels)
+            else
             {
-                transform.GetChild(i).GetComponent<Button>().enabled = false;
-                transform.GetChild(i).GetComponent<Image>().enabled = false;
-                transform.GetChild(i).GetComponentInChildren<Text>().enabled = false;
+                transform.GetChild(butNum).GetComponent<Button>().enabled = false;
+                transform.GetChild(butNum).GetComponent<Image>().enabled = false;
+                transform.GetChild(butNum).GetComponentInChildren<Text>().enabled = false;
             }
         }
     }
