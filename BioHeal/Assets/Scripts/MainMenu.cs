@@ -26,15 +26,17 @@ public class MainMenu : MonoBehaviour
     }
 
     public void LoadGameScene()
-    {   
+    {
         Loader.LoaderInstance.CurrentLevel = Loader.LoaderInstance.FirstNotClearedLevel;
         Debug.Log($"Load level #{Loader.LoaderInstance.CurrentLevel + 1}");
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
     public void ExitGame()
     {
         //It does not work in editor, only at game's runtime 
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         Application.Quit();
     }
 

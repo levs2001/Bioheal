@@ -35,7 +35,7 @@ public class Unit : Alive
             rb.velocity = Vector2.zero;
     }
 
-    protected void FindNewAimIfNeeded()
+    virtual protected void FindNewAimIfNeeded()
     {
         if (aim.entity == null)
             aim.entity = SceneManager.sceneManager.GetAim(aim.entityType.Value, this.transform.position);
