@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 // and share config wherever needed
 public class Loader
 {
-    private const string configPath = "Assets/Resources/config.json";
+    private const string configPath = "config";
     private ConfigJson config = null;
     private LevelData[] levels;
     private int firstNotClearedLevel = 0;
@@ -30,7 +30,9 @@ public class Loader
 
     private Loader()
     {
-        string json = File.ReadAllText(configPath);
+        // Loading config from resource
+        string json = (Resources.Load<TextAsset>(configPath)).ToString();
+        Debug.Log(json);
         config = JsonConvert.DeserializeObject<ConfigJson>(json);
         long size = config.levels.Length;
         amountOfLevels = size - 1; //start numeration with 0
