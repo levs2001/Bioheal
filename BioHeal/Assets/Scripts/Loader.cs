@@ -12,13 +12,14 @@ public class Loader
     private ConfigJson config = null;
     private LevelData[] levels;
     private int firstNotClearedLevel = 0;
-
+    private int currentLevel;
+    private long amountOfLevels;
     private static Loader loader = null;
-    
+
     public static Loader LoaderInstance
     {
-        get 
-        { 
+        get
+        {
             if (loader == null)
             {
                 loader = new Loader();
@@ -32,6 +33,7 @@ public class Loader
         string json = File.ReadAllText(configPath);
         config = JsonConvert.DeserializeObject<ConfigJson>(json);
         long size = config.levels.Length;
+        amountOfLevels = size - 1; //start numeration with 0
         levels = new LevelData[size];
         for (int i = 0; i < size; i++)
         {
@@ -45,7 +47,39 @@ public class Loader
                 firstNotClearedLevel = i;
                 break;
             }
-        } 
+        }
+    }
+
+    //Setting this in ChooseLevel.cs, getting in SceneManager.cs
+    public int CurrentLevel
+    {
+        set
+        {
+            currentLevel = value;
+        }
+
+        get
+        {
+            return currentLevel;
+        }
+    }
+
+    //Getting this in MainMenu.cs
+    public int FirstNotClearedLevel
+    {
+        get
+        {
+            return firstNotClearedLevel;
+        }
+    }
+
+    //getting this in ChooseLevel.cs
+    public long AmountOfLevels
+    {
+        get
+        {
+            return amountOfLevels;
+        }
     }
 
     public LevelData GetLevel(int num)
