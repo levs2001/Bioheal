@@ -59,7 +59,7 @@ public class HealthDisplay : MonoBehaviour {
         if (Loader.LoaderInstance.healthDisplayType == HealthDisplayType.MODEL_SIZE)
         {
             float scaleFactor = force * 1.0f / maxForce;
-            this.transform.localScale = new Vector2(maxScale.x * scaleFactor, maxScale.y * scaleFactor);    
+            owner.transform.localScale = new Vector2(maxScale.x * scaleFactor, maxScale.y * scaleFactor);    
         }
     }
 
