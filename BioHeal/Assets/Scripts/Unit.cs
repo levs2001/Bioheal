@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Unit : Alive
 {
@@ -9,12 +10,13 @@ public class Unit : Alive
     protected Aim aim;
 
     // Start is called before the first frame update
-    protected void Start()
+    protected override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
     }
 
-    protected void FixedUpdate()
+    virtual protected void FixedUpdate()
     {
         FindNewAimIfNeeded();
         Move();
@@ -38,13 +40,16 @@ public class Unit : Alive
     virtual protected void FindNewAimIfNeeded()
     {
         if (aim.entity == null)
+        {
             aim.entity = SceneManager.sceneManager.GetAim(aim.entityType.Value, this.transform.position);
+        }
     }
 
     public void Init(float velocity, int force)
     {
         this.velocity = velocity;
         this.force = force;
+        this.maxForce = force;
     }
 
     protected struct Aim

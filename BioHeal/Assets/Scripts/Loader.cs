@@ -15,7 +15,7 @@ public class Loader
     private int currentLevel;
     private long amountOfLevels;
     private static Loader loader = null;
-
+    public HealthDisplayType healthDisplayType { get; set; } = HealthDisplayType.ModelSize;
     public static Loader LoaderInstance
     {
         get
@@ -34,6 +34,7 @@ public class Loader
         string json = (Resources.Load<TextAsset>(configPath)).ToString();
         Debug.Log(json);
         config = JsonConvert.DeserializeObject<ConfigJson>(json);
+        healthDisplayType = (HealthDisplayType)Enum.Parse(typeof(HealthDisplayType), config.healthDisplayType, true);
         long size = config.levels.Length;
         amountOfLevels = size - 1; //start numeration with 0
         levels = new LevelData[size];
@@ -125,4 +126,5 @@ public class Loader
         string jsonText = JsonConvert.SerializeObject(config);
         File.WriteAllText(configPath, jsonText);
     }
+
 }

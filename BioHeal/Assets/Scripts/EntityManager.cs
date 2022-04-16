@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+// using System;
 
 public class EntityManager
 {
@@ -7,7 +8,6 @@ public class EntityManager
     private readonly List<GameObject> busyEntities;
 
     private GameObject prefab;
-
     private SpawnAreas spawnAreas;
 
     //For testing
@@ -89,5 +89,4 @@ public class EntityManager
 
         SpawnByCoordinates(new Vector3(x, y, 0.0f));
     }
-
 }

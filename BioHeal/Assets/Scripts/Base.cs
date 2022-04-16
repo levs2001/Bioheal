@@ -122,10 +122,11 @@ public class Base : Alive
     }
 
     // Start is called before the first frame update
-    private void Start()
+    protected override void Start()
     {
         //Init();
-
+        
+        base.Start();
         textMoneyMenu.text = $"{money}";
         textMoneyBase.text = $"{money}";
         textForceBase.text = $"{force}";

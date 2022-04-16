@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,14 +9,14 @@ public class Settings : MonoBehaviour
 
     public void ToggleSelected(Toggle toggle)
     {
-        //TO DO: write this to json
         selectedToggle = toggle;
+        Loader.LoaderInstance.healthDisplayType = (HealthDisplayType)Array.IndexOf(toggles, toggle);
     }
 
     private void Start()
     {
-        //TO DO: read it from json
-        selectedToggle = toggles[0];
+        selectedToggle = toggles[(int)Loader.LoaderInstance.healthDisplayType];
+        //TODO: it isn't dysplayed in ui, need to subscribe on change
     }
 
 }

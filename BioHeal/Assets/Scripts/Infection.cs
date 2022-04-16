@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Infection : Warrior
 {
-    private new void Start()
+    protected override void Start()
     {
         base.Start();
         entityType = EntityType.Infection;

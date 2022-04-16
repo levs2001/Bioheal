@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 356191018}
   m_Layer: 5
   m_Name: UICanvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -660,6 +660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 0
+  maxForce: 0
   menuBase: {fileID: 1288344656}
   textMoneyMenu: {fileID: 974130622}
   textLimfo: {fileID: 434380659}
@@ -703,6 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc83cec69749d08290bb443bb308eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthbarPrefab: {fileID: 0}
 --- !u!4 &416085463
 Transform:
   m_ObjectHideFlags: 0

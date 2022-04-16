@@ -6,11 +6,13 @@ using System.Linq;
 public class SceneManager : MonoBehaviour
 {
     private const string PathPrefabs = "Entities/";
+    private const string PathHealthDisplayPrefabs = "Entities/HealthDisplay/";
     public static SceneManager sceneManager { get; private set; }
 
     private Dictionary<EntityType, EntityManager> entityManagers;
 
     private Dictionary<EntityType, GameObject> prefabs;
+    public GameObject healthbarPrefab;
 
     private Dictionary<EntityType, float> timeToSpawn;
 
@@ -76,13 +78,14 @@ public class SceneManager : MonoBehaviour
         {
             for (int i = 0; i < level.InitialCount[type]; i++)
             {
+
                 entityManagers[type].Spawn();
             }
         }
 
         SoundManager.Instance.PlaySound(SoundManager.SoundType.MainTheme);
     }
-    
+
     public void SpawnEntity(EntityType entityType, Vector3? position = null)
     {
         if (position.HasValue)
@@ -122,5 +125,6 @@ public class SceneManager : MonoBehaviour
         }
 
         level.InitUnits(prefabs);
+        healthbarPrefab = Resources.Load<GameObject>(PathHealthDisplayPrefabs + Loader.LoaderInstance.healthDisplayType.ToString());
     }
 }
