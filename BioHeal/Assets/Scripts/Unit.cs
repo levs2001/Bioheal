@@ -9,23 +9,14 @@ public class Unit : Alive
 
     protected Aim aim;
 
-    public GameObject HealthDisplay 
-    {
-        set {healthbar = value;}
-    }
-
     // Start is called before the first frame update
-    protected void Start()
+    protected override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
-
-        GameObject healthbar = GameObject.Instantiate(SceneManager.sceneManager.healthbarPrefab, transform.position, Quaternion.identity);
-        
-        HealthDisplay = healthbar;
-        healthbar.GetComponent<HealthDisplay>().Owner = this;
     }
 
-    protected void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         FindNewAimIfNeeded();
         Move();

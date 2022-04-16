@@ -80,10 +80,6 @@ public class EntityManager
         entity.transform.position = position;
 
         freeEntities.Add(entity);
-        // if (hasForce)
-        // {
-        //     SetHealthDisplay(Loader.LoaderInstance.healthDisplayType);
-        // }
     }
 
     public void Spawn()
@@ -95,29 +91,4 @@ public class EntityManager
 
         SpawnByCoordinates(new Vector3(x, y, 0.0f));
     }
-
-    // private void SetHealthDisplay(HealthDisplayType healthDisplay)
-    // {
-
-    //     switch (healthDisplay)
-    //     {
-    //         case HealthDisplayType.BAR:
-    //             SetBarDisplay();
-    //             break;
-    //         case HealthDisplayType.NONE:
-    //             break;
-    //         case HealthDisplayType.MODEL_SIZE:
-    //             break;
-    //         default: throw new System.Exception("not handled health display type");
-    //     }
-    // }
-
-    // private void SetBarDisplay()
-    // {
-    //     GameObject entity = freeEntities[freeEntities.Count - 1];
-    //     GameObject healthbar = GameObject.Instantiate(SceneManager.sceneManager.healthbarPrefab, entity.transform.position, Quaternion.identity);
-        
-    //     entity.GetComponent<Unit>().HealthDisplay = healthbar;
-    // }
-
 }

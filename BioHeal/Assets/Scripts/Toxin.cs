@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class Toxin : Warrior
 {
-    new private void Start()
+    protected override void Start()
     {
         base.Start();
         entityType = EntityType.Toxin;
         aim = new Aim(EntityType.Erythrocyte);
     }
 
-    new private void OnTriggerStay2D(Collider2D other)
+    protected override void OnTriggerStay2D(Collider2D other)
     {
         base.OnTriggerStay2D(other);
         if (aim.entity != null && other.tag == aim.entityType.ToString() && other == aim.entity.GetComponent("Collider2D"))

@@ -22,14 +22,20 @@ public class Alive : MonoBehaviour
 
         if (force <= 0)
         {
-            if (healthbar != null)
-            {
-                Destroy(healthbar);
-            }
+            Destroy(healthbar);
             SceneManager.sceneManager.DeleteObject(entityType, this.gameObject);
         }
+
         if (entityTakeDamageEvent != null)
+        {
             entityTakeDamageEvent();
+        }
+    }
+
+    protected virtual void Start()
+    {
+        healthbar = Instantiate(SceneManager.sceneManager.healthbarPrefab, transform.position, Quaternion.identity);
+        healthbar.GetComponent<HealthDisplay>().Owner = this;
     }
 }
 

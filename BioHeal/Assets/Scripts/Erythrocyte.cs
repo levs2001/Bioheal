@@ -7,7 +7,7 @@ public class Erythrocyte : Unit
 
     private SpriteRenderer spriteRenderer;
 
-    new private void Start()
+    protected override void Start()
     {
         base.Start();
         spriteRenderer = GetComponent<SpriteRenderer>();

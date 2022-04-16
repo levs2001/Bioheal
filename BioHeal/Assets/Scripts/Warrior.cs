@@ -7,7 +7,7 @@ public class Warrior : Unit
         aim.entity.GetComponent<Alive>().TakeDamage(force);
     }
 
-    protected void OnTriggerStay2D(Collider2D other)
+    protected virtual void OnTriggerStay2D(Collider2D other)
     {
         if (aim.entity != null && other.CompareTag(aim.entityType.ToString()) && other == aim.entity.GetComponent("Collider2D"))
         {

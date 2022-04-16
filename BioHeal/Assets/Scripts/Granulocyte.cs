@@ -4,20 +4,20 @@ public class Granulocyte : Warrior
 {
     private float moveRadius = 3f;
 
-    new private void Start()
+    protected override void Start()
     {
         base.Start();
         entityType = EntityType.Granulocyte;
         aim = new Aim(EntityType.Infection);
     } 
 
-    new private void FixedUpdate() {
+    protected override void FixedUpdate() {
         
         FindNewAimIfNeeded();
         Move();
     }
 
-    new private void Move()
+    protected override void Move()
     {
         if (aim.entity != null)
         {

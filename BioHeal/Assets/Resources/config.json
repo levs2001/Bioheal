@@ -14,8 +14,8 @@
                     "name": "Infection",
                     "speed": 4,
                     "force": 1,
-                    "frequency": 5,
-                    "amountPerLevel" : 20
+                    "frequency": 1,
+                    "amountPerLevel" : 100
                 }
             ],
             "allies": [

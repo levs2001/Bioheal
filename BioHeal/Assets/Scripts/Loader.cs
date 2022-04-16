@@ -15,12 +15,12 @@ public class Loader
 
     private static Loader loader = null;
 
-    public HealthDisplayType healthDisplayType = HealthDisplayType.MODEL_SIZE;
-    
+    public HealthDisplayType healthDisplayType { get; } = HealthDisplayType.ModelSize;
+
     public static Loader LoaderInstance
     {
-        get 
-        { 
+        get
+        {
             if (loader == null)
             {
                 loader = new Loader();
@@ -47,7 +47,7 @@ public class Loader
                 firstNotClearedLevel = i;
                 break;
             }
-        } 
+        }
     }
 
     public LevelData GetLevel(int num)

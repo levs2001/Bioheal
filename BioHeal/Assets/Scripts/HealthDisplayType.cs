@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public enum HealthDisplayType 
-{ 
-    BAR,
-    MODEL_SIZE,
-    NONE 
+public enum HealthDisplayType
+{   
+    //TODO: UPPER CASE and toString override, to use in scene manager
+    Bar,
+    ModelSize,
+    None
 }
