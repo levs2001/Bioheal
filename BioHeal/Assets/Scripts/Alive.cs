@@ -10,8 +10,6 @@ public class Alive : MonoBehaviour
     protected event EntityTakeDamage entityTakeDamageEvent = null;
     protected GameObject healthbar;
 
-    protected Vector2 maxScale = new Vector2(0f,0f);
-
     public int Force
     {
         set { force = value; }
@@ -21,20 +19,13 @@ public class Alive : MonoBehaviour
     public void TakeDamage(int damage)
     {
         force -= damage;
-        if (healthbar != null && Loader.LoaderInstance.healthDisplayType == HealthDisplayType.BAR)
-        {
-            healthbar.GetComponent<HealthBar>().Force -= damage;
-        }
-
-        // TODO: refactor this part
-        if (Loader.LoaderInstance.healthDisplayType == HealthDisplayType.MODEL_SIZE)
-        {
-            float scaleFactor = force * 1.0f / maxForce;
-            this.transform.localScale = new Vector2(maxScale.x * scaleFactor, maxScale.y * scaleFactor);    
-        }
 
         if (force <= 0)
         {
+            if (healthbar != null)
+            {
+                Destroy(healthbar);
+            }
             SceneManager.sceneManager.DeleteObject(entityType, this.gameObject);
         }
         if (entityTakeDamageEvent != null)

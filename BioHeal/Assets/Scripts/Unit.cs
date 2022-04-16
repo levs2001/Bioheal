@@ -8,31 +8,21 @@ public class Unit : Alive
     [SerializeField] protected float velocity = 2f;
 
     protected Aim aim;
-    private RectTransform healthbarPos;
 
     public GameObject HealthDisplay 
     {
-        set 
-        {
-            healthbar = value;
-            
-            if (Loader.LoaderInstance.healthDisplayType == HealthDisplayType.BAR)
-            {
-                HealthBar hb = healthbar.GetComponent<HealthBar>();
-                hb.Force = force;
-                hb.MaxForce = force;
-
-                healthbarPos = healthbar.GetComponent<RectTransform>();
-                healthbarPos.sizeDelta = new Vector2 (0.8f, 0.25f);
-            }
-        }
+        set {healthbar = value;}
     }
 
     // Start is called before the first frame update
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        this.maxScale = this.transform.localScale;
+
+        GameObject healthbar = GameObject.Instantiate(SceneManager.sceneManager.healthbarPrefab, transform.position, Quaternion.identity);
+        
+        HealthDisplay = healthbar;
+        healthbar.GetComponent<HealthDisplay>().Owner = this;
     }
 
     protected void FixedUpdate()
@@ -54,11 +44,6 @@ public class Unit : Alive
         }
         else
             rb.velocity = Vector2.zero;
-        
-        if (healthbarPos != null)
-        {
-            healthbarPos.anchoredPosition = new Vector3(myPos.x, myPos.y + 0.5f, 0);
-        }
     }
 
     protected void FindNewAimIfNeeded()
