@@ -12,7 +12,6 @@ public abstract class HealthDisplay : MonoBehaviour
         set { owner = value; }
     }
 
-
     protected virtual void Start()
     {
         maxForce = owner.Force;
