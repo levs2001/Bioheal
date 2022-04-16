@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,5 +21,8 @@ public class HealthDisplayBar : HealthDisplay
         base.FixedUpdate();
         rectTransform.anchoredPosition = new Vector3(owner.transform.position.x, owner.transform.position.y + 0.5f, 0); // mb change to coordinate wise assignation
         healthBar.fillAmount = healthPercentage;
+        //TODO: can be ineffective, because we updete already and not subscribe on change 
+        byte bPers = (byte)(healthPercentage * byte.MaxValue);
+        healthBar.color = new Color32((byte)(byte.MaxValue - bPers), bPers, 0, byte.MaxValue);
     }
 }

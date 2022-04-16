@@ -1,6 +1,6 @@
 {
     
-    "healthDisplayType": "ModelSize",
+    "healthDisplayType": "Bar",
     "defaultLevel": {},
     "levels": [
         {
@@ -9,8 +9,8 @@
                     "name": "Toxin",
                     "speed": 4,
                     "force": 2,
-                    "frequency": 15,
-                    "amountPerLevel" : 5
+                    "frequency": 5,
+                    "amountPerLevel" : 10
                 },
                 {
                     "name": "Infection",

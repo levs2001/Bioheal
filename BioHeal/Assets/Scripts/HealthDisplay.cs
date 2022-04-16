@@ -5,6 +5,7 @@ public abstract class HealthDisplay : MonoBehaviour
     private int maxForce = 100;
     private int force = 50;
     protected float healthPercentage = 0;
+    // TODO: Think about using only transorm from owner
     protected Alive owner;
 
     public Alive Owner

@@ -41,7 +41,8 @@ public class SceneManager : MonoBehaviour
     {
         sceneManager = this;
 
-        LevelData level = Loader.LoaderInstance.GetLevel(0);
+        //load current level from loader
+        LevelData level = Loader.LoaderInstance.GetLevel(Loader.LoaderInstance.CurrentLevel);
 
         InitPrefabs(level);
 

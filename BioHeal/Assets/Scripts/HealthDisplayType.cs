@@ -1,7 +1,6 @@
-public enum HealthDisplayType
+public enum HealthDisplayType : int
 {
-    //TODO: UPPER CASE and toString override, to use in scene manager
-    Bar,
-    ModelSize,
-    None
+    Bar = 0,
+    ModelSize = 1,
+    None = 2
 }

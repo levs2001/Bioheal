@@ -8,13 +8,13 @@ using Newtonsoft.Json;
 // and share config wherever needed
 public class Loader
 {
-    private const string configPath = "Assets/Resources/config.json";
+    private const string configPath = "config";
     private ConfigJson config = null;
     private LevelData[] levels;
     private int firstNotClearedLevel = 0;
-
+    private int currentLevel;
+    private long amountOfLevels;
     private static Loader loader = null;
-
     public HealthDisplayType healthDisplayType { get; set; } = HealthDisplayType.ModelSize;
     public static Loader LoaderInstance
     {
@@ -30,10 +30,13 @@ public class Loader
 
     private Loader()
     {
-        string json = File.ReadAllText(configPath);
+        // Loading config from resource
+        string json = (Resources.Load<TextAsset>(configPath)).ToString();
+        Debug.Log(json);
         config = JsonConvert.DeserializeObject<ConfigJson>(json);
         healthDisplayType = (HealthDisplayType)Enum.Parse(typeof(HealthDisplayType), config.healthDisplayType, true);
         long size = config.levels.Length;
+        amountOfLevels = size - 1; //start numeration with 0
         levels = new LevelData[size];
         for (int i = 0; i < size; i++)
         {
@@ -47,6 +50,38 @@ public class Loader
                 firstNotClearedLevel = i;
                 break;
             }
+        }
+    }
+
+    //Setting this in ChooseLevel.cs, getting in SceneManager.cs
+    public int CurrentLevel
+    {
+        set
+        {
+            currentLevel = value;
+        }
+
+        get
+        {
+            return currentLevel;
+        }
+    }
+
+    //Getting this in MainMenu.cs
+    public int FirstNotClearedLevel
+    {
+        get
+        {
+            return firstNotClearedLevel;
+        }
+    }
+
+    //getting this in ChooseLevel.cs
+    public long AmountOfLevels
+    {
+        get
+        {
+            return amountOfLevels;
         }
     }
 
