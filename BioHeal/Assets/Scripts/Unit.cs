@@ -16,7 +16,7 @@ public class Unit : Alive
         rb = GetComponent<Rigidbody2D>();
     }
 
-    protected virtual void FixedUpdate()
+    virtual protected void FixedUpdate()
     {
         FindNewAimIfNeeded();
         Move();

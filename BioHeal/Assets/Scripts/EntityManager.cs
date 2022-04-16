@@ -8,7 +8,6 @@ public class EntityManager
     private readonly List<GameObject> busyEntities;
 
     private GameObject prefab;
-    private bool hasForce = false;
     private SpawnAreas spawnAreas;
 
     //For testing
@@ -26,7 +25,6 @@ public class EntityManager
     public EntityManager(GameObject prefab, EntityType entityType)
     {
         this.prefab = prefab;
-        this.hasForce = entityType != EntityType.Mineral;
         freeEntities = new List<GameObject>();
         busyEntities = new List<GameObject>();
 
