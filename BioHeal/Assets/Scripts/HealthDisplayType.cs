@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum HealthDisplayType 
 { 
-    BAR,
-    MODEL_SIZE,
-    NONE 
+    Bar,
+    ModelSize,
+    None 
 }

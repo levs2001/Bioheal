@@ -35,13 +35,13 @@ public class HealthDisplay : MonoBehaviour {
         rectTransform = GetComponent<RectTransform>();
         rectTransform.sizeDelta = SIZE_DELTA; // set healthbar size
 
-        if (Loader.LoaderInstance.healthDisplayType == HealthDisplayType.MODEL_SIZE)
+        if (Loader.LoaderInstance.healthDisplayType == HealthDisplayType.ModelSize)
         {
             maxScale = owner.transform.localScale;
         }
 
         healthBar = transform.Find("Health").GetComponent<Image>();
-        if (Loader.LoaderInstance.healthDisplayType != HealthDisplayType.BAR)
+        if (Loader.LoaderInstance.healthDisplayType != HealthDisplayType.Bar)
         {
             // healthBar.enabled = false;
             GetComponent<Canvas>().enabled = false;
@@ -56,7 +56,7 @@ public class HealthDisplay : MonoBehaviour {
         rectTransform.anchoredPosition = new Vector3(owner.transform.position.x, owner.transform.position.y + 0.5f, 0); // mb change to coordinate wise assignation
         healthBar.fillAmount = healthPercentage;
 
-        if (Loader.LoaderInstance.healthDisplayType == HealthDisplayType.MODEL_SIZE)
+        if (Loader.LoaderInstance.healthDisplayType == HealthDisplayType.ModelSize)
         {
             float scaleFactor = force * 1.0f / maxForce;
             owner.transform.localScale = new Vector2(maxScale.x * scaleFactor, maxScale.y * scaleFactor);    

@@ -15,7 +15,7 @@ public class Loader
 
     private static Loader loader = null;
 
-    public HealthDisplayType healthDisplayType = HealthDisplayType.MODEL_SIZE;
+    public HealthDisplayType healthDisplayType = HealthDisplayType.Bar;
     
     public static Loader LoaderInstance
     {
@@ -33,6 +33,7 @@ public class Loader
     {
         string json = File.ReadAllText(configPath);
         config = JsonConvert.DeserializeObject<ConfigJson>(json);
+        healthDisplayType = (HealthDisplayType) Enum.Parse(typeof(HealthDisplayType), config.healthDisplayType , true);
         long size = config.levels.Length;
         levels = new LevelData[size];
         for (int i = 0; i < size; i++)
