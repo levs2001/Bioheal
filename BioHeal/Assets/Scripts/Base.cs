@@ -18,6 +18,7 @@ public class Base : Alive
     [SerializeField] private GameObject menuEndLevel;
     [SerializeField] private Text textLoadLevel;
     [SerializeField] private Button buttonLoadLevel;
+    [SerializeField] private Button buttonGoToMainMenu;
     [SerializeField] private Text textResultLevel;
 
     private float scale; //remember timeScale if clicking on pause or game is ended
@@ -121,13 +122,21 @@ public class Base : Alive
     }
 
     //TO DO: call it from real end game (when base is dead or enemies are killed)
-    private void EndLevel(EndGameEnum res)
+    private void EndGame(EndGameEnum res)
     {
         //remember scale
         scale = Time.timeScale;
         Time.timeScale = 0;
 
         menuEndLevel.SetActive(true);
+
+        //all buttons are not available except buttons from EndGameMenu
+        Object[] buttons = GameObject.FindObjectsOfType(typeof(Button));
+        foreach (Button b in buttons)
+            b.GetComponent<Button>().interactable = false;
+
+        buttonLoadLevel.GetComponent<Button>().interactable = true;
+        buttonGoToMainMenu.GetComponent<Button>().interactable = true;
 
         if (res == EndGameEnum.WIN)
         {
@@ -149,12 +158,20 @@ public class Base : Alive
     ////////// Methods from EndGameMenu //////////
     public void LoadLevelButton()
     {
+        Object[] buttons = GameObject.FindObjectsOfType(typeof(Button));
+        foreach (Button b in buttons)
+            b.GetComponent<Button>().interactable = true;
+
         Time.timeScale = scale;
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
     public void GoToMainMenu()
     {
+        Object[] buttons = GameObject.FindObjectsOfType(typeof(Button));
+        foreach (Button b in buttons)
+            b.GetComponent<Button>().interactable = true;
+
         Time.timeScale = scale;
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }

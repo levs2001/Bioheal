@@ -834,6 +834,7 @@ MonoBehaviour:
   menuEndLevel: {fileID: 1134163284}
   textLoadLevel: {fileID: 1994874517}
   buttonLoadLevel: {fileID: 950903672}
+  buttonGoToMainMenu: {fileID: 972272085}
   textResultLevel: {fileID: 192273447}
 --- !u!4 &362898764 stripped
 Transform:
