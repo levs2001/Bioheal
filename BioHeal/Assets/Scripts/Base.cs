@@ -121,11 +121,17 @@ public class Base : Alive
         }
     }
 
+    private void Die()
+    {
+        Time.timeScale = 0;
+        //TODO: Method that opens the lose menu
+    }
+
     // Start is called before the first frame update
     protected override void Start()
     {
         //Init();
-        
+
         base.Start();
         textMoneyMenu.text = $"{money}";
         textMoneyBase.text = $"{money}";
@@ -143,6 +149,13 @@ public class Base : Alive
 
         entityTakeDamageEvent += ChangeForceTextAndCloseMenuIfNeeded;
         entityTakeDamageEvent += (() => SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDamage));
-        entityTakeDamageEvent += (() => { if (force <= 0) SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDead); });
+        entityTakeDamageEvent += (() =>
+        {
+            if (force <= 0)
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDead);
+                Die();
+            }
+        });
     }
 }

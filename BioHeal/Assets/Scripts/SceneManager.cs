@@ -78,12 +78,20 @@ public class SceneManager : MonoBehaviour
         {
             for (int i = 0; i < level.InitialCount[type]; i++)
             {
-
                 entityManagers[type].Spawn();
             }
         }
 
         SoundManager.Instance.PlaySound(SoundManager.SoundType.MainTheme);
+    }
+
+    private void Update()
+    {
+        if (CheckThatAllEnemiesDestroyed())
+        {
+            Time.timeScale = 0;
+            //TODO: Method that open the win menu
+        }
     }
 
     public void SpawnEntity(EntityType entityType, Vector3? position = null)
@@ -110,6 +118,19 @@ public class SceneManager : MonoBehaviour
     public void TransferEntityFromBusyToFree(EntityType managerType, GameObject entity)
     {
         entityManagers[managerType].TransferFromBusyToFree(entity);
+    }
+
+    private bool CheckThatAllEnemiesDestroyed()
+    {
+        foreach (EntityType type in amountEnemiesPerLevel.Keys)
+        {
+            if (amountEnemiesPerLevel[type] != 0 || entityManagers[type].FreeEntities.Count != 0 || entityManagers[type].BusyEntities.Count != 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void InitPrefabs(LevelData level)
