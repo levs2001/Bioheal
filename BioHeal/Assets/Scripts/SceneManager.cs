@@ -40,7 +40,12 @@ public class SceneManager : MonoBehaviour
     private void Awake()
     {
         sceneManager = this;
+        InitLevel();
+    }
 
+    //method to init new levels
+    public void InitLevel()
+    {
         //load current level from loader
         LevelData level = Loader.LoaderInstance.GetLevel(Loader.LoaderInstance.CurrentLevel);
 

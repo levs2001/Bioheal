@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
+using static Loader;
 
 public class Base : Alive
 {
@@ -13,6 +14,13 @@ public class Base : Alive
     [SerializeField] private Text textInfo;
     [SerializeField] private Text textMoneyBase, textForceBase;
 
+    //fields at EndGameMenu
+    [SerializeField] private GameObject menuEndLevel;
+    [SerializeField] private Text textLoadLevel;
+    [SerializeField] private Button buttonLoadLevel;
+    [SerializeField] private Text textResultLevel;
+
+    private float scale; //remember timeScale if clicking on pause or game is ended
     private int money;
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
 
@@ -112,6 +120,46 @@ public class Base : Alive
         textMoneyBase.text = $"{money}";
     }
 
+    //TO DO: call it from real end game (when base is dead or enemies are killed)
+    private void EndLevel(EndGameEnum res)
+    {
+        //remember scale
+        scale = Time.timeScale;
+        Time.timeScale = 0;
+
+        menuEndLevel.SetActive(true);
+
+        if (res == EndGameEnum.WIN)
+        {
+            //set this level cleared and make firstNotCleared level = next level
+            Loader.LoaderInstance.SetLevelCleared(Loader.LoaderInstance.CurrentLevel);
+            Loader.LoaderInstance.CurrentLevel = Loader.LoaderInstance.FirstNotClearedLevel;
+
+            SceneManager.sceneManager.InitLevel();
+            textResultLevel.text = $"You won!";
+            textLoadLevel.text = $"Next\nlevel";
+        }
+        else //lose
+        {
+            textLoadLevel.text = $"Again";
+            textResultLevel.text = $"You lost...";
+        }
+    }
+
+    ////////// Methods from EndGameMenu //////////
+    public void LoadLevelButton()
+    {
+        Time.timeScale = scale;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = scale;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+    //////////
+
     private void ChangeForceTextAndCloseMenuIfNeeded()
     {
         textForceBase.text = force < 0 ? $"{0}" : $"{force}";
@@ -140,9 +188,16 @@ public class Base : Alive
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
+        menuEndLevel.SetActive(false);
 
         entityTakeDamageEvent += ChangeForceTextAndCloseMenuIfNeeded;
         entityTakeDamageEvent += (() => SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDamage));
         entityTakeDamageEvent += (() => { if (force <= 0) SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDead); });
+    }
+
+    private enum EndGameEnum
+    {
+        WIN,
+        LOSE
     }
 }
