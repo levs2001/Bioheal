@@ -13,13 +13,7 @@ public class Base : Alive
     [SerializeField] private Text textInfo;
     [SerializeField] private Text textMoneyBase, textForceBase;
 
-    [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private Button resumeGameButton;
-    [SerializeField] private Button howToPlayButton;
-    [SerializeField] private Button goToMainMenuButton;
-
     private int money;
-    private float scale; //field to remember timeScale
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
 
     public int Money
@@ -96,43 +90,6 @@ public class Base : Alive
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
     }
 
-    public void PauseButton()
-    {
-        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
-        pauseMenu.SetActive(true);
-        scale = Time.timeScale;
-        Time.timeScale = 0;
-
-        //all buttons are not available except buttons at PauseMenu
-        Object[] buttons = GameObject.FindObjectsOfType(typeof(Button));
-        foreach (Button b in buttons)
-            b.GetComponent<Button>().interactable = false;
-
-        resumeGameButton.GetComponent<Button>().interactable = true;
-        howToPlayButton.GetComponent<Button>().interactable = true;
-        goToMainMenuButton.GetComponent<Button>().interactable = true;
-    }
-
-    public void ResumeGame()
-    {
-        Object[] buttons = GameObject.FindObjectsOfType(typeof(Button));
-        foreach (Button b in buttons)
-            b.GetComponent<Button>().interactable = true;
-        Time.timeScale = scale;
-        pauseMenu.SetActive(false);
-    }
-
-    public void HowToPlay()
-    {
-        Debug.Log("Clicking on How To Play!");
-    }
-
-    public void GoToMainMenu()
-    {
-        Time.timeScale = scale;
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-    }
-
     public void ShowBaseButton()
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
@@ -157,11 +114,17 @@ public class Base : Alive
         }
     }
 
+    private void Die()
+    {
+        Time.timeScale = 0;
+        //TODO: Method that opens the lose menu
+    }
+
     // Start is called before the first frame update
     protected override void Start()
     {
         //Init();
-        
+
         base.Start();
         textMoneyMenu.text = $"{money}";
         textMoneyBase.text = $"{money}";
@@ -176,10 +139,16 @@ public class Base : Alive
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
-        pauseMenu.SetActive(false);
 
         entityTakeDamageEvent += ChangeForceTextAndCloseMenuIfNeeded;
         entityTakeDamageEvent += (() => SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDamage));
-        entityTakeDamageEvent += (() => { if (force <= 0) SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDead); });
+        entityTakeDamageEvent += (() =>
+        {
+            if (force <= 0)
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDead);
+                Die();
+            }
+        });
     }
 }
