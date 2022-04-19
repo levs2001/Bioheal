@@ -90,13 +90,6 @@ public class Base : Alive
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
     }
 
-    public void PauseButton()
-    {
-        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
-        //Today we do not have job for this button
-        Debug.Log("Clicking on pause!\n");
-    }
-
     public void ShowBaseButton()
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
