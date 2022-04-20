@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using static EndLevel;
 
 public class SceneManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class SceneManager : MonoBehaviour
     private Dictionary<EntityType, int> amountEnemiesPerLevel;
 
     private GameObject heart;
+
+    private bool endLevelMenuIsOpened = false;
 
     //Используется для установки цели для эритроцита
     public GameObject Heart
@@ -83,14 +86,24 @@ public class SceneManager : MonoBehaviour
         }
 
         SoundManager.Instance.PlaySound(SoundManager.SoundType.MainTheme);
+
+        endLevelMenuIsOpened = false;
     }
 
     private void Update()
     {
         if (CheckThatAllEnemiesDestroyed())
         {
-            Time.timeScale = 0;
-            //TODO: Method that open the win menu
+            //to open EndLevelMenu once
+            if (endLevelMenuIsOpened == false)
+            {
+                endLevelMenuIsOpened = true;
+
+                //this action moved to EndLevel to remember timeScale to return it
+                //after closing EndLevelMenu
+                //Time.timeScale = 0;
+                EndLevel.Instance.OpenWinLevelMenu();
+            }
         }
     }
 
