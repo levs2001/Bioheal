@@ -20,9 +20,9 @@ public class EndLevel : MonoBehaviour
     {
         get
         {
-            //it is initialized at Start()
+            //it is initialized at Awake()
             if (endLevelMenu == null)
-                Debug.Log("EndLevelMenu is null");
+                throw new System.Exception("EndLevelMenu not exist");
             return endLevelMenu;
         }
     }
@@ -102,11 +102,18 @@ public class EndLevel : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 
-    // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
-        menuEndLevel.SetActive(false);
-        endLevelMenu = this;
+        if (endLevelMenu == null)
+        {
+            menuEndLevel.SetActive(false);
+            endLevelMenu = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if(endLevelMenu != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
 }
