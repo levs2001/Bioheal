@@ -116,8 +116,11 @@ public class Base : Alive
 
     private void Die()
     {
-        Time.timeScale = 0;
-        //TODO: Method that opens the lose menu
+        //this action moved to EndLevel to remember timeScale to return it
+        //after closing EndLevelMenu
+        //Time.timeScale = 0;
+
+        EndLevel.Instance.OpenLoseLevelMenu();
     }
 
     // Start is called before the first frame update
