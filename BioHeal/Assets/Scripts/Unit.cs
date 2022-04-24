@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Unit : Alive
 {
@@ -49,7 +48,7 @@ public class Unit : Alive
     {
         this.velocity = velocity;
         this.force = force;
-        this.maxForce = force;
+        maxForce = force;
     }
 
     protected struct Aim
