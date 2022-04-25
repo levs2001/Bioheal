@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static HowToPlay;
 
 public class MainMenu : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class MainMenu : MonoBehaviour
     {
         MenuChapter chapter;
         MenuChapterType chapterType = (MenuChapterType)System.Enum.Parse(typeof(MenuChapterType), str);
+        if(chapterType == MenuChapterType.HowToPlay)
+        {
+            HowToPlay.InstanceMenuScene.SetFirstPage();
+        }
         chapters.TryGetValue(chapterType, out chapter);
         chapter.OpenChapter();
     }

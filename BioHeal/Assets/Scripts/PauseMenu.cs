@@ -11,6 +11,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button howToPlayButton;
     [SerializeField] private Button goToMainMenuButton;
 
+    [SerializeField] private GameObject howToPlay;
+
     private float scale; //field to remember timeScale
 
     public void PauseButton()
@@ -46,10 +48,17 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
     }
 
-    public void HowToPlay()
+    public void OpenHowToPlay()
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
-        Debug.Log("Clicking on How To Play!");
+        howToPlay.SetActive(true);
+        HowToPlay.InstanceGameScene.SetFirstPage();
+    }
+
+    public void CloseHowToPlay()
+    {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
+        howToPlay.SetActive(false);
     }
 
     public void GoToMainMenu()
@@ -62,6 +71,7 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        howToPlay.SetActive(false);
         pauseMenu.SetActive(false);
     }
 }

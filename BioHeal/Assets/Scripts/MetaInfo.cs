@@ -18,8 +18,6 @@ public class MetaInfo
         }
     }
 
-    public string HowToPlayText { get { return data.howToPlayText; } }
-
     public string GetEntityInfo(EntityType entityType)
     {
         switch (entityType)
@@ -31,17 +29,16 @@ public class MetaInfo
 
         return "";
     }
+
     private MetaInfo()
     {
         // Loading meta from resource
         string json = (Resources.Load<TextAsset>(configPath)).ToString();
         data = JsonConvert.DeserializeObject<Data>(json);
-
     }
 
     private class Data
     {
-        public string howToPlayText;
         public string erythrocyteInfoText;
         public string granulocyteInfoText;
         public string lymphocyteInfoText;

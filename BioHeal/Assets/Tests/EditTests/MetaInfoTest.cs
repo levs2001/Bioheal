@@ -7,7 +7,6 @@ public class MetaInfoTest
     public void MetaInfoTestSimplePasses()
     {
         // Use the Assert class to test conditions
-        Assert.IsNotEmpty(MetaInfo.Instance.HowToPlayText);
         Assert.IsNotEmpty(MetaInfo.Instance.GetEntityInfo(EntityType.Erythrocyte));
         Assert.IsNotEmpty(MetaInfo.Instance.GetEntityInfo(EntityType.Granulocyte));
         Assert.IsNotEmpty(MetaInfo.Instance.GetEntityInfo(EntityType.Lymphocyte));
