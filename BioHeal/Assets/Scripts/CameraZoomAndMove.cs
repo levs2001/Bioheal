@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CameraZoomAndMove : MonoBehaviour
 {
+    private const string PathToMapBounds = "Map/Map";
+
     // Position where the user clicked to move the camera
     Vector3? touch;
 
@@ -16,7 +18,7 @@ public class CameraZoomAndMove : MonoBehaviour
 
     private void Awake()
     {
-        BoxCollider2D map = Resources.Load<BoxCollider2D>("Map/Map");
+        BoxCollider2D map = Resources.Load<BoxCollider2D>(PathToMapBounds);
         mapMinX = map.bounds.center.x - map.size.x / 2;
         mapMaxX = map.bounds.center.x + map.size.x / 2;
         mapMinY = map.bounds.center.y - map.size.y / 2;
