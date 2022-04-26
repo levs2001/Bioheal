@@ -5,7 +5,7 @@ public class CameraZoomAndMove : MonoBehaviour
     private const string PathToMapBounds = "Map/Map";
 
     // Position where the user clicked to move the camera
-    Vector3? touch;
+    Vector3? touch = null;
 
     // Maximum and minimum value to zoom
     [SerializeField] private float zoomMin = 1;
@@ -27,20 +27,24 @@ public class CameraZoomAndMove : MonoBehaviour
 
     private void Update()
     {
-        // If user clicked on the screen, then remember the position of the click
-        if (Input.GetMouseButtonDown(0))
+        // If the user stopped clicking on the screen, then reset the click
+        if (Input.GetMouseButtonUp(0))
         {
-            touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            touch = null;
         }
-
+        
         // If user pressed with two fingers, then zoom
         if (Input.touchCount == 2)
         {
             CameraZoomForPhone();
         }
-        // If user keeps pressing, then make camera move
+        // If user clicked on the screen, then get touch position if that necessary make camera move
         else if (Input.GetMouseButton(0))
         {
+            if (!touch.HasValue)
+            {
+                touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
             MoveCamera();
         }
 
@@ -67,10 +71,6 @@ public class CameraZoomAndMove : MonoBehaviour
 
     private void MoveCamera()
     {
-        if (!touch.HasValue)
-        {
-            touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
         Vector3 direction = touch.Value - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Camera.main.transform.position = ClampCamera(Camera.main.transform.position + direction);
     }
