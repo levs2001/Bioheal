@@ -9,6 +9,8 @@ public class CameraZoomAndMove : MonoBehaviour
     [SerializeField] private float zoomMin = 1;
     [SerializeField] private float zoomMax = 2;
 
+    [SerializeField] private float zoomSpeed = 0.01f;
+
     // Map bounds
     private float mapMinX, mapMaxX, mapMinY, mapMaxY;
 
@@ -57,7 +59,7 @@ public class CameraZoomAndMove : MonoBehaviour
 
         float difference = curDistTouch - distTouch;
 
-        Zoom(0.01f * difference);
+        Zoom(zoomSpeed * difference);
         touch = null;
     }
 
