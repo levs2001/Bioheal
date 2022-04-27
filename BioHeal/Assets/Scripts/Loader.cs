@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using System;
 using System.IO;
 using Newtonsoft.Json;
+using System.Reflection;
 
 // now just call LoadConfig in Menu Scene 
 // and share config wherever needed
@@ -10,6 +12,7 @@ public class Loader
 {
     private const string configPath = "config";
     private ConfigJson config = null;
+    private LevelData defaultLevel;
     private LevelData[] levels;
     private int firstNotClearedLevel = 0;
     private int currentLevel;
@@ -30,17 +33,22 @@ public class Loader
 
     private Loader()
     {
-        // Loading config from resource
+       // Loading config from resource
         string json = (Resources.Load<TextAsset>(configPath)).ToString();
         Debug.Log(json);
-        config = JsonConvert.DeserializeObject<ConfigJson>(json);
+        config = JsonConvert.DeserializeObject<ConfigJson>(json, 
+                new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Populate });
         healthDisplayType = (HealthDisplayType)Enum.Parse(typeof(HealthDisplayType), config.healthDisplayType, true);
         long size = config.levels.Length;
         amountOfLevels = size - 1; //start numeration with 0
         levels = new LevelData[size];
+        defaultLevel = new LevelData(config.defaultLevel);
         for (int i = 0; i < size; i++)
         {
-            levels[i] = new LevelData(config.levels[i]);
+            // even if you wanna inherit unit's values from default level
+            // you need to add empty unit with name value 
+            // so thats loader knows this unit must present at level
+            levels[i] = createLevel(config.levels[i], config.defaultLevel);
         }
 
         for (int i = 0; i < size; i++)
@@ -52,6 +60,158 @@ public class Loader
             }
         }
     }
+
+    public static LevelData createLevel(LevelJson level, LevelJson defaultLevel)
+    {
+        FieldInfo[] fields = typeof(LevelJson).GetFields();
+        foreach (FieldInfo field in fields)
+        {
+            if (field.FieldType == typeof(bool)) // skip 'cleared' field
+            {
+                continue;
+            }
+
+            object value = field.GetValue(level);
+            object defValue = field.GetValue(defaultLevel);
+            
+            if (value == null)
+            {
+                field.SetValue(level, defValue);
+            }
+            else
+            {
+                if (field.FieldType == typeof(AllyJson[]) || field.FieldType == typeof(EnemyJson[]))
+                { 
+                    int length = field.FieldType == typeof(AllyJson[]) ? level.allies.Length : level.enemies.Length;
+                    for (int i = 0; i < length; i++)
+                    {
+                        UnitJson unit;
+                        if (field.FieldType == typeof(AllyJson[]))
+                        {
+                            unit = (UnitJson)level.allies[i];
+                        }
+                        else
+                        {
+                            unit = (UnitJson)level.enemies[i];
+                        }
+
+                        string name = unit.name;
+                        UnitJson defUnit = findUnitByName((IEnumerable)defValue, name);
+                        fillObject(unit, defUnit);
+                    } 
+                }
+                else
+                {
+                    fillObject(value, defValue);
+                }
+            }
+        }   
+
+
+        // if (level.enemies == null)
+        // {
+        //     level.enemies = defaultLevel.enemies;
+        // }
+        // else
+        // {
+        //     for (int i = 0; i < level.enemies.Length; i++)
+        //     {
+        //         EnemyJson enemy = level.enemies[i];
+        //         string name = enemy.name;
+        //         UnitJson defEnemy = findUnitByName(defaultLevel.enemies, name);
+        //         level.enemies[i] = (EnemyJson)fillObject(enemy, defEnemy);
+        //     }
+        // }
+
+
+        // if (level.allies == null)
+        // {
+        //     level.allies = defaultLevel.allies;
+        // }
+        // else
+        // {
+        //     for (int i = 0; i < level.allies.Length; i++)
+        //     {
+        //         AllyJson ally = level.allies[i];
+        //         string name = ally.name;
+        //         UnitJson defAlly = findUnitByName(defaultLevel.allies, name);
+        //         level.allies[i] = (AllyJson)fillObject(ally, defAlly);
+        //     }
+        // }
+
+        // if (level.heart == null)
+        // {
+        //     level.heart = defaultLevel.heart;
+        // }
+        // else
+        // {
+        //     level.heart = (HeartJson)fillObject(level.heart, defaultLevel.heart);   
+        // }
+
+        // if (level.mineral == null)
+        // {
+        //     level.mineral = defaultLevel.mineral;
+        // }
+        // else
+        // {
+        //     level.mineral = (MineralJson)fillObject(level.mineral, defaultLevel.mineral);   
+        // }
+
+          
+
+        return new LevelData(level);   
+    }
+
+    private static UnitJson findUnitByName(IEnumerable units, string name)
+    {
+        foreach (var unit in units)
+        {
+            UnitJson uni = (UnitJson) unit;
+            if (uni.name == name)
+            {
+                return uni;
+            }
+        }
+        return null;
+    }
+
+    private static void fillObject(object obj, object defObj)
+    {
+        
+        FieldInfo[] fields;
+        if (obj is AllyJson)
+        {
+            fields = typeof(AllyJson).GetFields();
+        }
+        else if (obj is EnemyJson)
+        {
+            fields = typeof(EnemyJson).GetFields();
+        }
+        else if (obj is HeartJson)
+        {
+            fields = typeof(HeartJson).GetFields();
+        }
+        else
+        {
+            fields = typeof(MineralJson).GetFields();
+        }
+        
+        for (int i = 0; i < fields.Length; i++)
+        {
+            if (fields[i].Name == "name")
+            {
+                continue;
+            }
+            var value = fields[i].GetValue(obj);
+            if ((fields[i].FieldType == typeof(float) && (float)value == -1)
+                || (fields[i].FieldType == typeof(int) && (int)value == -1)) // signals that we need to use value from default level
+            {
+                fields[i].SetValue(obj, fields[i].GetValue(defObj));
+            }
+        }
+    }
+
+
 
     //Setting this in ChooseLevel.cs, getting in SceneManager.cs
     public int CurrentLevel

@@ -1,5 +1,10 @@
+using System.ComponentModel;
+
 public class HeartJson
 {
-    public int force;
-    public int money;
+    [DefaultValue(-1)]
+    public int force = -1;
+
+    [DefaultValue(-1)]
+    public int money = -1;
 }

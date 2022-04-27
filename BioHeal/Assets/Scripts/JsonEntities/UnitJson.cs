@@ -1,6 +1,12 @@
+using System.ComponentModel;
+
 public class UnitJson
 {
    public string name;
-   public float speed;
-   public int force;
+   
+   [DefaultValue(-1f)]
+   public float speed = -1;
+
+   [DefaultValue(-1)]
+   public int force = -1;
 }

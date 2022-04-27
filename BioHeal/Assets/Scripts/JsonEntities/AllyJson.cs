@@ -1,6 +1,13 @@
+using System.ComponentModel;
+
 public class AllyJson : UnitJson
 {
-    public int price;
-    public int initialC;
-    public float timeToSpawn;
+    [DefaultValue(-1)]  
+    public int price = -1;
+
+    [DefaultValue(-1)]
+    public int initialC = -1;
+    
+    [DefaultValue(-1f)]
+    public float timeToSpawn = -1;
 }
