@@ -16,7 +16,7 @@
                     "name": "Infection",
                     "speed": 4,
                     "force": 1,
-                    "frequency": 1,
+                    "frequency": 100,
                     "amountPerLevel" : 10
                 }
             ],
