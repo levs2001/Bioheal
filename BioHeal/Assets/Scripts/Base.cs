@@ -73,18 +73,7 @@ public class Base : Alive
         //Show information about units
         EntityType unitType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
 
-        if (unitType == EntityType.Granulocyte)
-        {
-            textInfo.text = MetaInfo.Instance.GetEntityInfo(EntityType.Granulocyte);
-        }
-        else if (unitType == EntityType.Lymphocyte)
-        {
-            textInfo.text = MetaInfo.Instance.GetEntityInfo(EntityType.Lymphocyte);
-        }
-        else if (unitType == EntityType.Erythrocyte)
-        {
-            textInfo.text = MetaInfo.Instance.GetEntityInfo(EntityType.Erythrocyte);
-        }
+        textInfo.text = MetaInfo.Instance.GetEntityInfo(unitType);
 
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
     }

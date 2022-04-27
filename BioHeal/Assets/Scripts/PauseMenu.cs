@@ -52,7 +52,6 @@ public class PauseMenu : MonoBehaviour
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         howToPlay.SetActive(true);
-        HowToPlay.InstanceGameScene.SetFirstPage();
     }
 
     public void CloseHowToPlay()

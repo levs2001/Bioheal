@@ -10,28 +10,16 @@ public class HowToPlay : MonoBehaviour
 
     [SerializeField] private Canvas[] arrCanvas = new Canvas[last_page + 1];
 
-    private static HowToPlay instMenuScene = null;
-    private static HowToPlay instGameScene = null;
+    private static HowToPlay instance = null;
 
-    public static HowToPlay InstanceMenuScene
+    public static HowToPlay Instance
     {
         get
         {
             //it is initialized at Awake()
-            if (instMenuScene == null)
+            if (instance == null)
                 throw new System.Exception("HowToPlay does not exist");
-            return instMenuScene;
-        }
-    }
-
-    public static HowToPlay InstanceGameScene
-    {
-        get
-        {
-            //it is initialized at Awake()
-            if (instGameScene == null)
-                throw new System.Exception("HowToPlay does not exist");
-            return instGameScene;
+            return instance;
         }
     }
 
@@ -68,35 +56,17 @@ public class HowToPlay : MonoBehaviour
     private void Awake()
     {
 
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MenuScene")
+        if (instance == null)
         {
-            if (instMenuScene == null)
-            {
-                instMenuScene = this;
-                DontDestroyOnLoad(gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
 
-                SetFirstPage();
-            }
-            else if (instMenuScene != this)
-            {
-                Destroy(gameObject);
-            }
+            SetFirstPage();
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
         }
 
-        else if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameScene")
-        {
-            if (instGameScene == null)
-            {
-                instGameScene = this;
-                DontDestroyOnLoad(gameObject);
-
-                SetFirstPage();
-            }
-            else if (instGameScene != this)
-            {
-                Destroy(gameObject);
-            }
-        }
-        
     }
 }
