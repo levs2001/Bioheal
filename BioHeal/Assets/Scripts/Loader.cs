@@ -83,7 +83,7 @@ public class Loader
                 if (field.FieldType == typeof(AllyJson[]) || field.FieldType == typeof(EnemyJson[]))
                 { 
                     var units = field.FieldType == typeof(AllyJson[]) ? level.allies : level.enemies;
-                    for (int i = 0; i < length; i++)
+                    for (int i = 0; i < units.Length; i++)
                     {
                         UnitJson defUnit = findUnitByName((IEnumerable)defValue, units[i].name);
                         fillObject(units[i], defUnit);
