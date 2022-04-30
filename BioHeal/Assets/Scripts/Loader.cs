@@ -82,22 +82,11 @@ public class Loader
             {
                 if (field.FieldType == typeof(AllyJson[]) || field.FieldType == typeof(EnemyJson[]))
                 { 
-                    int length = field.FieldType == typeof(AllyJson[]) ? level.allies.Length : level.enemies.Length;
+                    var units = field.FieldType == typeof(AllyJson[]) ? level.allies : level.enemies;
                     for (int i = 0; i < length; i++)
                     {
-                        UnitJson unit;
-                        if (field.FieldType == typeof(AllyJson[]))
-                        {
-                            unit = (UnitJson)level.allies[i];
-                        }
-                        else
-                        {
-                            unit = (UnitJson)level.enemies[i];
-                        }
-
-                        string name = unit.name;
-                        UnitJson defUnit = findUnitByName((IEnumerable)defValue, name);
-                        fillObject(unit, defUnit);
+                        UnitJson defUnit = findUnitByName((IEnumerable)defValue, units[i].name);
+                        fillObject(units[i], defUnit);
                     } 
                 }
                 else
@@ -106,59 +95,6 @@ public class Loader
                 }
             }
         }   
-
-
-        // if (level.enemies == null)
-        // {
-        //     level.enemies = defaultLevel.enemies;
-        // }
-        // else
-        // {
-        //     for (int i = 0; i < level.enemies.Length; i++)
-        //     {
-        //         EnemyJson enemy = level.enemies[i];
-        //         string name = enemy.name;
-        //         UnitJson defEnemy = findUnitByName(defaultLevel.enemies, name);
-        //         level.enemies[i] = (EnemyJson)fillObject(enemy, defEnemy);
-        //     }
-        // }
-
-
-        // if (level.allies == null)
-        // {
-        //     level.allies = defaultLevel.allies;
-        // }
-        // else
-        // {
-        //     for (int i = 0; i < level.allies.Length; i++)
-        //     {
-        //         AllyJson ally = level.allies[i];
-        //         string name = ally.name;
-        //         UnitJson defAlly = findUnitByName(defaultLevel.allies, name);
-        //         level.allies[i] = (AllyJson)fillObject(ally, defAlly);
-        //     }
-        // }
-
-        // if (level.heart == null)
-        // {
-        //     level.heart = defaultLevel.heart;
-        // }
-        // else
-        // {
-        //     level.heart = (HeartJson)fillObject(level.heart, defaultLevel.heart);   
-        // }
-
-        // if (level.mineral == null)
-        // {
-        //     level.mineral = defaultLevel.mineral;
-        // }
-        // else
-        // {
-        //     level.mineral = (MineralJson)fillObject(level.mineral, defaultLevel.mineral);   
-        // }
-
-          
-
         return new LevelData(level);   
     }
 
