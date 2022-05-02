@@ -1,5 +1,10 @@
+using System.ComponentModel;
+
 public class EnemyJson : UnitJson
 {
-    public float frequency;    
+    [DefaultValue(-1f)]
+    public float frequency;
+
+    [DefaultValue(-1)]
     public int amountPerLevel;
 }

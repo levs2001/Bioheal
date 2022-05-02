@@ -1,33 +1,75 @@
 {
     
     "healthDisplayType": "Bar",
-    "defaultLevel": {},
+    "defaultLevel": 
+    {
+        "enemies": [
+            {
+                "name": "Toxin",
+                "speed": 4,
+                "force": 2,
+                "frequency": 5,
+                "amountPerLevel" : 1
+            },
+            {
+                "name": "Infection",
+                "speed": 4,
+                "force": 1,
+                "frequency": 100,
+                "amountPerLevel" : 10
+            }
+        ],
+        "allies": [
+            {
+                "name": "Erythrocyte",
+                "speed": 4,
+                "force": 0,
+                "price": 10,
+                "initialC": 2,
+                "timeToSpawn": 0
+            },
+            {
+                "name": "Lymphocyte",
+                "speed": 8,
+                "force": 3,
+                "price": 15,
+                "initialC": 0,
+                "timeToSpawn": 0
+            },
+            {
+                "name": "Granulocyte",
+                "speed": 5,
+                "force": 5,
+                "price": 20,
+                "initialC": 0,
+                "timeToSpawn": 0
+            }
+        ],
+        "mineral": {
+            "initialC": 10,
+            "frequency": 0.5
+        },
+        "heart": {
+            "force": 20,
+            "money": 300
+        },
+        "cleared": false
+    },
     "levels": [
         {
             "enemies": [
                 {
                     "name": "Toxin",
-                    "speed": 4,
-                    "force": 2,
-                    "frequency": 5,
-                    "amountPerLevel" : 1
+                    "speed": 1
                 },
                 {
-                    "name": "Infection",
-                    "speed": 4,
-                    "force": 1,
-                    "frequency": 1,
-                    "amountPerLevel" : 10
+                    "name": "Infection"
                 }
             ],
             "allies": [
                 {
                     "name": "Erythrocyte",
-                    "speed": 4,
-                    "force": 0,
-                    "price": 10,
-                    "initialC": 2,
-                    "timeToSpawn": 0
+                    "initialC": 4
                 },
                 {
                     "name": "Lymphocyte",
@@ -52,7 +94,7 @@
             },
             "heart": {
                 "force": 20,
-                "money": 300
+                "money": 10
             },
             "cleared": false
         }

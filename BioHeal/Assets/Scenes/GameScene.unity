@@ -1965,6 +1965,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebb39c12a0e8cb50d804d2ff65d66dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zoomMin: 1
+  zoomMax: 8
+  zoomSpeed: 0.01
 --- !u!1 &752552205
 GameObject:
   m_ObjectHideFlags: 0
