@@ -1,6 +1,5 @@
 {
-    "howToPlayText": "Playing this game is simple!\n I can play it all day!",
-    "erythrocyteInfoText": "This is erythrocyte.",
-    "granulocyteInfoText": "This is granulocyte.",
-    "lymphocyteInfoText": "This is lymphocyte."
+    "erythrocyteInfoText": "Erythrocyte takes mineral and bring it to Base. That is how you earn money.\nToxins fights them!",
+    "granulocyteInfoText": "Granulocyte protects your base from infections. They fight each other.",
+    "lymphocyteInfoText": "Lymphocyte protects your erythrocytes from toxins"
 }

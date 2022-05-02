@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
+using static MetaInfo;
 
 public class Base : Alive
 {
@@ -71,13 +72,8 @@ public class Base : Alive
 
         //Show information about units
         EntityType unitType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
-        string temp;
-        if (unitType == EntityType.Granulocyte) temp = $" � ������������";
-        else if (unitType == EntityType.Lymphocyte) temp = $" � ����������";
-        else if (unitType == EntityType.Erythrocyte) temp = $" �� �����������";
-        else temp = $" ERROR";
 
-        textInfo.text = $"Here will be some information about " + temp;
+        textInfo.text = MetaInfo.Instance.GetEntityInfo(unitType);
 
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
     }
