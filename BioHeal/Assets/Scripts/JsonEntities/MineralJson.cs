@@ -1,5 +1,10 @@
+using System.ComponentModel;
+
 public class MineralJson 
 {
-   public int initialC;
-   public float frequency;
+   [DefaultValue(-1)]
+   public int initialC = -1;
+
+   [DefaultValue(-1f)]
+   public float frequency = -1;
 }
