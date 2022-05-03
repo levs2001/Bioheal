@@ -18,6 +18,7 @@ public class Loader
     private int currentLevel;
     private long amountOfLevels;
     private static Loader loader = null;
+    public static int ALL_LEVELS_ARE_CLEARED = -1;
     public HealthDisplayType healthDisplayType { get; set; } = HealthDisplayType.ModelSize;
     public static Loader LoaderInstance
     {
@@ -51,6 +52,7 @@ public class Loader
             levels[i] = createLevel(config.levels[i], config.defaultLevel);
         }
 
+        firstNotClearedLevel = ALL_LEVELS_ARE_CLEARED;
         for (int i = 0; i < size; i++)
         {
             if (config.levels[i].cleared == false)
@@ -213,7 +215,13 @@ public class Loader
     public void SetLevelCleared(int index)
     {
         config.levels[index].cleared = true;
-        firstNotClearedLevel = index + 1;
+
+        //if all levels are cleared
+        if (firstNotClearedLevel == ALL_LEVELS_ARE_CLEARED || firstNotClearedLevel == amountOfLevels)
+            firstNotClearedLevel = ALL_LEVELS_ARE_CLEARED;
+        //if we cleared last opened level
+        else if (firstNotClearedLevel == index)
+            firstNotClearedLevel = index + 1;
     }
 
     // call when exiting game so progress's saved

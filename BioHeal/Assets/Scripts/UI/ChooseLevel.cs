@@ -8,8 +8,8 @@ using static Loader;
 public class ChooseLevel : MonoBehaviour
 {
     private const int levels_per_page = 15, first_page = 0;
-    private int countOpenedLevel, page, last_page;
-    private long amountOfLevels;
+    private int page, last_page;
+    private long amountOfLevels, countOpenedLevel;
 
     [SerializeField] private Sprite closedIcon, openedIcon;
 
@@ -51,7 +51,12 @@ public class ChooseLevel : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        countOpenedLevel = Loader.LoaderInstance.FirstNotClearedLevel;
+        //all levels are cleared
+        if(Loader.LoaderInstance.FirstNotClearedLevel == Loader.ALL_LEVELS_ARE_CLEARED)
+            countOpenedLevel = Loader.LoaderInstance.AmountOfLevels;
+        else
+            countOpenedLevel = Loader.LoaderInstance.FirstNotClearedLevel;
+
         amountOfLevels = Loader.LoaderInstance.AmountOfLevels;
 
         last_page = (int)Math.Floor((double)amountOfLevels / levels_per_page);
