@@ -65,6 +65,8 @@ public class PauseMenu : MonoBehaviour
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         Time.timeScale = scale;
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+
+        SoundManager.Instance.StopSound(SoundManager.SoundType.MainTheme);
     }
 
     // Start is called before the first frame update

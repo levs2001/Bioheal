@@ -57,6 +57,14 @@ public class SoundManager : MonoBehaviour
         source.Play();
     }
 
+    public void StopSound(SoundType type)
+    {
+        if (type == SoundType.MainTheme)
+            musicSource.Stop();
+        else
+            effectsSource.Stop();
+    }
+
     public enum SoundType
     {
         HeartTap,
