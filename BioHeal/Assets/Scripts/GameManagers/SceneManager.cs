@@ -54,7 +54,7 @@ public class SceneManager : MonoBehaviour
 
         entityManagers = prefabs.ToDictionary(pair => pair.Key, pair => new EntityManager(pair.Value, pair.Key));
 
-        amountEnemiesPerLevel = level.AmountEnemiesPerLevel;
+        amountEnemiesPerLevel = new Dictionary<EntityType, int>(level.AmountEnemiesPerLevel);
 
         foreach (EntityType type in amountEnemiesPerLevel.Keys)
         {
@@ -69,6 +69,7 @@ public class SceneManager : MonoBehaviour
                     Destroy(actionTimer.gameObject);
                 }
             });
+
         }
 
         ActionTimer actionTimerForMineral = new GameObject(EntityType.Mineral.ToString() + "Timer").AddComponent<ActionTimer>();
