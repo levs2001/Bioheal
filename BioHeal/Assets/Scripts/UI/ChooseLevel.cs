@@ -52,7 +52,7 @@ public class ChooseLevel : MonoBehaviour
     private void Start()
     {
         //all levels are cleared
-        if(Loader.LoaderInstance.FirstNotClearedLevel == Loader.ALL_LEVELS_ARE_CLEARED)
+        if(Loader.LoaderInstance.AreAllLevelsCleared())
             countOpenedLevel = Loader.LoaderInstance.AmountOfLevels;
         else
             countOpenedLevel = Loader.LoaderInstance.FirstNotClearedLevel;

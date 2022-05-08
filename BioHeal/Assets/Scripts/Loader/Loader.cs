@@ -11,6 +11,7 @@ using System.Reflection;
 public class Loader
 {
     private const string configPath = "config";
+    private const int ALL_LEVELS_ARE_CLEARED = -1;
     private ConfigJson config = null;
     private LevelData defaultLevel;
     private LevelData[] levels;
@@ -18,7 +19,6 @@ public class Loader
     private int currentLevel;
     private long amountOfLevels;
     private static Loader loader = null;
-    public static int ALL_LEVELS_ARE_CLEARED = -1;
     public HealthDisplayType healthDisplayType { get; set; } = HealthDisplayType.ModelSize;
     public static Loader LoaderInstance
     {
@@ -222,6 +222,11 @@ public class Loader
         //if we cleared last opened level
         else if (firstNotClearedLevel == index)
             firstNotClearedLevel = index + 1;
+    }
+
+    public bool AreAllLevelsCleared()
+    {
+        return (firstNotClearedLevel == ALL_LEVELS_ARE_CLEARED) ? true : false;
     }
 
     // call when exiting game so progress's saved

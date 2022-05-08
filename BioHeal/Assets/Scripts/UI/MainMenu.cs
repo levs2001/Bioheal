@@ -47,7 +47,7 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         //if all levels are cleared, turn continue button off
-        if (Loader.LoaderInstance.FirstNotClearedLevel == Loader.ALL_LEVELS_ARE_CLEARED)
+        if (Loader.LoaderInstance.AreAllLevelsCleared())
             continueButton.GetComponent<Button>().interactable = false;
 
         chapters.Add(MenuChapterType.ChooseLevel, new MenuChapter(chooseLevelImage));
