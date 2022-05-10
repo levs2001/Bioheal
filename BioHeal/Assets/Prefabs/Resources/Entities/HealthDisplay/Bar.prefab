@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 224160881969820512}
   - component: {fileID: 222383314805555862}
   - component: {fileID: 114301020089771202}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 224597221060520696}
   - component: {fileID: 222497559315459044}
   - component: {fileID: 114803069995612742}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 224144675534364860}
   - component: {fileID: 222006842586158860}
   - component: {fileID: 114100540571581324}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 114408553226943516}
   - component: {fileID: 114901697352296590}
   - component: {fileID: 114530257322874124}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: -651228517
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &114408553226943516
