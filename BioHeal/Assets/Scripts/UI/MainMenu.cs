@@ -38,7 +38,8 @@ public class MainMenu : MonoBehaviour
 
     public void ExitGame()
     {
-        //It does not work in editor, only at game's runtime 
+        //It does not work in editor, only at game's runtime
+        Loader.LoaderInstance.UpdateJson();
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         Application.Quit();
     }
