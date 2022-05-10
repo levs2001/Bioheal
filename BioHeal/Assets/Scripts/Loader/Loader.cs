@@ -34,10 +34,18 @@ public class Loader
 
     private Loader()
     {
-       // Loading config from resource
-        string json = (Resources.Load<TextAsset>(configPath)).ToString();
-        Debug.Log(json);
-        config = JsonConvert.DeserializeObject<ConfigJson>(json, 
+        // Loading config from resource
+        string json;
+        if (File.Exists(configPath))
+        {
+            json = File.ReadAllText(configPath);
+        }
+        else
+        {
+            json = (Resources.Load<TextAsset>(configPath)).ToString();
+        }
+
+        config = JsonConvert.DeserializeObject<ConfigJson>(json,
                 new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Populate });
         healthDisplayType = (HealthDisplayType)Enum.Parse(typeof(HealthDisplayType), config.healthDisplayType, true);
         long size = config.levels.Length;
@@ -75,7 +83,7 @@ public class Loader
 
             object value = field.GetValue(level);
             object defValue = field.GetValue(defaultLevel);
-            
+
             if (value == null)
             {
                 field.SetValue(level, defValue);
@@ -83,28 +91,28 @@ public class Loader
             else
             {
                 if (field.FieldType == typeof(AllyJson[]) || field.FieldType == typeof(EnemyJson[]))
-                { 
-                    var units =  new List<UnitJson>((IEnumerable<UnitJson>)value);
+                {
+                    var units = new List<UnitJson>((IEnumerable<UnitJson>)value);
                     for (int i = 0; i < units.Count; i++)
                     {
                         UnitJson defUnit = findUnitByName((IEnumerable)defValue, units[i].name);
                         fillObject(units[i], defUnit);
-                    } 
+                    }
                 }
                 else
                 {
                     fillObject(value, defValue);
                 }
             }
-        }   
-        return new LevelData(level);   
+        }
+        return new LevelData(level);
     }
 
     private static UnitJson findUnitByName(IEnumerable units, string name)
     {
         foreach (var unit in units)
         {
-            UnitJson uni = (UnitJson) unit;
+            UnitJson uni = (UnitJson)unit;
             if (uni.name == name)
             {
                 return uni;
@@ -115,7 +123,7 @@ public class Loader
 
     private static void fillObject(object obj, object defObj)
     {
-        
+
         FieldInfo[] fields;
         if (obj is AllyJson)
         {
@@ -133,7 +141,7 @@ public class Loader
         {
             fields = typeof(MineralJson).GetFields();
         }
-        
+
         for (int i = 0; i < fields.Length; i++)
         {
             if (fields[i].Name == "name")

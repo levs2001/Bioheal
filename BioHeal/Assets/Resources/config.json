@@ -96,7 +96,7 @@
                 "force": 20,
                 "money": 10
             },
-            "cleared": true
+            "cleared": false
         },
         {
             "enemies": [
