@@ -34,7 +34,7 @@ public class Alive : MonoBehaviour
 
     protected virtual void Start()
     {
-        healthbar = Instantiate(GameObject.FindWithTag("Healthbar"), transform.position, Quaternion.identity);
+        healthbar = Instantiate(GameObject.FindWithTag(SceneManager.sceneManager.healthDisplayTypeTag), transform.position, Quaternion.identity);
         healthbar.GetComponent<HealthDisplay>().Owner = this;
     }
 }

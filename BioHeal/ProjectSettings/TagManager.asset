@@ -9,8 +9,10 @@ TagManager:
   - Infection
   - Toxin
   - Erythrocyte
-  - Healthbar
   - Canvas
+  - ModelSize
+  - Bar
+  - None
   layers:
   - Default
   - TransparentFX

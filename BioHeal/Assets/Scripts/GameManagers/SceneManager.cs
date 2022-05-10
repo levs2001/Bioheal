@@ -13,7 +13,7 @@ public class SceneManager : MonoBehaviour
     private Dictionary<EntityType, EntityManager> entityManagers;
 
     private Dictionary<EntityType, GameObject> prefabs;
-    public GameObject healthbarPrefab;
+    public string healthDisplayTypeTag;
 
     private Dictionary<EntityType, float> timeToSpawn;
 
@@ -160,6 +160,7 @@ public class SceneManager : MonoBehaviour
         }
 
         level.InitUnits(prefabs);
-        healthbarPrefab = Resources.Load<GameObject>(PathHealthDisplayPrefabs + Loader.LoaderInstance.healthDisplayType.ToString());
+        healthDisplayTypeTag = Loader.LoaderInstance.healthDisplayType.ToString();
+        // healthbarPrefab = Resources.Load<GameObject>(PathHealthDisplayPrefabs + Loader.LoaderInstance.healthDisplayType.ToString());
     }
 }
