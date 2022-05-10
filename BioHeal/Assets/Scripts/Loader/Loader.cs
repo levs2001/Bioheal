@@ -10,8 +10,8 @@ using System.Reflection;
 // and share config wherever needed
 public class Loader
 {
-    private const string configPath = "config";
     private const int ALL_LEVELS_ARE_CLEARED = -1;
+    private readonly string configPath = Application.persistentDataPath + "/config.json";
     private ConfigJson config = null;
     private LevelData defaultLevel;
     private LevelData[] levels;
