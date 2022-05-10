@@ -11,6 +11,7 @@ using System.Reflection;
 public class Loader
 {
     private const int ALL_LEVELS_ARE_CLEARED = -1;
+    private const string configResPath = "config";
     private readonly string configPath = Application.persistentDataPath + "/config.json";
     private ConfigJson config = null;
     private LevelData defaultLevel;
@@ -42,7 +43,7 @@ public class Loader
         }
         else
         {
-            json = (Resources.Load<TextAsset>(configPath)).ToString();
+            json = (Resources.Load<TextAsset>(configResPath)).ToString();
         }
 
         config = JsonConvert.DeserializeObject<ConfigJson>(json,
