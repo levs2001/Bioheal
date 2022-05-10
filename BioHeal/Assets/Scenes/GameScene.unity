@@ -1966,7 +1966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoomMin: 1
-  zoomMax: 8
+  zoomMax: 12
   zoomSpeed: 0.01
 --- !u!1 &752552205
 GameObject:

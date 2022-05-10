@@ -136,12 +136,10 @@ public class SceneManager : MonoBehaviour
 
     private bool CheckThatAllEnemiesDestroyed()
     {
-        foreach (EntityType type in amountEnemiesPerLevel.Keys)
+        if (amountEnemiesPerLevel[EntityType.Infection] != 0 || entityManagers[EntityType.Infection].FreeEntities.Count != 0
+            || entityManagers[EntityType.Infection].BusyEntities.Count != 0)
         {
-            if (amountEnemiesPerLevel[type] != 0 || entityManagers[type].FreeEntities.Count != 0 || entityManagers[type].BusyEntities.Count != 0)
-            {
-                return false;
-            }
+            return false;
         }
 
         return true;
