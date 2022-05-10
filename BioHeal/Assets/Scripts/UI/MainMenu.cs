@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static HowToPlay;
+using UnityEngine.UI;
+using static Loader;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject continueButton;
     [SerializeField] private GameObject settingsImage;
     [SerializeField] private GameObject howToPlayImage;
     [SerializeField] private GameObject chooseLevelImage;
@@ -44,6 +46,10 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        //if all levels are cleared, turn continue button off
+        if (Loader.LoaderInstance.AreAllLevelsCleared())
+            continueButton.GetComponent<Button>().interactable = false;
+
         chapters.Add(MenuChapterType.ChooseLevel, new MenuChapter(chooseLevelImage));
         chapters.Add(MenuChapterType.HowToPlay, new MenuChapter(howToPlayImage));
         chapters.Add(MenuChapterType.Settings, new MenuChapter(settingsImage));

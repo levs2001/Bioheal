@@ -2859,6 +2859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577804e3fc475ec4c9c5d8791d7c59cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  continueButton: {fileID: 310935174}
   settingsImage: {fileID: 915487743}
   howToPlayImage: {fileID: 488963004}
   chooseLevelImage: {fileID: 2073279902}
