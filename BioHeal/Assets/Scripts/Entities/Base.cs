@@ -14,6 +14,19 @@ public class Base : Alive
     [SerializeField] private Text textInfo;
     [SerializeField] private Text textMoneyBase, textForceBase;
 
+    //to open and close menuBase at the end of the level
+    private static Base instance = null;
+    public static Base Instance
+    {
+        get
+        {
+            if (instance == null)
+                throw new System.Exception("Base does not exist");
+            else
+                return instance;
+        }
+    }
+
     private int money;
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
 
@@ -123,6 +136,7 @@ public class Base : Alive
     protected override void Start()
     {
         //Init();
+        instance = this;
 
         base.Start();
         textMoneyMenu.text = $"{money}";

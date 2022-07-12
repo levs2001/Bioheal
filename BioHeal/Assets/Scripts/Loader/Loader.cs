@@ -238,6 +238,11 @@ public class Loader
         return (firstNotClearedLevel == ALL_LEVELS_ARE_CLEARED) ? true : false;
     }
 
+    public bool IsItLastLevel()
+    {
+        return currentLevel == amountOfLevels;
+    }
+
     // call when exiting game so progress's saved
     public void UpdateJson()
     {
