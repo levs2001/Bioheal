@@ -9,7 +9,7 @@ public class CameraZoomAndMove : MonoBehaviour
 
     // Maximum and minimum value to zoom
     [SerializeField] private float zoomMin = 1;
-    [SerializeField] private float zoomMax = 2;
+    private float zoomMax = 2;
 
     [SerializeField] private float zoomSpeed = 0.01f;
 
@@ -23,6 +23,8 @@ public class CameraZoomAndMove : MonoBehaviour
         mapMaxX = map.bounds.center.x + map.size.x / 2;
         mapMinY = map.bounds.center.y - map.size.y / 2;
         mapMaxY = map.bounds.center.y + map.size.y / 2;
+
+        zoomMax = Mathf.Min(map.size.x / Camera.main.aspect / 2, map.size.y / 2);
     }
 
     private void Update()

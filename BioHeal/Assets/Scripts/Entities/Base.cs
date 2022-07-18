@@ -103,7 +103,7 @@ public class Base : Alive
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         //Today we do not have job for this button
-        Debug.Log("Showing Base!\n");
+        Camera.main.transform.position = new Vector3(0, 0, Camera.main.transform.position.z);
     }
     ///////         Public methods, called from buttons         ///////
 
