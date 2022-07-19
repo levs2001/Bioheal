@@ -64,7 +64,7 @@ public class PauseMenu : MonoBehaviour
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         Time.timeScale = scale;
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.MAIN_MENU_SCENE);
 
         SoundManager.Instance.StopSound(SoundManager.SoundType.MainTheme);
     }

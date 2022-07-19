@@ -33,7 +33,7 @@ public class MainMenu : MonoBehaviour
         Loader.LoaderInstance.CurrentLevel = Loader.LoaderInstance.FirstNotClearedLevel;
         Debug.Log($"Load level #{Loader.LoaderInstance.CurrentLevel + 1}");
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(GAME_SCENE);
     }
 
     public void ExitGame()
