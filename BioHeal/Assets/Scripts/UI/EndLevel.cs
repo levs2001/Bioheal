@@ -55,6 +55,12 @@ public class EndLevel : MonoBehaviour
         {
             buttonLoadLevel.interactable = false;
         }
+
+        //load next level if this was not last level
+        else
+        {
+            Loader.LoaderInstance.CurrentLevel = Loader.LoaderInstance.CurrentLevel + 1;
+        }
     }
 
     public void OpenLoseLevelMenu()
@@ -88,11 +94,6 @@ public class EndLevel : MonoBehaviour
         {
             b.GetComponent<Button>().interactable = true;
         }
-
-        //load next level after this
-        //If this level was last, this method will be unavailable, because NextLevelButton
-        //will not be interactable
-        Loader.LoaderInstance.CurrentLevel = Loader.LoaderInstance.CurrentLevel + 1;
 
         menuEndLevel.SetActive(false);
 

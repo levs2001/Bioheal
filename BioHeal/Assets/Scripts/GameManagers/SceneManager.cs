@@ -18,6 +18,7 @@ public class SceneManager : MonoBehaviour
     private Dictionary<EntityType, float> timeToSpawn;
 
     private Dictionary<EntityType, int> amountEnemiesPerLevel;
+    private Dictionary<EntityType, int> amountAliveEnemiesPerLevel;
 
     private GameObject heart;
 
@@ -40,6 +41,16 @@ public class SceneManager : MonoBehaviour
         get { return timeToSpawn; }
     }
 
+    public Dictionary<EntityType, int> AmountEnemiesPerLevel
+    {
+        get { return amountEnemiesPerLevel; }
+    }
+
+    public Dictionary<EntityType, int> AmountAliveEnemiesPerLevel
+    {
+        get { return amountAliveEnemiesPerLevel; }
+    }
+
     private void Awake()
     {
         sceneManager = this;
@@ -54,17 +65,18 @@ public class SceneManager : MonoBehaviour
 
         entityManagers = prefabs.ToDictionary(pair => pair.Key, pair => new EntityManager(pair.Value, pair.Key));
 
+        amountAliveEnemiesPerLevel = new Dictionary<EntityType, int>(level.AmountEnemiesPerLevel);
         amountEnemiesPerLevel = new Dictionary<EntityType, int>(level.AmountEnemiesPerLevel);
 
-        foreach (EntityType type in amountEnemiesPerLevel.Keys)
+        foreach (EntityType type in amountAliveEnemiesPerLevel.Keys)
         {
             ActionTimer actionTimer = new GameObject(type.ToString() + "Timer").AddComponent<ActionTimer>();
             actionTimer.Timer = level.Frequencies[type];
             actionTimer.SomeAction = entityManagers[type].Spawn;
-            actionTimer.SomeAction = (() => amountEnemiesPerLevel[type]--);
+            actionTimer.SomeAction = (() => amountAliveEnemiesPerLevel[type]--);
             actionTimer.SomeAction = (() =>
             {
-                if (amountEnemiesPerLevel[type] == 0)
+                if (amountAliveEnemiesPerLevel[type] == 0)
                 {
                     Destroy(actionTimer.gameObject);
                 }
@@ -127,6 +139,20 @@ public class SceneManager : MonoBehaviour
         EntityManager entityManager = entityManagers[entityType];
         entityManager.DeleteObject(objectToDelete);
         Destroy(objectToDelete);
+
+        //Update amount of alive enemies
+        if (entityType == EntityType.Toxin || entityType == EntityType.Infection)
+        {
+            TellAmountOfEnemiesToBase(entityType);
+        }
+    }
+
+    public void TellAmountOfEnemiesToBase(EntityType type)
+    {
+        int alive, all;
+        amountEnemiesPerLevel.TryGetValue(type, out all);
+        amountAliveEnemiesPerLevel.TryGetValue(type, out alive);
+        Base.Instance.UpdateTextAmountOfEnemies(type, all, alive);
     }
 
     public void TransferEntityFromBusyToFree(EntityType managerType, GameObject entity)
@@ -136,7 +162,7 @@ public class SceneManager : MonoBehaviour
 
     private bool CheckThatAllEnemiesDestroyed()
     {
-        if (amountEnemiesPerLevel[EntityType.Infection] != 0 || entityManagers[EntityType.Infection].FreeEntities.Count != 0
+        if (amountAliveEnemiesPerLevel[EntityType.Infection] != 0 || entityManagers[EntityType.Infection].FreeEntities.Count != 0
             || entityManagers[EntityType.Infection].BusyEntities.Count != 0)
         {
             return false;

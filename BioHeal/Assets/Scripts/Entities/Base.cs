@@ -14,6 +14,8 @@ public class Base : Alive
     [SerializeField] private Text textInfo;
     [SerializeField] private Text textMoneyBase, textForceBase;
 
+    [SerializeField] private Text textAmountInfections, textAmountToxins;
+
     //to open and close menuBase at the end of the level
     private static Base instance = null;
     public static Base Instance
@@ -106,6 +108,18 @@ public class Base : Alive
         Camera.main.transform.position = new Vector3(0, 0, Camera.main.transform.position.z);
     }
     ///////         Public methods, called from buttons         ///////
+    
+    public void UpdateTextAmountOfEnemies(EntityType unitType, int amountEnemies, int amountAliveEnemies)
+    {
+        if (unitType==EntityType.Toxin)
+        {
+            textAmountToxins.text = $"{amountAliveEnemies}" + $"(" + $"{amountEnemies}" + $")";
+        }
+        else if (unitType == EntityType.Infection)
+        {
+            textAmountInfections.text = $"{amountAliveEnemies}" + $"(" + $"{amountEnemies}" + $")";
+        }
+    }
 
     public void IncreaseMoney()
     {
@@ -149,6 +163,9 @@ public class Base : Alive
         prices.TryGetValue(EntityType.Erythrocyte, out price); textEritro.text += $" {price}";
         prices.TryGetValue(EntityType.Granulocyte, out price); textGranulo.text += $" {price}";
         prices.TryGetValue(EntityType.Lymphocyte, out price); textLimfo.text += $" {price}";
+
+        SceneManager.sceneManager.TellAmountOfEnemiesToBase(EntityType.Toxin);
+        SceneManager.sceneManager.TellAmountOfEnemiesToBase(EntityType.Infection);
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
