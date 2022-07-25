@@ -136,6 +136,7 @@ public class Base : Alive
     protected override void Start()
     {
         //Init();
+        instance = this;
 
         base.Start();
         textMoneyMenu.text = $"{money}";
