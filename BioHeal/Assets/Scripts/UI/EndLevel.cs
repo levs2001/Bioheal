@@ -33,14 +33,11 @@ public class EndLevel : Logger
         scale = Time.timeScale;
         Time.timeScale = 0;
 
+        Base.Instance.CloseMenu();
         menuEndLevel.SetActive(true);
 
         textResultLevel.text = $"You win!";
         textLoadLevel.text = $"Next\nLevel";
-
-        //set this level cleared and make firstNotCleared level = next level
-        Loader.LoaderInstance.SetLevelCleared(Loader.LoaderInstance.CurrentLevel);
-        Loader.LoaderInstance.CurrentLevel = Loader.LoaderInstance.FirstNotClearedLevel;
 
         Object[] buttons = GameObject.FindObjectsOfType(typeof(Button));
         foreach (Button b in buttons)
@@ -49,6 +46,15 @@ public class EndLevel : Logger
         }
         buttonLoadLevel.GetComponent<Button>().interactable = true;
         buttonGoToMainMenu.GetComponent<Button>().interactable = true;
+
+        //set this level cleared
+        Loader.LoaderInstance.SetLevelCleared(Loader.LoaderInstance.CurrentLevel);
+
+        //if this was last level - buttonLoadLevel will be unavailable
+        if (Loader.LoaderInstance.IsItLastLevel() && Loader.LoaderInstance.AreAllLevelsCleared())
+        {
+            buttonLoadLevel.interactable = false;
+        }
     }
 
     public void OpenLoseLevelMenu()
@@ -56,6 +62,7 @@ public class EndLevel : Logger
         scale = Time.timeScale;
         Time.timeScale = 0;
 
+        Base.Instance.CloseMenu();
         menuEndLevel.SetActive(true);
 
         textResultLevel.text = $"You lost...";
@@ -82,6 +89,11 @@ public class EndLevel : Logger
             b.GetComponent<Button>().interactable = true;
         }
 
+        //load next level after this
+        //If this level was last, this method will be unavailable, because NextLevelButton
+        //will not be interactable
+        Loader.LoaderInstance.CurrentLevel = Loader.LoaderInstance.CurrentLevel + 1;
+        
         menuEndLevel.SetActive(false);
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
