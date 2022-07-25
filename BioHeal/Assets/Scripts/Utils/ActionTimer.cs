@@ -1,6 +1,7 @@
 using UnityEngine;
+using static Logger;
 
-public class ActionTimer : MonoBehaviour 
+public class ActionTimer : Logger
 {
     private float elapsedTime = 0f;
 

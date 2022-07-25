@@ -1,6 +1,7 @@
 using UnityEngine;
+using static Logger;
 
-public class CameraZoomAndMove : MonoBehaviour
+public class CameraZoomAndMove : Logger
 {
     private const string PathToMapBounds = "Map/Map";
 

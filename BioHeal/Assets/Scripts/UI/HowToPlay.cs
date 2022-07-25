@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Logger;
 
-public class HowToPlay : MonoBehaviour
+public class HowToPlay : Logger
 {
     private const int first_page = 0, last_page = 2;
     private int page = first_page;

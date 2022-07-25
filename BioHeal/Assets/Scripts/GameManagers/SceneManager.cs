@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using static EndLevel;
+using static Logger;
 
-public class SceneManager : MonoBehaviour
+public class SceneManager : Logger
 {
     private const string PathPrefabs = "Entities/";
     private const string PathHealthDisplayPrefabs = "Entities/HealthDisplay/";
+
     public static SceneManager sceneManager { get; private set; }
 
     private Dictionary<EntityType, EntityManager> entityManagers;

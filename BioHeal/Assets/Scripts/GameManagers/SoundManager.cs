@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using static Logger;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Logger
 {
     private const string PathSounds = "Sounds/";
 
@@ -47,12 +48,12 @@ public class SoundManager : MonoBehaviour
     public void PlaySound(SoundType type)
     {
         AudioSource source;
-        
+
         if (type == SoundType.MainTheme)
             source = musicSource;
         else
             source = effectsSource;
-        
+
         source.clip = sounds[type];
         source.Play();
     }
