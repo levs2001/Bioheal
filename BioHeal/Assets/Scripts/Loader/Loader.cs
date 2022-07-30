@@ -10,6 +10,8 @@ using System.Reflection;
 // and share config wherever needed
 public class Loader
 {
+    public const int MAIN_MENU_SCENE = 0;
+    public const int GAME_SCENE = 1;
     private const int ALL_LEVELS_ARE_CLEARED = -1;
     private const string configResPath = "config";
     private readonly string configPath = Application.persistentDataPath + "/config.json";
