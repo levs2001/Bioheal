@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static Loader;
-using static Logger;
 
-public class ChooseLevel : Logger
+public class ChooseLevel : MonoBehaviour
 {
     private const int levels_per_page = 15, first_page = 0;
     private int page, last_page;

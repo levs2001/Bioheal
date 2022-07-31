@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using static Logger;
 
-public abstract class HealthDisplay : Logger
+public abstract class HealthDisplay : MonoBehaviour
 {
     private int maxForce = 100;
     private int force = 50;

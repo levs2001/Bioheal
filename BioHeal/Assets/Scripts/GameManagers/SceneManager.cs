@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using static EndLevel;
-using static Logger;
 
-public class SceneManager : Logger
+public class SceneManager : MonoBehaviour
 {
     private const string PathPrefabs = "Entities/";
     private const string PathHealthDisplayPrefabs = "Entities/HealthDisplay/";

@@ -1,9 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using static Logger;
 
-public class Settings : Logger
+public class Settings : MonoBehaviour
 {
     [SerializeField] private Toggle[] toggles = new Toggle[3];
     private Toggle selectedToggle;

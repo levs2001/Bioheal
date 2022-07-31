@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static Loader;
-using static Logger;
 
-public class MainMenu : Logger
+public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject continueButton;
     [SerializeField] private GameObject settingsImage;

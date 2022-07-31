@@ -1,31 +1,22 @@
-using UnityEngine;
 using System;
 using System.IO;
 
-public class Logger : MonoBehaviour
+public static class Logger
 {
-    private const string FileName = "./Logs/LogException.log";
+    private const string FILE_NAME = "./Logs/LogException.log";
 
-    private StreamWriter getWriter()
+    private static StreamWriter getWriter()
     {
         StreamWriter writer;
-        if (!File.Exists(FileName))
-            writer = File.CreateText(FileName);
+        if (!File.Exists(FILE_NAME))
+            writer = File.CreateText(FILE_NAME);
         else
-            writer = new StreamWriter(File.Open(FileName, FileMode.Append, FileAccess.Write));
+            writer = new StreamWriter(File.Open(FILE_NAME, FileMode.Append, FileAccess.Write));
 
         return writer;
     }
 
-    public void Log(string data)
-    {
-        StreamWriter writer = getWriter();
-
-        writer.WriteLine(data);
-        writer.Close();
-    }
-
-    public void LogWithTime(string data)
+    public static void LogWithTime(string data)
     {
         StreamWriter writer = getWriter();
 
@@ -33,7 +24,7 @@ public class Logger : MonoBehaviour
         writer.Close();
     }
 
-    private string GetCurrentDate()
+    private static string GetCurrentDate()
     {
         string temp = "";
         string date = DateTime.Today.ToString();
@@ -43,7 +34,7 @@ public class Logger : MonoBehaviour
         return temp;
     }
 
-    private string GetCurrentTime()
+    private static string GetCurrentTime()
     {
         string temp = "";
         string date = DateTime.Now.ToString();
@@ -51,21 +42,5 @@ public class Logger : MonoBehaviour
         temp2 = date.Split(new Char[] { ' ' });
         temp = temp2[1] + " ";
         return temp;
-    }
-
-    void OnEnable()
-    {
-        Application.logMessageReceived += LogCallback;
-    }
-
-    void LogCallback(string condition, string stackTrace, LogType type)
-    {
-        if (type == LogType.Exception)
-            LogWithTime(condition + ": " + stackTrace);
-    }
-
-    void OnDisable()
-    {
-        Application.logMessageReceived -= LogCallback;
     }
 }

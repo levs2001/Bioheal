@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using static Logger;
 
-public class SoundManager : Logger
+public class SoundManager : MonoBehaviour
 {
     private const string PathSounds = "Sounds/";
 
@@ -19,9 +18,18 @@ public class SoundManager : Logger
         get
         {
             if (instance == null)
-                throw new System.Exception("SoundManager not exist");
-            else
-                return instance;
+            {
+                try
+                {
+                    throw new System.Exception("SoundManager not exist");
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.LogWithTime(ex.ToString());
+                }
+            }
+            
+            return instance;
         }
     }
 

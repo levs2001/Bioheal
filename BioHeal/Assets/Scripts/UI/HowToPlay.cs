@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static Logger;
 
-public class HowToPlay : Logger
+public class HowToPlay : MonoBehaviour
 {
     private const int first_page = 0, last_page = 2;
     private int page = first_page;
@@ -19,7 +18,17 @@ public class HowToPlay : Logger
         {
             //it is initialized at Awake()
             if (instance == null)
-                throw new System.Exception("HowToPlay does not exist");
+            {
+                try
+                {
+                    throw new System.Exception("HowToPlay does not exist");
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.LogWithTime(ex.ToString());
+                }
+            }
+                
             return instance;
         }
     }

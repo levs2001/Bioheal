@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static Loader;
-using static Logger;
 
-public class EndLevel : Logger
+public class EndLevel : MonoBehaviour
 {
     [SerializeField] private GameObject menuEndLevel;
     [SerializeField] private Text textLoadLevel;
@@ -23,7 +22,17 @@ public class EndLevel : Logger
         {
             //it is initialized at Awake()
             if (endLevelMenu == null)
-                throw new System.Exception("EndLevelMenu not exist");
+            {
+                try
+                {
+                    throw new System.Exception("EndLevelMenu not exist");
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.LogWithTime(ex.ToString());
+                }
+            }
+            
             return endLevelMenu;
         }
     }
@@ -93,7 +102,7 @@ public class EndLevel : Logger
         //If this level was last, this method will be unavailable, because NextLevelButton
         //will not be interactable
         Loader.LoaderInstance.CurrentLevel = Loader.LoaderInstance.CurrentLevel + 1;
-        
+
         menuEndLevel.SetActive(false);
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
@@ -123,7 +132,7 @@ public class EndLevel : Logger
             endLevelMenu = this;
             DontDestroyOnLoad(gameObject);
         }
-        else if(endLevelMenu != this)
+        else if (endLevelMenu != this)
         {
             Destroy(gameObject);
         }

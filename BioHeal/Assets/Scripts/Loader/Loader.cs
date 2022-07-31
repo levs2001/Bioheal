@@ -216,7 +216,14 @@ public class Loader
     {
         if (firstNotClearedLevel >= levels.Length)
         {
-            throw new ArgumentException("all levels are cleared");
+            try
+            {
+                throw new ArgumentException("all levels are cleared");
+            }
+            catch (System.Exception ex)
+            {
+                Logger.LogWithTime(ex.ToString());
+            }
         }
         return levels[firstNotClearedLevel];
     }

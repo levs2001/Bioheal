@@ -1,7 +1,6 @@
 using UnityEngine;
-using static Logger;
 
-public class Alive : Logger
+public class Alive : MonoBehaviour
 {
     [SerializeField] protected int force;
     [SerializeField] protected int maxForce;
