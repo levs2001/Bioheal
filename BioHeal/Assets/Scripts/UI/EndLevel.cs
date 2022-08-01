@@ -96,7 +96,7 @@ public class EndLevel : MonoBehaviour
 
         menuEndLevel.SetActive(false);
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(GAME_SCENE);
     }
 
     public void GoToMainMenu()
@@ -112,7 +112,7 @@ public class EndLevel : MonoBehaviour
         }
         menuEndLevel.SetActive(false);
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(MAIN_MENU_SCENE);
     }
 
     private void Awake()

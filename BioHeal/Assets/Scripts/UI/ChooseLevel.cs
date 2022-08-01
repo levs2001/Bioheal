@@ -45,7 +45,7 @@ public class ChooseLevel : MonoBehaviour
         Debug.Log($"Load level #{level + 1}");
 
         Loader.LoaderInstance.CurrentLevel = level;
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(GAME_SCENE);
     }
 
     // Start is called before the first frame update
