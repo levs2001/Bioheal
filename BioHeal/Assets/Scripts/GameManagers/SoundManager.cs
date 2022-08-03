@@ -12,9 +12,7 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioSource effectsSource;
     [SerializeField] private AudioSource musicSource;
-
-    [SerializeField] private Slider volumeSlider;
-    private float volume = 1.0f; // on scale from 0 to 1
+    public float volume = 1.0f; // on scale from 0 to 1
 
     private static SoundManager instance = null;
 
@@ -42,7 +40,6 @@ public class SoundManager : MonoBehaviour
             }
 
             DontDestroyOnLoad(gameObject);
-            volumeSlider.onValueChanged.AddListener(delegate { ChangeVolume(volumeSlider.value); });
         }
         else if (instance != this)
         {
