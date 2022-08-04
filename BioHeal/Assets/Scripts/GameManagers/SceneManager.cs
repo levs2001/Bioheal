@@ -127,6 +127,19 @@ public class SceneManager : MonoBehaviour
         EntityManager entityManager = entityManagers[entityType];
         entityManager.DeleteObject(objectToDelete);
         Destroy(objectToDelete);
+
+        //Update amount of alive enemies
+        if (entityType == EntityType.Toxin || entityType == EntityType.Infection)
+        {
+            Base.Instance.UpdateAmountOfEnemies(entityType);
+        }
+    }
+
+    public int InitAmountOfEnemiesForBase(EntityType type)
+    {
+        int amount;
+        amountEnemiesPerLevel.TryGetValue(type, out amount);
+        return amount;
     }
 
     public void TransferEntityFromBusyToFree(EntityType managerType, GameObject entity)

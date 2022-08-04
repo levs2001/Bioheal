@@ -14,6 +14,10 @@ public class Base : Alive
     [SerializeField] private Text textInfo;
     [SerializeField] private Text textMoneyBase, textForceBase;
 
+    [SerializeField] private Text textAmountInfections, textAmountToxins;
+    private int amountInfections, amountToxins;
+    private int initialAmountInfections, initialAmountToxins;
+
     //to open and close menuBase at the end of the level
     private static Base instance = null;
     public static Base Instance
@@ -106,6 +110,20 @@ public class Base : Alive
         Camera.main.transform.position = new Vector3(0, 0, Camera.main.transform.position.z);
     }
     ///////         Public methods, called from buttons         ///////
+    
+    public void UpdateAmountOfEnemies(EntityType unitType)
+    {
+        if (unitType == EntityType.Toxin)
+        {
+            --this.amountToxins;
+            textAmountToxins.text = $"{this.amountToxins}" + $"/" + $"{initialAmountToxins}";
+        }
+        else if (unitType == EntityType.Infection)
+        {
+            --this.amountInfections;
+            textAmountInfections.text = $"{this.amountInfections}" + $"/" + $"{initialAmountInfections}";
+        }
+    }
 
     public void IncreaseMoney()
     {
@@ -149,6 +167,13 @@ public class Base : Alive
         prices.TryGetValue(EntityType.Erythrocyte, out price); textEritro.text += $" {price}";
         prices.TryGetValue(EntityType.Granulocyte, out price); textGranulo.text += $" {price}";
         prices.TryGetValue(EntityType.Lymphocyte, out price); textLimfo.text += $" {price}";
+
+        initialAmountToxins = SceneManager.sceneManager.InitAmountOfEnemiesForBase(EntityType.Toxin);
+        initialAmountInfections = SceneManager.sceneManager.InitAmountOfEnemiesForBase(EntityType.Infection);
+        this.amountToxins = initialAmountToxins;
+        this.amountInfections = initialAmountInfections;
+        textAmountToxins.text = $"{this.amountToxins}" + $"/" + $"{initialAmountToxins}";
+        textAmountInfections.text = $"{this.amountInfections}" + $"/" + $"{initialAmountInfections}";
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
