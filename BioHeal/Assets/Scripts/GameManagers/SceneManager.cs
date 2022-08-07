@@ -135,11 +135,9 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public int InitAmountOfEnemiesForBase(EntityType type)
+    public int GetAmountOfEnemies(EntityType type)
     {
-        int amount;
-        amountEnemiesPerLevel.TryGetValue(type, out amount);
-        return amount;
+        return amountEnemiesPerLevel[type];
     }
 
     public void TransferEntityFromBusyToFree(EntityType managerType, GameObject entity)

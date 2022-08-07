@@ -58,7 +58,7 @@ public class EndLevel : MonoBehaviour
         else
         {
             //load next level if this was not last level
-            Loader.LoaderInstance.CurrentLevel = Loader.LoaderInstance.CurrentLevel + 1;
+            ++Loader.LoaderInstance.CurrentLevel;
         }
     }
 

@@ -115,13 +115,13 @@ public class Base : Alive
     {
         if (unitType == EntityType.Toxin)
         {
-            --this.amountToxins;
-            textAmountToxins.text = $"{this.amountToxins}" + $"/" + $"{initialAmountToxins}";
+            --amountToxins;
+            textAmountToxins.text = $"{amountToxins}" + $"/" + $"{initialAmountToxins}";
         }
         else if (unitType == EntityType.Infection)
         {
-            --this.amountInfections;
-            textAmountInfections.text = $"{this.amountInfections}" + $"/" + $"{initialAmountInfections}";
+            --amountInfections;
+            textAmountInfections.text = $"{amountInfections}" + $"/" + $"{initialAmountInfections}";
         }
     }
 
@@ -168,12 +168,12 @@ public class Base : Alive
         prices.TryGetValue(EntityType.Granulocyte, out price); textGranulo.text += $" {price}";
         prices.TryGetValue(EntityType.Lymphocyte, out price); textLimfo.text += $" {price}";
 
-        initialAmountToxins = SceneManager.sceneManager.InitAmountOfEnemiesForBase(EntityType.Toxin);
-        initialAmountInfections = SceneManager.sceneManager.InitAmountOfEnemiesForBase(EntityType.Infection);
-        this.amountToxins = initialAmountToxins;
-        this.amountInfections = initialAmountInfections;
-        textAmountToxins.text = $"{this.amountToxins}" + $"/" + $"{initialAmountToxins}";
-        textAmountInfections.text = $"{this.amountInfections}" + $"/" + $"{initialAmountInfections}";
+        initialAmountToxins = SceneManager.sceneManager.GetAmountOfEnemies(EntityType.Toxin);
+        initialAmountInfections = SceneManager.sceneManager.GetAmountOfEnemies(EntityType.Infection);
+        amountToxins = initialAmountToxins;
+        amountInfections = initialAmountInfections;
+        textAmountToxins.text = $"{amountToxins}" + $"/" + $"{initialAmountToxins}";
+        textAmountInfections.text = $"{amountInfections}" + $"/" + $"{initialAmountInfections}";
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);
