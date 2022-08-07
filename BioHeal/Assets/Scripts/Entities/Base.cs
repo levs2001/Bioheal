@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
 using static MetaInfo;
-using static Logger;
+using static LogFactory;
 
 public class Base : Alive
 {
@@ -23,14 +23,8 @@ public class Base : Alive
         {
             if (instance == null)
             {
-                try
-                {
-                    throw new System.Exception("Base does not exist");
-                }
-                catch (System.Exception ex)
-                {
-                    Logger.LogWithTime(ex.ToString());
-                }   
+                Log log = LogFactory.GetLog(typeof(Base));
+                log.Error(new System.Exception("Base does not exist")); 
             }
             
             return instance;

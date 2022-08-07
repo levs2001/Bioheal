@@ -23,16 +23,10 @@ public class EndLevel : MonoBehaviour
             //it is initialized at Awake()
             if (endLevelMenu == null)
             {
-                try
-                {
-                    throw new System.Exception("EndLevelMenu not exist");
-                }
-                catch (System.Exception ex)
-                {
-                    Logger.LogWithTime(ex.ToString());
-                }
+                Log log = LogFactory.GetLog(typeof(SoundManager));
+                log.Error(new System.Exception("EndLevelMenu not exist"));
             }
-            
+
             return endLevelMenu;
         }
     }

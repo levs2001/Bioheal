@@ -19,14 +19,8 @@ public class SoundManager : MonoBehaviour
         {
             if (instance == null)
             {
-                try
-                {
-                    throw new System.Exception("SoundManager not exist");
-                }
-                catch (System.Exception ex)
-                {
-                    Logger.LogWithTime(ex.ToString());
-                }
+                Log log = LogFactory.GetLog(typeof(SoundManager));
+                log.Error(new System.Exception("SoundManager not exist"));
             }
             
             return instance;

@@ -216,14 +216,8 @@ public class Loader
     {
         if (firstNotClearedLevel >= levels.Length)
         {
-            try
-            {
-                throw new ArgumentException("all levels are cleared");
-            }
-            catch (System.Exception ex)
-            {
-                Logger.LogWithTime(ex.ToString());
-            }
+            Log log = LogFactory.GetLog(typeof(SoundManager));
+            log.Error(new ArgumentException("all levels are cleared"));
         }
         return levels[firstNotClearedLevel];
     }

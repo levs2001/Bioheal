@@ -19,14 +19,8 @@ public class HowToPlay : MonoBehaviour
             //it is initialized at Awake()
             if (instance == null)
             {
-                try
-                {
-                    throw new System.Exception("HowToPlay does not exist");
-                }
-                catch (System.Exception ex)
-                {
-                    Logger.LogWithTime(ex.ToString());
-                }
+                Log log = LogFactory.GetLog(typeof(SoundManager));
+                log.Error(new System.Exception("HowToPlay does not exist"));
             }
                 
             return instance;

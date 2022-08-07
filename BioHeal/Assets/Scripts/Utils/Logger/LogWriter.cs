@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-public static class Logger
+public static class LogWriter
 {
     private const string FILE_NAME = "./Logs/LogException.log";
 
