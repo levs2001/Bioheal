@@ -29,11 +29,10 @@ public class Unit : Alive
         {
             Vector2 delta = (Vector2)aim.entity.transform.position - myPos;
             delta.Normalize();
-            var angle = Vector2.SignedAngle(transform.right, delta);
-
-            transform.Rotate(Vector3.forward * angle);
-
             rb.velocity = delta * velocity;
+
+            var angle = Vector2.SignedAngle(transform.right, delta);
+            transform.Rotate(Vector3.forward * angle);
         }
         else
             rb.velocity = Vector2.zero;
