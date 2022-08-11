@@ -50,10 +50,15 @@ public class EndLevel : MonoBehaviour
         //set this level cleared
         Loader.LoaderInstance.SetLevelCleared(Loader.LoaderInstance.CurrentLevel);
 
-        //if this was last level - buttonLoadLevel will be unavailable
         if (Loader.LoaderInstance.IsItLastLevel() && Loader.LoaderInstance.AreAllLevelsCleared())
         {
+            //if this was last level - buttonLoadLevel will be unavailable
             buttonLoadLevel.interactable = false;
+        }
+        else
+        {
+            //load next level if this was not last level
+            ++Loader.LoaderInstance.CurrentLevel;
         }
     }
 
@@ -89,14 +94,9 @@ public class EndLevel : MonoBehaviour
             b.GetComponent<Button>().interactable = true;
         }
 
-        //load next level after this
-        //If this level was last, this method will be unavailable, because NextLevelButton
-        //will not be interactable
-        Loader.LoaderInstance.CurrentLevel = Loader.LoaderInstance.CurrentLevel + 1;
-
         menuEndLevel.SetActive(false);
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(GAME_SCENE);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.GAME_SCENE);
     }
 
     public void GoToMainMenu()
@@ -112,7 +112,7 @@ public class EndLevel : MonoBehaviour
         }
         menuEndLevel.SetActive(false);
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(MAIN_MENU_SCENE);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.MAIN_MENU_SCENE);
     }
 
     private void Awake()
