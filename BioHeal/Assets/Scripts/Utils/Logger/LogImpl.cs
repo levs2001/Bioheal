@@ -2,11 +2,11 @@ using System;
 
 public class LogImpl : Log
 {
-    private static const string ERROR = "Error: ";
-    private static const string WARNING = "Warning: ";
-    private static const string MESSAGE = "\n\tMessage: ";
-    private static const string EXCEPTION_MESSAGE = "\n\tException: ";
-    private static const string CALLER = "\n\tCaller: ";
+    private const string ERROR = "Error: ";
+    private const string WARNING = "Warning: ";
+    private const string MESSAGE = "\n\tMessage: ";
+    private const string EXCEPTION_MESSAGE = "\n\tException: ";
+    private const string CALLER = "\n\tCaller: ";
 
     public Type classType;
 

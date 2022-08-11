@@ -12,6 +12,8 @@ public class HowToPlay : MonoBehaviour
 
     private static HowToPlay instance = null;
 
+    private static Log log = LogFactory.GetLog(typeof(HowToPlay));
+
     public static HowToPlay Instance
     {
         get
@@ -19,7 +21,6 @@ public class HowToPlay : MonoBehaviour
             //it is initialized at Awake()
             if (instance == null)
             {
-                Log log = LogFactory.GetLog(typeof(SoundManager));
                 log.Error(new System.Exception("HowToPlay does not exist"));
             }
                 

@@ -16,6 +16,8 @@ public class EndLevel : MonoBehaviour
 
     private static EndLevel endLevelMenu = null;
 
+    private static Log log = LogFactory.GetLog(typeof(SoundManager));
+
     public static EndLevel Instance
     {
         get
@@ -23,7 +25,6 @@ public class EndLevel : MonoBehaviour
             //it is initialized at Awake()
             if (endLevelMenu == null)
             {
-                Log log = LogFactory.GetLog(typeof(SoundManager));
                 log.Error(new System.Exception("EndLevelMenu not exist"));
             }
 
