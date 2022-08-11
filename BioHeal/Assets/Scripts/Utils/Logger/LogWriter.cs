@@ -26,21 +26,14 @@ public static class LogWriter
 
     private static string GetCurrentDate()
     {
-        string temp = "";
         string date = DateTime.Today.ToString();
-        string[] temp2 = new string[3];
-        temp2 = date.Split(new Char[] { '/', ' ' });
-        temp = temp2[2] + "_" + temp2[0] + "_" + temp2[1] + "-";
-        return temp;
+        string[] temp = date.Split(new Char[] { '/', ' ' });
+        return temp[2] + "_" + temp[0] + "_" + temp[1] + "-";
     }
 
     private static string GetCurrentTime()
     {
-        string temp = "";
         string date = DateTime.Now.ToString();
-        string[] temp2 = new string[3];
-        temp2 = date.Split(new Char[] { ' ' });
-        temp = temp2[1] + " ";
-        return temp;
+        return date.Split(new Char[] { ' ' })[1] + " ";
     }
 }
