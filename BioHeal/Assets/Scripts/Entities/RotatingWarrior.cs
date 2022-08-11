@@ -9,7 +9,7 @@ public class RotatingWarrior : Warrior
 
         if (aim.entity != null)
         {
-            Vector2 delta = (Vector2)aim.entity.transform.position - transform.position;
+            Vector2 delta = (Vector2)aim.entity.transform.position - (Vector2)transform.position;
             var angle = Vector2.SignedAngle(transform.right, delta);
             transform.Rotate(Vector3.forward * angle);
         }
