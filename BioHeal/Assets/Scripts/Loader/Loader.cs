@@ -22,7 +22,7 @@ public class Loader
     private static Loader loader = null;
     public HealthDisplayType healthDisplayType { get; set; } = HealthDisplayType.ModelSize;
 
-    private Log log = LogFactory.GetLog(typeof(SoundManager));
+    private const Log log = LogFactory.GetLog(typeof(SoundManager));
 
     public static Loader LoaderInstance
     {

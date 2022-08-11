@@ -15,7 +15,7 @@ public class Base : Alive
     [SerializeField] private Text textInfo;
     [SerializeField] private Text textMoneyBase, textForceBase;
 
-    private static Log log = LogFactory.GetLog(typeof(Base));
+    private const Log log = LogFactory.GetLog(typeof(Base));
 
     //to open and close menuBase at the end of the level
     private static Base instance = null;
