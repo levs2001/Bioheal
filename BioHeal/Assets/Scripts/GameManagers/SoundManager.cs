@@ -69,7 +69,8 @@ public class SoundManager : MonoBehaviour
             effectsSource.Stop();
     }
 
-    public void ChangeVolume(float value) {
+    public void ChangeVolume(float value) 
+    {
         volume = value;
     }
 

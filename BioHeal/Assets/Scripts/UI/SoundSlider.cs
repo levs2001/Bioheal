@@ -38,9 +38,4 @@ public class SoundSlider : MonoBehaviour
         volumeSlider.value = SoundManager.Instance.volume;
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }
