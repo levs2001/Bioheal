@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Toxin : Warrior
+public class Toxin : RotatingWarrior
 {
     protected override void Start()
     {

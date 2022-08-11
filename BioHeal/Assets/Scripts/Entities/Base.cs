@@ -16,6 +16,10 @@ public class Base : Alive
     [SerializeField] private Text textMoneyBase, textForceBase;
 
     private static readonly Log log = LogFactory.GetLog(typeof(Base));
+    
+    [SerializeField] private Text textAmountInfections, textAmountToxins;
+    private int amountInfections, amountToxins;
+    private int initialAmountInfections, initialAmountToxins;
 
     //to open and close menuBase at the end of the level
     private static Base instance = null;
@@ -111,6 +115,20 @@ public class Base : Alive
         Camera.main.transform.position = new Vector3(0, 0, Camera.main.transform.position.z);
     }
     ///////         Public methods, called from buttons         ///////
+    
+    public void UpdateAmountOfEnemies(EntityType unitType)
+    {
+        if (unitType == EntityType.Toxin)
+        {
+            --amountToxins;
+            textAmountToxins.text = $"{amountToxins}" + $"/" + $"{initialAmountToxins}";
+        }
+        else if (unitType == EntityType.Infection)
+        {
+            --amountInfections;
+            textAmountInfections.text = $"{amountInfections}" + $"/" + $"{initialAmountInfections}";
+        }
+    }
 
     public void IncreaseMoney()
     {
@@ -154,6 +172,13 @@ public class Base : Alive
         prices.TryGetValue(EntityType.Erythrocyte, out price); textEritro.text += $" {price}";
         prices.TryGetValue(EntityType.Granulocyte, out price); textGranulo.text += $" {price}";
         prices.TryGetValue(EntityType.Lymphocyte, out price); textLimfo.text += $" {price}";
+
+        initialAmountToxins = SceneManager.sceneManager.GetAmountOfEnemies(EntityType.Toxin);
+        initialAmountInfections = SceneManager.sceneManager.GetAmountOfEnemies(EntityType.Infection);
+        amountToxins = initialAmountToxins;
+        amountInfections = initialAmountInfections;
+        textAmountToxins.text = $"{amountToxins}" + $"/" + $"{initialAmountToxins}";
+        textAmountInfections.text = $"{amountInfections}" + $"/" + $"{initialAmountInfections}";
 
         menuBase.SetActive(false);
         unitInfo.SetActive(false);

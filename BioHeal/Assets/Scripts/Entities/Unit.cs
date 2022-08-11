@@ -29,7 +29,6 @@ public class Unit : Alive
         {
             Vector2 delta = (Vector2)aim.entity.transform.position - myPos;
             delta.Normalize();
-
             rb.velocity = delta * velocity;
         }
         else

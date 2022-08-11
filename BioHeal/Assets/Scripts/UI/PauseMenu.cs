@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button resumeGameButton;
     [SerializeField] private Button howToPlayButton;
     [SerializeField] private Button goToMainMenuButton;
+    [SerializeField] private Button retryButton;
 
     [SerializeField] private GameObject howToPlay;
 
@@ -32,6 +33,7 @@ public class PauseMenu : MonoBehaviour
         resumeGameButton.GetComponent<Button>().interactable = true;
         howToPlayButton.GetComponent<Button>().interactable = true;
         goToMainMenuButton.GetComponent<Button>().interactable = true;
+        retryButton.GetComponent<Button>().interactable = true;
     }
 
     public void ResumeGame()
@@ -60,11 +62,18 @@ public class PauseMenu : MonoBehaviour
         howToPlay.SetActive(false);
     }
 
+    public void Retry()
+    {
+        Time.timeScale = scale;
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.GAME_SCENE);
+    }
+
     public void GoToMainMenu()
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         Time.timeScale = scale;
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.MAIN_MENU_SCENE);
 
         SoundManager.Instance.StopSound(SoundManager.SoundType.MainTheme);
     }

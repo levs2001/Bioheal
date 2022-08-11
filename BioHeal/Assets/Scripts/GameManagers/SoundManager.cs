@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class SoundManager : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioSource effectsSource;
     [SerializeField] private AudioSource musicSource;
+    public float volume = 1.0f; // on scale from 0 to 1
 
     private static SoundManager instance = null;
 
@@ -58,6 +61,7 @@ public class SoundManager : MonoBehaviour
             source = effectsSource;
 
         source.clip = sounds[type];
+        source.volume = volume;
         source.Play();
     }
 
@@ -67,6 +71,11 @@ public class SoundManager : MonoBehaviour
             musicSource.Stop();
         else
             effectsSource.Stop();
+    }
+
+    public void ChangeVolume(float value) 
+    {
+        volume = value;
     }
 
     public enum SoundType
