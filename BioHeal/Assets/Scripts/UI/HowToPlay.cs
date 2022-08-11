@@ -12,13 +12,18 @@ public class HowToPlay : MonoBehaviour
 
     private static HowToPlay instance = null;
 
+    private static readonly Log log = LogFactory.GetLog(typeof(HowToPlay));
+
     public static HowToPlay Instance
     {
         get
         {
             //it is initialized at Awake()
             if (instance == null)
-                throw new System.Exception("HowToPlay does not exist");
+            {
+                log.Error(new System.Exception("HowToPlay does not exist"));
+            }
+                
             return instance;
         }
     }

@@ -23,6 +23,9 @@ public class Loader
     private long amountOfLevels;
     private static Loader loader = null;
     public HealthDisplayType healthDisplayType { get; set; } = HealthDisplayType.ModelSize;
+
+    private static readonly Log log = LogFactory.GetLog(typeof(SoundManager));
+
     public static Loader LoaderInstance
     {
         get
@@ -218,7 +221,7 @@ public class Loader
     {
         if (firstNotClearedLevel >= levels.Length)
         {
-            throw new ArgumentException("all levels are cleared");
+            log.Error(new ArgumentException("all levels are cleared"));
         }
         return levels[firstNotClearedLevel];
     }

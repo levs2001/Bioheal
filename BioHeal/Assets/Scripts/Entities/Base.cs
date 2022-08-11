@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
 using static MetaInfo;
+using static LogFactory;
 
 public class Base : Alive
 {
@@ -14,6 +15,8 @@ public class Base : Alive
     [SerializeField] private Text textInfo;
     [SerializeField] private Text textMoneyBase, textForceBase;
 
+    private static readonly Log log = LogFactory.GetLog(typeof(Base));
+    
     [SerializeField] private Text textAmountInfections, textAmountToxins;
     private int amountInfections, amountToxins;
     private int initialAmountInfections, initialAmountToxins;
@@ -25,9 +28,11 @@ public class Base : Alive
         get
         {
             if (instance == null)
-                throw new System.Exception("Base does not exist");
-            else
-                return instance;
+            {
+                log.Error(new System.Exception("Base does not exist")); 
+            }
+            
+            return instance;
         }
     }
 

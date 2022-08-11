@@ -8,6 +8,7 @@ public class SceneManager : MonoBehaviour
 {
     private const string PathPrefabs = "Entities/";
     private const string PathHealthDisplayPrefabs = "Entities/HealthDisplay/";
+
     public static SceneManager sceneManager { get; private set; }
 
     private Dictionary<EntityType, EntityManager> entityManagers;
