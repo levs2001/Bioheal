@@ -12,7 +12,7 @@ public class HowToPlay : MonoBehaviour
 
     private static HowToPlay instance = null;
 
-    private const Log log = LogFactory.GetLog(typeof(HowToPlay));
+    private static readonly Log log = LogFactory.GetLog(typeof(HowToPlay));
 
     public static HowToPlay Instance
     {

@@ -16,7 +16,7 @@ public class EndLevel : MonoBehaviour
 
     private static EndLevel endLevelMenu = null;
 
-    private const Log log = LogFactory.GetLog(typeof(SoundManager));
+    private static readonly Log log = LogFactory.GetLog(typeof(SoundManager));
 
     public static EndLevel Instance
     {

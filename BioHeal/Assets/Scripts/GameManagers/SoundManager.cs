@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     private const string PathSounds = "Sounds/";
 
-    private const Log log = LogFactory.GetLog(typeof(SoundManager));
+    private static readonly Log log = LogFactory.GetLog(typeof(SoundManager));
 
     private Dictionary<SoundType, AudioClip> sounds;
 
