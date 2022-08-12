@@ -7,18 +7,8 @@ using static MetaInfo;
 public class Base : Alive
 {
     //SerializeField, because I am initializing these fields from Unity API from inspector 
-    [SerializeField] private GameObject menuBase;
-    // [SerializeField] private Text textMoneyMenu;
-    // [SerializeField] private Text textLimfo, textGranulo, textEritro;
-    // [SerializeField] private GameObject unitInfo;
-    // [SerializeField] private Text textInfo;
     [SerializeField] private Text textForceBase;
 
-    [SerializeField] private Text textAmountInfections, textAmountToxins;
-    private int amountInfections, amountToxins;
-    private int initialAmountInfections, initialAmountToxins;
-
-    //to open and close menuBase at the end of the level
     private static Base instance = null;
     public static Base Instance
     {
@@ -31,21 +21,13 @@ public class Base : Alive
         }
     }
 
-    public void UpdateAmountOfEnemies(EntityType unitType)
+    public void ShowBaseButton()
     {
-        if (unitType == EntityType.Toxin)
-        {
-            --amountToxins;
-            textAmountToxins.text = $"{amountToxins}" + $"/" + $"{initialAmountToxins}";
-        }
-        else if (unitType == EntityType.Infection)
-        {
-            --amountInfections;
-            textAmountInfections.text = $"{amountInfections}" + $"/" + $"{initialAmountInfections}";
-        }
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
+        //Today we do not have job for this button
+        Camera.main.transform.position = new Vector3(0, 0, Camera.main.transform.position.z);
     }
-
-    private void ChangeForceTextAndCloseMenuIfNeeded()
+    private void ChangeForceText()
     {
         textForceBase.text = force < 0 ? $"{0}" : $"{force}";
     }
@@ -68,16 +50,7 @@ public class Base : Alive
         base.Start();
         textForceBase.text = $"{force}";
 
-        initialAmountToxins = SceneManager.sceneManager.GetAmountOfEnemies(EntityType.Toxin);
-        initialAmountInfections = SceneManager.sceneManager.GetAmountOfEnemies(EntityType.Infection);
-        amountToxins = initialAmountToxins;
-        amountInfections = initialAmountInfections;
-        textAmountToxins.text = $"{amountToxins}" + $"/" + $"{initialAmountToxins}";
-        textAmountInfections.text = $"{amountInfections}" + $"/" + $"{initialAmountInfections}";
-
-        menuBase.SetActive(false);
-
-        entityTakeDamageEvent += ChangeForceTextAndCloseMenuIfNeeded;
+        entityTakeDamageEvent += ChangeForceText;
         entityTakeDamageEvent += (() => SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDamage));
         entityTakeDamageEvent += (() =>
         {

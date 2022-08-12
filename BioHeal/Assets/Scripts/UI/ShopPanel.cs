@@ -19,15 +19,12 @@ public class ShopPanel : MonoBehaviour
         {
             if (instance == null)
             {
-                // instance = new ShopPanel();
-                // return instance;
-                throw new System.Exception("zxc");
+                throw new System.Exception("ShopPanel doesnt exist");
             }
             else
                 return instance;
         }
     }
-
 
     private int money;
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
@@ -83,19 +80,4 @@ public class ShopPanel : MonoBehaviour
         prices.TryGetValue(EntityType.Granulocyte, out price); textGranulo.text = $"{price}";
         prices.TryGetValue(EntityType.Lymphocyte, out price); textLimfo.text = $"{price}"; 
     }
-
-
-    // private void Awake()
-    // {
-    //     if (instance == null)
-    //     {
-    //         instance = this;
-    //         Debug.Log("shop panel created");
-    //         DontDestroyOnLoad(gameObject);
-    //     }
-    //     else if (instance != this)
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    // }
 }

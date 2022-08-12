@@ -134,7 +134,7 @@ public class SceneManager : MonoBehaviour
         //Update amount of alive enemies
         if (entityType == EntityType.Toxin || entityType == EntityType.Infection)
         {
-            Base.Instance.UpdateAmountOfEnemies(entityType);
+            EnemiesPanel.Instance.UpdateAmountOfEnemies(entityType);
         }
     }
 
