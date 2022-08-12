@@ -17,9 +17,7 @@ public class Base : Alive
         get
         {
             if (instance == null)
-                throw new System.Exception("Base does not exist");
-            else
-                return instance;
+                log.Error(new System.Exception("Base does not exist")); 
         }
     }
 
