@@ -3,11 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
 using static MetaInfo;
+using static LogFactory;
 
 public class Base : Alive
 {
     //SerializeField, because I am initializing these fields from Unity API from inspector 
     [SerializeField] private Text textForceBase;
+    private static readonly Log log = LogFactory.GetLog(typeof(Base));
 
     private static Base instance = null;
     public static Base Instance
