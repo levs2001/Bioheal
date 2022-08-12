@@ -33,7 +33,6 @@ public class EndLevel : MonoBehaviour
         scale = Time.timeScale;
         Time.timeScale = 0;
 
-        Base.Instance.CloseMenu();
         menuEndLevel.SetActive(true);
 
         textResultLevel.text = $"You win!";
@@ -67,7 +66,6 @@ public class EndLevel : MonoBehaviour
         scale = Time.timeScale;
         Time.timeScale = 0;
 
-        Base.Instance.CloseMenu();
         menuEndLevel.SetActive(true);
 
         textResultLevel.text = $"You lost...";

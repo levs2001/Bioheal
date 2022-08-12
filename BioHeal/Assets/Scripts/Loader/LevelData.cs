@@ -41,8 +41,12 @@ public class LevelData
     public void InitHeart(Base heart)
     {
         heart.Force = level.heart.force;
-        heart.Money = level.heart.money;
-        heart.Prices = prices;
+    }
+
+    public void InitShopPanel(ShopPanel panel)
+    {
+        panel.Money = level.heart.money;
+        panel.Prices = prices;
     }
 
     public void InitUnits(Dictionary<EntityType, GameObject> prefabs)

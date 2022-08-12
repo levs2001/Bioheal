@@ -1,4 +1,6 @@
 using UnityEngine;
+// using static ShopPanel;
+
 
 public class Erythrocyte : Unit
 {
@@ -26,7 +28,7 @@ public class Erythrocyte : Unit
 
         if (aim.entity == SceneManager.sceneManager.Heart && other.tag == "Heart")
         {
-            SceneManager.sceneManager.Heart.GetComponent<Base>().IncreaseMoney();
+            ShopPanel.Instance.IncreaseMoney();
             spriteRenderer.sprite = erythrocyteSprite;
             aim.entity = null;
         }
