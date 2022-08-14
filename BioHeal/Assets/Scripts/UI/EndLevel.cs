@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static Loader;
-using static Base;
 
 public class EndLevel : MonoBehaviour
 {
@@ -17,13 +16,18 @@ public class EndLevel : MonoBehaviour
 
     private static EndLevel endLevelMenu = null;
 
+    private static readonly Log log = LogFactory.GetLog(typeof(SoundManager));
+
     public static EndLevel Instance
     {
         get
         {
             //it is initialized at Awake()
             if (endLevelMenu == null)
-                throw new System.Exception("EndLevelMenu not exist");
+            {
+                log.Error(new System.Exception("EndLevelMenu not exist"));
+            }
+
             return endLevelMenu;
         }
     }
@@ -121,7 +125,7 @@ public class EndLevel : MonoBehaviour
             endLevelMenu = this;
             DontDestroyOnLoad(gameObject);
         }
-        else if(endLevelMenu != this)
+        else if (endLevelMenu != this)
         {
             Destroy(gameObject);
         }

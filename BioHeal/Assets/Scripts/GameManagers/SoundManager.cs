@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
 {
     private const string PathSounds = "Sounds/";
 
+    private static readonly Log log = LogFactory.GetLog(typeof(SoundManager));
+
     private Dictionary<SoundType, AudioClip> sounds;
 
     [SerializeField] private AudioSource effectsSource;
@@ -21,9 +23,11 @@ public class SoundManager : MonoBehaviour
         get
         {
             if (instance == null)
-                throw new System.Exception("SoundManager not exist");
-            else
-                return instance;
+            {
+                log.Error(new System.Exception("SoundManager not exist"));
+            }
+            
+            return instance;
         }
     }
 
@@ -50,12 +54,12 @@ public class SoundManager : MonoBehaviour
     public void PlaySound(SoundType type)
     {
         AudioSource source;
-        
+
         if (type == SoundType.MainTheme)
             source = musicSource;
         else
             source = effectsSource;
-        
+
         source.clip = sounds[type];
         source.volume = volume;
         source.Play();

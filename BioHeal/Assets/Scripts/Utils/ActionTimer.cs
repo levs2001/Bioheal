@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ActionTimer : MonoBehaviour 
+public class ActionTimer : MonoBehaviour
 {
     private float elapsedTime = 0f;
 
