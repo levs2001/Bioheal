@@ -117,10 +117,28 @@ public class SceneManager : MonoBehaviour
             entityManagers[entityType].Spawn();
     }
 
-    public GameObject GetAim(EntityType aimType, Vector3 finderPosition)
+    public GameObject GetAim(EntityType aimType, Vector3 finderPosition, int damage)
     {
         EntityManager entityManager = entityManagers[aimType];
-        return entityManager.GetClosestEntity(finderPosition);
+        GameObject aim = entityManager.GetClosestEntity(finderPosition);
+
+        if (aim != null)
+        {
+            if (aimType == EntityType.Mineral)
+                entityManager.TransferFromFreeToBusy(aim);
+            else
+            {
+                Alive aimAlive = (Alive)aim.GetComponent(typeof(Alive));
+                aimAlive.AddPotentialDamage(damage);
+                if (aimAlive.PotentialDamage >= aimAlive.Force)
+                {
+                    entityManager.TransferFromFreeToBusy(aim);
+                }
+            }
+        }
+
+
+        return aim;
     }
 
     public void DeleteObject(EntityType entityType, GameObject objectToDelete)

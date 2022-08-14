@@ -15,4 +15,9 @@ public class Infection : Warrior
         // The aim for infection can be init once in start
         // If this method won't be override it cause exception.
     }
+
+    private void OnDestroy()
+    {
+
+    }
 }
