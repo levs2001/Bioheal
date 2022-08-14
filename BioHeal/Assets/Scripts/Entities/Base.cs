@@ -1,29 +1,22 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
-using static MetaInfo;
-using static LogFactory;
+using static LoggerFactory;
 
-public class Base : Alive
+
+public class ShopPanel : MonoBehaviour
 {
-    //SerializeField, because I am initializing these fields from Unity API from inspector 
-    [SerializeField] private GameObject menuBase;
-    [SerializeField] private Text textMoneyMenu;
-    [SerializeField] private Text textLimfo, textGranulo, textEritro;
-    [SerializeField] private GameObject unitInfo;
-    [SerializeField] private Text textInfo;
-    [SerializeField] private Text textMoneyBase, textForceBase;
-
-    private static readonly Log log = LogFactory.GetLog(typeof(Base));
     
-    [SerializeField] private Text textAmountInfections, textAmountToxins;
-    private int amountInfections, amountToxins;
-    private int initialAmountInfections, initialAmountToxins;
+    [SerializeField] private Text textLimfo, textGranulo, textEritro;
+    [SerializeField] private Text textMoneyBase;
+    [SerializeField] private GameObject buttonLimfo, buttonEritro, buttonGranulo;
+    private static readonly Log log = LogFactory.GetLog(typeof(Base));
 
-    //to open and close menuBase at the end of the level
-    private static Base instance = null;
-    public static Base Instance
+
+    private static ShopPanel instance = null;
+    public static ShopPanel Instance
     {
         get
         {
@@ -38,6 +31,7 @@ public class Base : Alive
 
     private int money;
     private Dictionary<EntityType, int> prices = new Dictionary<EntityType, int>();
+    private Dictionary<EntityType, GameObject> buttons  = new Dictionary<EntityType, GameObject>();
 
     public int Money
     {
@@ -48,22 +42,16 @@ public class Base : Alive
     {
         set { prices = value; }
     }
-
-    ///////         Public methods, called from buttons         ///////
-    public void OpenMenu()
+    
+    public void IncreaseMoney()
     {
-        if (!menuBase.activeSelf)
-        {
-            menuBase.SetActive(true);
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartTap);
-        }
+        ++money;
+        textMoneyBase.text = $"{money}";
+        
+        UpdateButtonsTransparency();
     }
 
-    public void CloseMenu()
-    {
-        menuBase.SetActive(false);
-        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
-    }
+    
 
     public void BuyUnit(string str)
     {
@@ -75,8 +63,8 @@ public class Base : Alive
         if (money >= price)
         {
             money -= price;
-            textMoneyMenu.text = $"{money}";
             textMoneyBase.text = $"{money}";
+            UpdateButtonsTransparency();
 
             ActionTimer actionTimer = new GameObject(entityType.ToString() + "Timer").AddComponent<ActionTimer>();
             actionTimer.Timer = sceneManager.TimeToSpawn[entityType];
@@ -84,114 +72,54 @@ public class Base : Alive
             actionTimer.SomeAction = (() => Destroy(actionTimer.gameObject));
             actionTimer.SomeAction = (() => SoundManager.Instance.PlaySound(SoundManager.SoundType.UnitSpawn));
         }
+        
 
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
     }
 
-    public void ShowInfoUnit(string str)
+    private void UpdateButtonsTransparency()
     {
-        unitInfo.SetActive(true);
-
-        //Show information about units
-        EntityType unitType = (EntityType)System.Enum.Parse(typeof(EntityType), str);
-
-        textInfo.text = MetaInfo.Instance.GetEntityInfo(unitType);
-
-        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
+         
+        foreach(KeyValuePair<EntityType, int> entry in prices)
+        {
+            if (entry.Value < money)
+            {
+                ChangeButtonTransparency(entry.Key, 1.0f);
+            }
+            else
+            {
+                ChangeButtonTransparency(entry.Key, 0.5f);
+            }
+        } 
     }
-
-    public void CloseInfoUnit()
-    {
-        textInfo.text = "";
-        unitInfo.SetActive(false);
-
-        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
-    }
-
-    public void ShowBaseButton()
-    {
-        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
-        //Today we do not have job for this button
-        Camera.main.transform.position = new Vector3(0, 0, Camera.main.transform.position.z);
-    }
-    ///////         Public methods, called from buttons         ///////
     
-    public void UpdateAmountOfEnemies(EntityType unitType)
+    public void ChangeButtonTransparency(EntityType buttonsEntity, float value)
     {
-        if (unitType == EntityType.Toxin)
-        {
-            --amountToxins;
-            textAmountToxins.text = $"{amountToxins}" + $"/" + $"{initialAmountToxins}";
-        }
-        else if (unitType == EntityType.Infection)
-        {
-            --amountInfections;
-            textAmountInfections.text = $"{amountInfections}" + $"/" + $"{initialAmountInfections}";
-        }
-    }
-
-    public void IncreaseMoney()
-    {
-        ++money;
-        textMoneyMenu.text = $"{money}";
-        textMoneyBase.text = $"{money}";
-    }
-
-    private void ChangeForceTextAndCloseMenuIfNeeded()
-    {
-        textForceBase.text = force < 0 ? $"{0}" : $"{force}";
-        if (force <= 0)
-        {
-            CloseMenu();
-        }
-    }
-
-    private void Die()
-    {
-        //this action moved to EndLevel to remember timeScale to return it
-        //after closing EndLevelMenu
-        //Time.timeScale = 0;
-
-        EndLevel.Instance.OpenLoseLevelMenu();
+        GameObject button;
+        buttons.TryGetValue(buttonsEntity, out button);
+        var image = button.GetComponent<Image>();
+        var tempColor = image.color;
+        tempColor.a = value;
+        image.color = tempColor;
     }
 
     // Start is called before the first frame update
-    protected override void Start()
+    void Start()
     {
-        //Init();
         instance = this;
-
-        base.Start();
-        textMoneyMenu.text = $"{money}";
+        
         textMoneyBase.text = $"{money}";
-        textForceBase.text = $"{force}";
-
+        
         //add price for units to screen
         int price;
         //method returns price by reference
-        prices.TryGetValue(EntityType.Erythrocyte, out price); textEritro.text += $" {price}";
-        prices.TryGetValue(EntityType.Granulocyte, out price); textGranulo.text += $" {price}";
-        prices.TryGetValue(EntityType.Lymphocyte, out price); textLimfo.text += $" {price}";
+        prices.TryGetValue(EntityType.Erythrocyte, out price); textEritro.text = $"{price}";
+        prices.TryGetValue(EntityType.Granulocyte, out price); textGranulo.text = $"{price}";
+        prices.TryGetValue(EntityType.Lymphocyte, out price); textLimfo.text = $"{price}";
 
-        initialAmountToxins = SceneManager.sceneManager.GetAmountOfEnemies(EntityType.Toxin);
-        initialAmountInfections = SceneManager.sceneManager.GetAmountOfEnemies(EntityType.Infection);
-        amountToxins = initialAmountToxins;
-        amountInfections = initialAmountInfections;
-        textAmountToxins.text = $"{amountToxins}" + $"/" + $"{initialAmountToxins}";
-        textAmountInfections.text = $"{amountInfections}" + $"/" + $"{initialAmountInfections}";
-
-        menuBase.SetActive(false);
-        unitInfo.SetActive(false);
-
-        entityTakeDamageEvent += ChangeForceTextAndCloseMenuIfNeeded;
-        entityTakeDamageEvent += (() => SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDamage));
-        entityTakeDamageEvent += (() =>
-        {
-            if (force <= 0)
-            {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.HeartDead);
-                Die();
-            }
-        });
+        buttons.Add(EntityType.Erythrocyte, buttonEritro);
+        buttons.Add(EntityType.Granulocyte, buttonGranulo);
+        buttons.Add(EntityType.Lymphocyte, buttonLimfo);
+        UpdateButtonsTransparency(); 
     }
 }
