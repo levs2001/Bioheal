@@ -2,21 +2,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
+using static MetaInfo;
+// using static LogFactory;
 
 public class Base : Alive
 {
     //SerializeField, because I am initializing these fields from Unity API from inspector 
     [SerializeField] private Text textForceBase;
 
+
+
+
+
+
+    // private static readonly Log log = LogFactory.GetLog(typeof(Base));
+    
+    [SerializeField] private Text textAmountInfections, textAmountToxins;
+    private int amountInfections, amountToxins;
+    private int initialAmountInfections, initialAmountToxins;
+
+    //to open and close menuBase at the end of the level
     private static Base instance = null;
     public static Base Instance
     {
         get
         {
             if (instance == null)
-                throw new System.Exception("Base doesnt exist");
-            else
-                return instance;
+            {
+                // log.Error(new System.Exception("Base does not exist")); 
+            }
+            return instance;
         }
     }
 
