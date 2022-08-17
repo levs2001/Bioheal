@@ -17,12 +17,4 @@ public class Toxin : RotatingWarrior
             aim.entity.GetComponent<Erythrocyte>().ThrowAwayTheMineral();
         }
     }
-
-    private void OnDestroy()
-    {
-        if (aim.entity != null)
-        {
-            SceneManager.sceneManager.TransferEntityFromBusyToFree(EntityType.Erythrocyte, aim.entity);
-        }
-    }
 }

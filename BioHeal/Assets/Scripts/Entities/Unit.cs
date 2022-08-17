@@ -39,7 +39,7 @@ public class Unit : Alive
     {
         if (aim.entity == null)
         {
-            aim.entity = SceneManager.sceneManager.GetAim(aim.entityType.Value, this.transform.position);
+            aim.entity = SceneManager.sceneManager.GetAim(aim.entityType.Value, this.transform.position, force);
         }
     }
 
@@ -47,7 +47,6 @@ public class Unit : Alive
     {
         this.velocity = velocity;
         this.force = force;
-        maxForce = force;
     }
 
     protected struct Aim

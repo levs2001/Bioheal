@@ -52,12 +52,4 @@ public class Granulocyte : Warrior
             rb.velocity = Vector2.zero;
         }
     }
-    
-    private void OnDestroy()
-    {
-        if (aim.entity != null)
-        {
-            SceneManager.sceneManager.TransferEntityFromBusyToFree(aim.entityType.Value, aim.entity);
-        }
-    }
 }

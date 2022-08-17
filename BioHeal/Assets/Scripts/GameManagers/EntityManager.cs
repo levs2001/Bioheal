@@ -46,12 +46,6 @@ public class EntityManager
             }
         }
 
-        if (closestEntity != null)
-        {
-            freeEntities.Remove(closestEntity);
-            busyEntities.Add(closestEntity);
-        }
-
         return closestEntity;
     }
 
@@ -68,6 +62,14 @@ public class EntityManager
         if (busyEntities.Remove(entity))
         {
             freeEntities.Add(entity);
+        }
+    }
+
+    public void TransferFromFreeToBusy(GameObject entity)
+    {
+        if (freeEntities.Remove(entity))
+        {
+            busyEntities.Add(entity);
         }
     }
 

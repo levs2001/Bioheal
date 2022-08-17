@@ -16,4 +16,14 @@ public class Warrior : Unit
             this.TakeDamage(damageTaken);
         }
     }
+
+    private void OnDestroy()
+    {
+        if (aim.entity != null)
+        {
+            Alive aimAlive = (Alive)aim.entity.GetComponent(typeof(Alive));
+            aimAlive.SubtractPotentialDamage(force);
+            SceneManager.sceneManager.TransferEntityFromBusyToFree(aim.entityType.Value, aim.entity);
+        }
+    }
 }

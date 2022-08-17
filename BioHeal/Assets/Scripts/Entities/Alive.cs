@@ -3,7 +3,8 @@ using UnityEngine;
 public class Alive : MonoBehaviour
 {
     [SerializeField] protected int force;
-    [SerializeField] protected int maxForce;
+
+    protected int potentialDamageTaken = 0;
 
     protected EntityType entityType;
     protected delegate void EntityTakeDamage();
@@ -14,6 +15,21 @@ public class Alive : MonoBehaviour
     {
         set { force = value; }
         get { return force; }
+    }
+
+    public int PotentialDamage
+    {
+        get {return potentialDamageTaken; }
+    }
+
+    public void AddPotentialDamage(int damage)
+    {
+        potentialDamageTaken += damage;
+    }
+
+    public void SubtractPotentialDamage(int damage)
+    {
+        potentialDamageTaken -= damage;
     }
 
     public void TakeDamage(int damage)
