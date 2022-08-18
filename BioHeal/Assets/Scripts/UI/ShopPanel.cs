@@ -4,14 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
 using static MetaInfo;
+using static LogFactory;
 
 
 public class ShopPanel : MonoBehaviour
 {
     
-    private static const float TRANSPARENT = 0.5f;
-    private static const float NON_TRANSPARENT = 1.0f;
-    
+    private const float TRANSPARENT = 0.5f;
+    private const float NON_TRANSPARENT = 1.0f;
+    private static readonly Log log = LogFactory.GetLog(typeof(Base));
+
     [SerializeField] private Text textLimfo, textGranulo, textEritro;
     [SerializeField] private Text textMoneyBase;
     [SerializeField] private GameObject buttonLimfo, buttonEritro, buttonGranulo;

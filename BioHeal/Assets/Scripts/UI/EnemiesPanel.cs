@@ -2,9 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
+using static LogFactory;
+
 
 public class EnemiesPanel : MonoBehaviour
 {
+    private static readonly Log log = LogFactory.GetLog(typeof(Base));
+
     [SerializeField] private Text textAmountInfections, textAmountToxins;
     private int amountInfections, amountToxins;
     private int initialAmountInfections, initialAmountToxins;
