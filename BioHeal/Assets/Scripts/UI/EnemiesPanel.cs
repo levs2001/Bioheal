@@ -12,14 +12,14 @@ public class EnemiesPanel : MonoBehaviour
     private static EnemiesPanel instance = null;
     public static EnemiesPanel Instance
     {
-        get
+         get
         {
             if (instance == null)
             {
-                throw new System.Exception("EnemiesPanel doesnt exist");
+                log.Error(new System.Exception("EnemiesPanel does not exist")); 
             }
-            else
-                return instance;
+            
+            return instance;
         }
     }
     public void UpdateAmountOfEnemies(EntityType unitType)

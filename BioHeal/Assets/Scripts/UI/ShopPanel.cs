@@ -9,6 +9,9 @@ using static MetaInfo;
 public class ShopPanel : MonoBehaviour
 {
     
+    private static const float TRANSPARENT = 0.5f;
+    private static const float NON_TRANSPARENT = 1.0f;
+    
     [SerializeField] private Text textLimfo, textGranulo, textEritro;
     [SerializeField] private Text textMoneyBase;
     [SerializeField] private GameObject buttonLimfo, buttonEritro, buttonGranulo;
@@ -17,14 +20,14 @@ public class ShopPanel : MonoBehaviour
     private static ShopPanel instance = null;
     public static ShopPanel Instance
     {
-        get
+         get
         {
             if (instance == null)
             {
-                throw new System.Exception("ShopPanel doesnt exist");
+                log.Error(new System.Exception("ShopPanel does not exist")); 
             }
-            else
-                return instance;
+            
+            return instance;
         }
     }
 
@@ -81,13 +84,13 @@ public class ShopPanel : MonoBehaviour
          
         foreach(KeyValuePair<EntityType, int> entry in prices)
         {
-            if (entry.Value < money)
+            if (entry.Value <= money)
             {
-                ChangeButtonTransparency(entry.Key, 1.0f);
+                ChangeButtonTransparency(entry.Key, NON_TRANSPARENT);
             }
             else
             {
-                ChangeButtonTransparency(entry.Key, 0.5f);
+                ChangeButtonTransparency(entry.Key, TRANSPARENT);
             }
         } 
     }
