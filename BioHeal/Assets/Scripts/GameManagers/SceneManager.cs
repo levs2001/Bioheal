@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using static EndLevel;
+using static ShopPanel;
+
 
 public class SceneManager : MonoBehaviour
 {
@@ -52,6 +54,7 @@ public class SceneManager : MonoBehaviour
 
         heart = GameObject.FindWithTag("Heart");
         level.InitHeart(heart.GetComponent<Base>());
+        level.InitShopPanel(GameObject.FindWithTag("ShopPanel").GetComponent<ShopPanel>());
 
         entityManagers = prefabs.ToDictionary(pair => pair.Key, pair => new EntityManager(pair.Value, pair.Key));
 
@@ -150,7 +153,7 @@ public class SceneManager : MonoBehaviour
         //Update amount of alive enemies
         if (entityType == EntityType.Toxin || entityType == EntityType.Infection)
         {
-            Base.Instance.UpdateAmountOfEnemies(entityType);
+            EnemiesPanel.Instance.UpdateAmountOfEnemies(entityType);
         }
     }
 
