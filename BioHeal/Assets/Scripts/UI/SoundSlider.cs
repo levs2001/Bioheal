@@ -4,38 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SoundSlider : MonoBehaviour
-{
-    
-    private static SoundSlider instance = null;
+{    
     [SerializeField] private Slider volumeSlider;
+    [SerializeField] private VolumeType volumeType;
 
-    public static SoundSlider Instance
+    private void Start()
     {
-        get
+        volumeSlider.onValueChanged.AddListener(delegate { SoundManager.Instance.ChangeVolume(volumeType, volumeSlider.value); });
+        switch (volumeType)
         {
-            if (instance == null)
-                throw new System.Exception("SoundSlider not exist");
-            else
-                return instance;
+            case VolumeType.Effects:
+                volumeSlider.value = SoundManager.Instance.effectsVolume;
+                break;
+            case VolumeType.Music:
+                volumeSlider.value = SoundManager.Instance.musicVolume;
+                break;
+            default:
+                break;
         }
     }
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-            volumeSlider.onValueChanged.AddListener(delegate { SoundManager.Instance.ChangeVolume(volumeSlider.value); });
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        volumeSlider.value = SoundManager.Instance.volume;
 
+    public enum VolumeType
+    {
+        Effects,
+        Music
     }
 }
