@@ -14,7 +14,8 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioSource effectsSource;
     [SerializeField] private AudioSource musicSource;
-    public float volume = 1.0f; // on scale from 0 to 1
+    public float musicVolume = 1f; // on scale from 0 to 1
+    public float effectsVolume = 1f; // on scale from 0 to 1
 
     private static SoundManager instance = null;
 
@@ -56,12 +57,17 @@ public class SoundManager : MonoBehaviour
         AudioSource source;
 
         if (type == SoundType.MainTheme)
+        {
             source = musicSource;
+            source.volume = musicVolume;
+        }
         else
+        {
             source = effectsSource;
+            source.volume = effectsVolume;
+        }
 
         source.clip = sounds[type];
-        source.volume = volume;
         source.Play();
     }
 
@@ -73,9 +79,19 @@ public class SoundManager : MonoBehaviour
             effectsSource.Stop();
     }
 
-    public void ChangeVolume(float value) 
+    public void ChangeVolume(SoundSlider.VolumeType volumeType, float value) 
     {
-        volume = value;
+        switch (volumeType)
+        {
+            case SoundSlider.VolumeType.Effects:
+                effectsVolume = value;
+                break;
+            case SoundSlider.VolumeType.Music:
+                musicVolume = value;
+                break;
+            default:
+                break;
+        }
     }
 
     public enum SoundType
