@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using static EndLevel;
 using static ShopPanel;
+using static PauseMenu;
 
 
 public class SceneManager : MonoBehaviour
@@ -109,6 +110,13 @@ public class SceneManager : MonoBehaviour
                 //Time.timeScale = 0;
                 EndLevel.Instance.OpenWinLevelMenu();
             }
+        }
+
+        //open pause menu using Escape button
+        if (Input.GetKeyDown(KeyCode.Escape) &&
+                UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == $"GameScene")
+        {
+            PauseMenu.Instance.EscapeButton();
         }
     }
 

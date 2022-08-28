@@ -15,6 +15,35 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject howToPlay;
 
     private float scale; //field to remember timeScale
+    private bool isOpened = false;
+
+    private static readonly Log log = LogFactory.GetLog(typeof(PauseMenu));
+
+    private static PauseMenu instance = null;
+    public static PauseMenu Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                log.Error(new System.Exception("PauseMenu does not exist"));
+            }
+
+            return instance;
+        }
+    }
+
+    public void EscapeButton()
+    {
+        if (!isOpened)
+        {
+            PauseButton();
+        }
+        else
+        {
+            ResumeGame();
+        }
+    }
 
     public void PauseButton()
     {
@@ -23,6 +52,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         scale = Time.timeScale;
         Time.timeScale = 0;
+        isOpened = true;
 
         //all buttons are not available except buttons at PauseMenu
         Object[] buttons = GameObject.FindObjectsOfType(typeof(Button));
@@ -38,6 +68,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
+        isOpened = false;
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
 
         Object[] buttons = GameObject.FindObjectsOfType(typeof(Button));
@@ -64,6 +95,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Retry()
     {
+        isOpened = false;
         Time.timeScale = scale;
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.GAME_SCENE);
@@ -71,6 +103,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        isOpened = false;
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         Time.timeScale = scale;
         UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.MAIN_MENU_SCENE);
@@ -81,6 +114,7 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        instance = this;
         howToPlay.SetActive(false);
         pauseMenu.SetActive(false);
     }
