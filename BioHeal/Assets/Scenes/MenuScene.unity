@@ -8213,7 +8213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectsSource: {fileID: 1639114298}
   musicSource: {fileID: 1639114300}
-  musicVolume: 1
+  musicVolume: 0
   effectsVolume: 1
 --- !u!82 &1639114298
 AudioSource:
