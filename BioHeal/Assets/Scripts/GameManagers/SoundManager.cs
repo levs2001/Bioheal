@@ -14,8 +14,8 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioSource effectsSource;
     [SerializeField] private AudioSource musicSource;
-    public float musicVolume = 1f; // on scale from 0 to 1
-    public float effectsVolume = 1f; // on scale from 0 to 1
+    [SerializeField] public float musicVolume = 0f; // on scale from 0 to 1
+    [SerializeField] public float effectsVolume = 1f; // on scale from 0 to 1
 
     private static SoundManager instance = null;
 
