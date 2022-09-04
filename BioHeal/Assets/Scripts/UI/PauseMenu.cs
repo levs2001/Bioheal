@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
+    private const float BACKGROUND_TRANSPARENCY = 0.7f;
+    
     [SerializeField] private GameObject pauseMenu;
 
     [SerializeField] private Button resumeGameButton;
@@ -13,6 +15,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button retryButton;
 
     [SerializeField] private GameObject howToPlay;
+    [SerializeField] private GameObject background;
+    
 
     private float scale; //field to remember timeScale
     private bool isOpened = false;
@@ -50,6 +54,7 @@ public class PauseMenu : MonoBehaviour
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
 
         pauseMenu.SetActive(true);
+        background.SetActive(true);
         scale = Time.timeScale;
         Time.timeScale = 0;
         isOpened = true;
@@ -78,6 +83,7 @@ public class PauseMenu : MonoBehaviour
         }
 
         Time.timeScale = scale;
+        background.SetActive(false);
         pauseMenu.SetActive(false);
     }
 
@@ -117,5 +123,11 @@ public class PauseMenu : MonoBehaviour
         instance = this;
         howToPlay.SetActive(false);
         pauseMenu.SetActive(false);
+        background.SetActive(false);
+
+        var backgroundImage = background.GetComponent<Image>();
+        var tempColor = backgroundImage.color;
+        tempColor.a = BACKGROUND_TRANSPARENCY;
+        backgroundImage.color = tempColor;
     }
 }
