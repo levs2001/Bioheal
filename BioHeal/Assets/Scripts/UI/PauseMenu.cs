@@ -13,6 +13,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button howToPlayButton;
     [SerializeField] private Button goToMainMenuButton;
     [SerializeField] private Button retryButton;
+    [SerializeField] private GameObject pauseButton;
+    
 
     [SerializeField] private GameObject howToPlay;
     [SerializeField] private GameObject background;
@@ -55,6 +57,8 @@ public class PauseMenu : MonoBehaviour
 
         pauseMenu.SetActive(true);
         background.SetActive(true);
+        pauseButton.SetActive(false); // resume game button is displayed instead
+
         scale = Time.timeScale;
         Time.timeScale = 0;
         isOpened = true;
@@ -85,6 +89,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = scale;
         background.SetActive(false);
         pauseMenu.SetActive(false);
+        pauseButton.SetActive(false);
     }
 
     public void OpenHowToPlay()
