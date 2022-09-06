@@ -108,7 +108,9 @@ public class SceneManager : MonoBehaviour
                 //this action moved to EndLevel to remember timeScale to return it
                 //after closing EndLevelMenu
                 //Time.timeScale = 0;
-                EndLevel.Instance.OpenWinLevelMenu();
+
+                PauseMenu.Instance.OpenWinLevelMenu();
+                // EndLevel.Instance.OpenWinLevelMenu();
             }
         }
 

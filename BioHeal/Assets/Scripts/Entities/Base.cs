@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static SceneManager;
 using static LogFactory;
+using static PauseMenu;
 
 
 public class Base : Alive
@@ -42,7 +43,8 @@ public class Base : Alive
         //after closing EndLevelMenu
         //Time.timeScale = 0;
 
-        EndLevel.Instance.OpenLoseLevelMenu();
+        PauseMenu.Instance.OpenLoseLevelMenu();
+        // EndLevel.Instance.OpenLoseLevelMenu();
     }
 
     // Start is called before the first frame update
