@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    private const float BACKGROUND_TRANSPARENCY = 0.7f;
+    private readonly static Color32 LOSE_BACKGROUND_COLOR = new Color32(200,200,200,200);
+    private readonly static Color32 PAUSE_BACKGROUND_COLOR = new Color32(255,255,255,200);
+    private readonly static Color32 WIN_BACKGROUND_COLOR = PAUSE_BACKGROUND_COLOR;
+    
     // private PauseMenuState state = PauseMenuState.Pause;
     
     [SerializeField] private GameObject pauseMenu;
@@ -59,6 +62,7 @@ public class PauseMenu : MonoBehaviour
     public void PauseButton()
     {
         pauseMenuText.text = $"pause";
+        background.GetComponent<Image>().color = PAUSE_BACKGROUND_COLOR;
         MenuActions();
     }
 
@@ -90,6 +94,7 @@ public class PauseMenu : MonoBehaviour
     public void OpenLoseLevelMenu() 
     {
         pauseMenuText.text = $"you lost!";
+        background.GetComponent<Image>().color = LOSE_BACKGROUND_COLOR;
         MenuActions();
         resumeGameButton.SetActive(false); // both resume/goNext and pause buttons are disabled
     }
@@ -97,6 +102,7 @@ public class PauseMenu : MonoBehaviour
      public void OpenWinLevelMenu() 
     {
         pauseMenuText.text = $"you won!";
+        background.GetComponent<Image>().color = WIN_BACKGROUND_COLOR;
         MenuActions();
         
         //set this level cleared
@@ -177,9 +183,6 @@ public class PauseMenu : MonoBehaviour
         pauseButton.SetActive(true);
         pauseMenuText.text = $"pause";
 
-        var backgroundImage = background.GetComponent<Image>();
-        var tempColor = backgroundImage.color;
-        tempColor.a = BACKGROUND_TRANSPARENCY;
-        backgroundImage.color = tempColor;
+        background.GetComponent<Image>().color = PAUSE_BACKGROUND_COLOR;
     }
 }
