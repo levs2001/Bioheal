@@ -7,11 +7,9 @@ using static Loader;
 
 public class ChooseLevel : MonoBehaviour
 {
-    private const int levels_per_page = 15, first_page = 0;
+    private const int levels_per_page = 10, first_page = 0;
     private int page, last_page;
     private long amountOfLevels, countOpenedLevel;
-
-    [SerializeField] private Sprite closedIcon, openedIcon;
 
     public void OpenNextPage()
     {
@@ -76,17 +74,23 @@ public class ChooseLevel : MonoBehaviour
             //if level is open
             if (butNum + levels_per_page * page <= countOpenedLevel)
             {
-                transform.GetChild(butNum).GetComponent<Image>().sprite = openedIcon;
                 transform.GetChild(butNum).GetComponent<Button>().interactable = true;
                 transform.GetChild(butNum).GetComponentInChildren<Text>().text = $"{(butNum + 1) + (levels_per_page * page)}";
+
+                Color color = transform.GetChild(butNum).GetComponentInChildren<Image>().color;
+                color.a = 255;
+                transform.GetChild(butNum).GetComponentInChildren<Image>().color = color;
             }
 
             //level exists but closed
             else if (butNum + levels_per_page * page <= amountOfLevels)
             {
-                transform.GetChild(butNum).GetComponent<Image>().sprite = closedIcon;
                 transform.GetChild(butNum).GetComponent<Button>().interactable = false;
                 transform.GetChild(butNum).GetComponentInChildren<Text>().text = $"{(butNum + 1) + (levels_per_page * page)}";
+
+                Color color = transform.GetChild(butNum).GetComponentInChildren<Image>().color;
+                color.a = 155;
+                transform.GetChild(butNum).GetComponentInChildren<Image>().color = color;
             }
 
             //level does not exist
