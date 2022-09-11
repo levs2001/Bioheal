@@ -89,7 +89,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = scale;
         background.SetActive(false);
         pauseMenu.SetActive(false);
-        pauseButton.SetActive(false);
+        pauseButton.SetActive(true);
     }
 
     public void OpenHowToPlay()
