@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour
     
     [SerializeField] private GameObject pauseMenu;
 
-    [SerializeField] private Button resumeGameButton;
+    [SerializeField] private GameObject resumeGameButton;
     [SerializeField] private Button howToPlayButton;
     [SerializeField] private Button goToMainMenuButton;
     [SerializeField] private Button retryButton;
@@ -57,6 +57,8 @@ public class PauseMenu : MonoBehaviour
 
         pauseMenu.SetActive(true);
         background.SetActive(true);
+        resumeGameButton.SetActive(true);
+
         pauseButton.SetActive(false); // resume game button is displayed instead
 
         scale = Time.timeScale;
@@ -89,7 +91,9 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = scale;
         background.SetActive(false);
         pauseMenu.SetActive(false);
-        pauseButton.SetActive(false);
+        resumeGameButton.SetActive(false);
+
+        pauseButton.SetActive(true);
     }
 
     public void OpenHowToPlay()
@@ -129,6 +133,7 @@ public class PauseMenu : MonoBehaviour
         howToPlay.SetActive(false);
         pauseMenu.SetActive(false);
         background.SetActive(false);
+        resumeGameButton.SetActive(false);
 
         var backgroundImage = background.GetComponent<Image>();
         var tempColor = backgroundImage.color;
