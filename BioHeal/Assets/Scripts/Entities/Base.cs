@@ -64,10 +64,5 @@ public class Base : Alive
                 Die();
             }
         });
-        // disable healthbar for base as we have force counter displayed on it
-        if (this.healthbar.GetComponent<HealthDisplay>().GetType() == typeof(HealthDisplayBar))
-        {
-            this.healthbar.SetActive(false);
-        }
     }
 }
