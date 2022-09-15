@@ -5,10 +5,15 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    private const float BACKGROUND_TRANSPARENCY = 0.7f;
+    private readonly static Color32 LOSE_BACKGROUND_COLOR = new Color32(200,200,200,200);
+    private readonly static Color32 PAUSE_BACKGROUND_COLOR = new Color32(255,255,255,200);
+    private readonly static Color32 WIN_BACKGROUND_COLOR = PAUSE_BACKGROUND_COLOR;
+    
+    // private PauseMenuState state = PauseMenuState.Pause;
     
     [SerializeField] private GameObject pauseMenu;
 
+    [SerializeField] private Text pauseMenuText;
     [SerializeField] private GameObject resumeGameButton;
     [SerializeField] private Button howToPlayButton;
     [SerializeField] private Button goToMainMenuButton;
@@ -41,17 +46,27 @@ public class PauseMenu : MonoBehaviour
 
     public void EscapeButton()
     {
-        if (!isOpened)
+        if (pauseMenuText.text.Equals($"pause")) // shouldnt work in win/lose menus 
         {
-            PauseButton();
-        }
-        else
-        {
-            ResumeGame();
+            if (!isOpened)
+            {
+                PauseButton();
+            }
+            else
+            {
+                ResumeGame();
+            }
         }
     }
 
     public void PauseButton()
+    {
+        pauseMenuText.text = $"pause";
+        background.GetComponent<Image>().color = PAUSE_BACKGROUND_COLOR;
+        MenuActions();
+    }
+
+    private void MenuActions()
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
 
@@ -71,12 +86,43 @@ public class PauseMenu : MonoBehaviour
         {
             b.GetComponent<Button>().interactable = false;
         }
-        resumeGameButton.GetComponent<Button>().interactable = true;
         howToPlayButton.GetComponent<Button>().interactable = true;
         goToMainMenuButton.GetComponent<Button>().interactable = true;
         retryButton.GetComponent<Button>().interactable = true;
+
+        resumeGameButton.GetComponent<Button>().interactable = true;
     }
 
+    public void OpenLoseLevelMenu() 
+    {
+        pauseMenuText.text = $"you lost!";
+        background.GetComponent<Image>().color = LOSE_BACKGROUND_COLOR;
+        MenuActions();
+        resumeGameButton.SetActive(false); // both resume/goNext and pause buttons are disabled
+    }
+
+     public void OpenWinLevelMenu() 
+    {
+        pauseMenuText.text = $"you won!";
+        background.GetComponent<Image>().color = WIN_BACKGROUND_COLOR;
+        MenuActions();
+        
+        //set this level cleared
+        Loader.LoaderInstance.SetLevelCleared(Loader.LoaderInstance.CurrentLevel);
+
+        if (Loader.LoaderInstance.IsItLastLevel() && Loader.LoaderInstance.AreAllLevelsCleared())
+        {
+            //if this was last level - cant go next level
+            resumeGameButton.SetActive(false);
+        }
+        else
+        {
+            //load next level if this was not last level
+            ++Loader.LoaderInstance.CurrentLevel;
+        }
+    }
+
+    // resumes game in pause menu as well as loads next level in win menu
     public void ResumeGame()
     {
         isOpened = false;
@@ -91,9 +137,12 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = scale;
         background.SetActive(false);
         pauseMenu.SetActive(false);
-        resumeGameButton.SetActive(false);
-
         pauseButton.SetActive(true);
+
+        if (pauseMenuText.text.Equals("you won!")) // if we're in win menu
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.GAME_SCENE);
+        }
     }
 
     public void OpenHowToPlay()
@@ -133,11 +182,9 @@ public class PauseMenu : MonoBehaviour
         howToPlay.SetActive(false);
         pauseMenu.SetActive(false);
         background.SetActive(false);
-        resumeGameButton.SetActive(false);
+        pauseButton.SetActive(true);
+        pauseMenuText.text = $"pause";
 
-        var backgroundImage = background.GetComponent<Image>();
-        var tempColor = backgroundImage.color;
-        tempColor.a = BACKGROUND_TRANSPARENCY;
-        backgroundImage.color = tempColor;
+        background.GetComponent<Image>().color = PAUSE_BACKGROUND_COLOR;
     }
 }
