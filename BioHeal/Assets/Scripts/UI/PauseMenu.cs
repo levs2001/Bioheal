@@ -72,6 +72,8 @@ public class PauseMenu : MonoBehaviour
 
         pauseMenu.SetActive(true);
         background.SetActive(true);
+        resumeGameButton.SetActive(true);
+
         pauseButton.SetActive(false); // resume game button is displayed instead
 
         scale = Time.timeScale;
