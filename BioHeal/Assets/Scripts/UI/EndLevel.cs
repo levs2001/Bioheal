@@ -63,6 +63,8 @@ public class EndLevel : MonoBehaviour
             //load next level if this was not last level
             ++Loader.LoaderInstance.CurrentLevel;
         }
+
+        Loader.LoaderInstance.UpdateJson();
     }
 
     public void OpenLoseLevelMenu()
