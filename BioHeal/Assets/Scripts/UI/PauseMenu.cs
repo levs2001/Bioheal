@@ -138,6 +138,7 @@ public class PauseMenu : MonoBehaviour
         background.SetActive(false);
         pauseMenu.SetActive(false);
         pauseButton.SetActive(true);
+        resumeGameButton.SetActive(false);
 
         if (pauseMenuText.text.Equals("you won!")) // if we're in win menu
         {
@@ -183,6 +184,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         background.SetActive(false);
         pauseButton.SetActive(true);
+        resumeGameButton.SetActive(false);
         pauseMenuText.text = $"pause";
 
         background.GetComponent<Image>().color = PAUSE_BACKGROUND_COLOR;
