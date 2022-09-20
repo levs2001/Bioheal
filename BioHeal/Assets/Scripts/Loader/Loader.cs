@@ -22,7 +22,8 @@ public class Loader
     private int currentLevel;
     private long amountOfLevels;
     private static Loader loader = null;
-    public HealthDisplayType healthDisplayType { get; set; } = HealthDisplayType.ModelSize;
+    public HealthDisplayType healthDisplayType = HealthDisplayType.None;
+
 
     private static readonly Log log = LogFactory.GetLog(typeof(SoundManager));
 
@@ -53,7 +54,6 @@ public class Loader
 
         config = JsonConvert.DeserializeObject<ConfigJson>(json,
                 new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Populate });
-        healthDisplayType = (HealthDisplayType)Enum.Parse(typeof(HealthDisplayType), config.healthDisplayType, true);
         long size = config.levels.Length;
         amountOfLevels = size - 1; //start numeration with 0
         levels = new LevelData[size];

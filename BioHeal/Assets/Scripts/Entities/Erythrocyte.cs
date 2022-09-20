@@ -14,6 +14,11 @@ public class Erythrocyte : Unit
         spriteRenderer = GetComponent<SpriteRenderer>();
         entityType = EntityType.Erythrocyte;
         aim = new Aim(EntityType.Mineral);
+
+        if (this.healthbar.GetComponent<HealthDisplay>().GetType() == typeof(HealthDisplayBar))
+        {
+            this.healthbar.SetActive(false);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)
