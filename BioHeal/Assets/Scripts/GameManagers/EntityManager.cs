@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class EntityManager
 {
-    private readonly List<GameObject> freeEntities;
+    protected readonly List<GameObject> freeEntities;
     private readonly List<GameObject> busyEntities;
 
-    private GameObject prefab;
+    protected GameObject prefab;
     private SpawnAreas spawnAreas;
 
     //For testing
@@ -73,12 +73,10 @@ public class EntityManager
         }
     }
 
-    public void SpawnByCoordinates(Vector3 position)
+    public virtual void SpawnByCoordinates(Vector3 position)
     {
         GameObject entity = GameObject.Instantiate(prefab);
-
         entity.transform.position = position;
-
         freeEntities.Add(entity);
     }
 

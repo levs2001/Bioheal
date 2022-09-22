@@ -58,6 +58,7 @@ public class SceneManager : MonoBehaviour
         level.InitShopPanel(GameObject.FindWithTag("ShopPanel").GetComponent<ShopPanel>());
 
         entityManagers = prefabs.ToDictionary(pair => pair.Key, pair => new EntityManager(pair.Value, pair.Key));
+        entityManagers[EntityType.Mineral] = new MineralManager(prefabs[EntityType.Mineral], EntityType.Mineral);
 
         amountEnemiesPerLevel = new Dictionary<EntityType, int>(level.AmountEnemiesPerLevel);
 
