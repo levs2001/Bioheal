@@ -50,6 +50,7 @@ public class Alive : MonoBehaviour
 
     protected virtual void Start()
     {
+        // health display object
         healthbar = Instantiate(SceneManager.sceneManager.healthbarPrefab, transform.position, Quaternion.identity);
         healthbar.GetComponent<HealthDisplay>().Owner = this;
     }

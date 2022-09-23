@@ -15,6 +15,7 @@ public class Loader
     private const int ALL_LEVELS_ARE_CLEARED = -1;
     private const string configResPath = "config";
     private readonly string configPath = Application.persistentDataPath + "/config.json";
+    private static readonly Log log = LogFactory.GetLog(typeof(SoundManager));
     private ConfigJson config = null;
     private LevelData defaultLevel;
     private LevelData[] levels;
@@ -22,9 +23,7 @@ public class Loader
     private int currentLevel;
     private long amountOfLevels;
     private static Loader loader = null;
-    public HealthDisplayType healthDisplayType { get; set; } = HealthDisplayType.ModelSize;
-
-    private static readonly Log log = LogFactory.GetLog(typeof(SoundManager));
+    public HealthDisplayType healthDisplayType = HealthDisplayType.None;
 
     public static Loader LoaderInstance
     {
@@ -53,7 +52,6 @@ public class Loader
 
         config = JsonConvert.DeserializeObject<ConfigJson>(json,
                 new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Populate });
-        healthDisplayType = (HealthDisplayType)Enum.Parse(typeof(HealthDisplayType), config.healthDisplayType, true);
         long size = config.levels.Length;
         amountOfLevels = size - 1; //start numeration with 0
         levels = new LevelData[size];
