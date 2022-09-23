@@ -15,6 +15,7 @@ public class Loader
     private const int ALL_LEVELS_ARE_CLEARED = -1;
     private const string configResPath = "config";
     private readonly string configPath = Application.persistentDataPath + "/config.json";
+    private static readonly Log log = LogFactory.GetLog(typeof(SoundManager));
     private ConfigJson config = null;
     private LevelData defaultLevel;
     private LevelData[] levels;
@@ -23,9 +24,6 @@ public class Loader
     private long amountOfLevels;
     private static Loader loader = null;
     public HealthDisplayType healthDisplayType = HealthDisplayType.None;
-
-
-    private static readonly Log log = LogFactory.GetLog(typeof(SoundManager));
 
     public static Loader LoaderInstance
     {
