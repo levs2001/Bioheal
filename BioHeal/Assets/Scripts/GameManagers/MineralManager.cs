@@ -5,7 +5,7 @@ using UnityEngine;
 public class MineralManager : EntityManager
 {
     //degrees to rotate units before spawn
-    private const int CIRCLE = 360, STEP = 30;
+    private const int CIRCLE = 360;
 
     public MineralManager(GameObject prefab, EntityType entityType) : base(prefab, entityType) { }
 
@@ -16,6 +16,6 @@ public class MineralManager : EntityManager
         freeEntities.Add(entity);
 
         //rotate entities to look realistic
-        entity.transform.Rotate(0.0f, 0.0f, STEP * Random.Range(0, CIRCLE / STEP - 1));
+        entity.transform.Rotate(0.0f, 0.0f, Random.Range(0, CIRCLE - 1));
     }
 }
