@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
+    private const string WIN_TEXT = "you won!";
+    private const string LOSE_TEXT = "you lost!";
+    private const string PAUSE_TEXT = "pause";
+    
     private readonly static Color32 LOSE_BACKGROUND_COLOR = new Color32(200,200,200,200);
     private readonly static Color32 PAUSE_BACKGROUND_COLOR = new Color32(255,255,255,200);
     private readonly static Color32 WIN_BACKGROUND_COLOR = PAUSE_BACKGROUND_COLOR;
@@ -46,7 +50,7 @@ public class PauseMenu : MonoBehaviour
 
     public void EscapeButton()
     {
-        if (pauseMenuText.text.Equals($"pause")) // shouldnt work in win/lose menus 
+        if (pauseMenuText.text.Equals(PAUSE_TEXT)) // shouldnt work in win/lose menus 
         {
             if (!isOpened)
             {
@@ -61,7 +65,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseButton()
     {
-        pauseMenuText.text = $"pause";
+        pauseMenuText.text = PAUSE_TEXT;
         background.GetComponent<Image>().color = PAUSE_BACKGROUND_COLOR;
         MenuActions();
     }
@@ -95,7 +99,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenLoseLevelMenu() 
     {
-        pauseMenuText.text = $"you lost!";
+        pauseMenuText.text = LOSE_TEXT;
         background.GetComponent<Image>().color = LOSE_BACKGROUND_COLOR;
         MenuActions();
         resumeGameButton.SetActive(false); // both resume/goNext and pause buttons are disabled
@@ -103,7 +107,7 @@ public class PauseMenu : MonoBehaviour
 
      public void OpenWinLevelMenu() 
     {
-        pauseMenuText.text = $"you won!";
+        pauseMenuText.text = WIN_TEXT;
         background.GetComponent<Image>().color = WIN_BACKGROUND_COLOR;
         MenuActions();
         
@@ -114,11 +118,6 @@ public class PauseMenu : MonoBehaviour
         {
             //if this was last level - cant go next level
             resumeGameButton.SetActive(false);
-        }
-        else
-        {
-            //load next level if this was not last level
-            ++Loader.LoaderInstance.CurrentLevel;
         }
     }
 
@@ -140,8 +139,9 @@ public class PauseMenu : MonoBehaviour
         pauseButton.SetActive(true);
         resumeGameButton.SetActive(false);
 
-        if (pauseMenuText.text.Equals("you won!")) // if we're in win menu
+        if (pauseMenuText.text.Equals(WIN_TEXT)) // if we're in win menu
         {
+            ++Loader.LoaderInstance.CurrentLevel;
             UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.GAME_SCENE);
         }
     }
@@ -185,7 +185,7 @@ public class PauseMenu : MonoBehaviour
         background.SetActive(false);
         pauseButton.SetActive(true);
         resumeGameButton.SetActive(false);
-        pauseMenuText.text = $"pause";
+        pauseMenuText.text = PAUSE_TEXT;
 
         background.GetComponent<Image>().color = PAUSE_BACKGROUND_COLOR;
     }
