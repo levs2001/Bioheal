@@ -41,14 +41,14 @@ public class Loader
     {
         // Loading config from resource
         string json;
-        // if (File.Exists(configPath))
-        // {
-        //     json = File.ReadAllText(configPath);
-        // }
-        // else
-        // {
+        if (File.Exists(configPath))
+        {
+            json = File.ReadAllText(configPath);
+        }
+        else
+        {
             json = (Resources.Load<TextAsset>(configResPath)).ToString();
-        // }
+        }
 
         config = JsonConvert.DeserializeObject<ConfigJson>(json,
                 new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Populate });
