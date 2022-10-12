@@ -43,7 +43,6 @@ public class SceneManager : MonoBehaviour
     {
         get { return timeToSpawn; }
     }
-
     private void Awake()
     {
         sceneManager = this;
@@ -98,7 +97,12 @@ public class SceneManager : MonoBehaviour
     }
 
     private void Update()
-    {
+    {        
+        if (!heart)
+        {
+            endLevelMenuIsOpened = true;
+        }
+        
         if (CheckThatAllEnemiesDestroyed())
         {
             //to open EndLevelMenu once
@@ -106,11 +110,13 @@ public class SceneManager : MonoBehaviour
             {
                 endLevelMenuIsOpened = true;
 
+
                 //this action moved to EndLevel to remember timeScale to return it
                 //after closing EndLevelMenu
                 //Time.timeScale = 0;
-
+        
                 PauseMenu.Instance.OpenWinLevelMenu();
+
                 // EndLevel.Instance.OpenWinLevelMenu();
             }
         }
