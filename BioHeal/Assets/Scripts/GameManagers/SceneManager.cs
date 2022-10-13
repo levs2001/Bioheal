@@ -6,7 +6,6 @@ using static EndLevel;
 using static ShopPanel;
 using static PauseMenu;
 
-
 public class SceneManager : MonoBehaviour
 {
     private const string PathPrefabs = "Entities/";
