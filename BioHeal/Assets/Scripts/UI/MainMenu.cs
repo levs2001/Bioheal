@@ -44,6 +44,16 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void EscapeButton()
+    {
+        //only one chapter can be opened at one time
+        //so this will close that opened chapter
+        foreach(MenuChapter chapter in chapters.Values)
+        {
+            chapter.CloseChapter();
+        }
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -54,6 +64,16 @@ public class MainMenu : MonoBehaviour
         chapters.Add(MenuChapterType.ChooseLevel, new MenuChapter(chooseLevelImage));
         chapters.Add(MenuChapterType.HowToPlay, new MenuChapter(howToPlayImage));
         chapters.Add(MenuChapterType.Settings, new MenuChapter(settingsImage));
+    }
+
+    private void Update()
+    {
+        //close chapters using Escape
+        if (Input.GetKeyDown(KeyCode.Escape) &&
+                UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == $"MenuScene")
+        {
+            EscapeButton();
+        }
     }
 
     private class MenuChapter
@@ -68,14 +88,20 @@ public class MainMenu : MonoBehaviour
 
         public void OpenChapter()
         {
+            if (image.activeSelf == false)
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
+            }
             image.SetActive(true);
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         }
 
         public void CloseChapter()
         {
+            if (image.activeSelf == true)
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
+            }
             image.SetActive(false);
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
         }
     }
 
