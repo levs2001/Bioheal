@@ -58,7 +58,7 @@
             "enemies": [
                 {
                     "name": "Toxin",
-                    "speed": 3,
+                    "speed": 4,
                     "force": 1,
                     "frequency": 10,
                     "amountPerLevel": 1
@@ -74,7 +74,7 @@
             "allies": [
                 {
                     "name": "Erythrocyte",
-                    "speed": 4,
+                    "speed": 6,
                     "force": 0,
                     "price": 6,
                     "initialC": 2,
@@ -105,29 +105,29 @@
                 "force": 3,
                 "money": 10
             },
-            "cleared": false
+            "cleared": true
         },
         {
             "enemies": [
                 {
                     "name": "Toxin",
-                    "speed": 3,
+                    "speed": 4,
                     "force": 1,
-                    "frequency": 10,
+                    "frequency": 12,
                     "amountPerLevel": 2
                 },
                 {
                     "name": "Infection",
                     "speed": 2,
                     "force": 1,
-                    "frequency": 8,
+                    "frequency": 10,
                     "amountPerLevel": 6
                 }
             ],
             "allies": [
                 {
                     "name": "Erythrocyte",
-                    "speed": 4,
+                    "speed": 5,
                     "force": 0,
                     "price": 6,
                     "initialC": 2,
@@ -137,7 +137,7 @@
                     "name": "Lymphocyte",
                     "speed": 8,
                     "force": 1,
-                    "price": 10,
+                    "price": 8,
                     "initialC": 0,
                     "timeToSpawn": 0
                 },
@@ -145,7 +145,7 @@
                     "name": "Granulocyte",
                     "speed": 5,
                     "force": 1,
-                    "price": 13,
+                    "price": 11,
                     "initialC": 0,
                     "timeToSpawn": 0
                 }
@@ -158,29 +158,29 @@
                 "force": 5,
                 "money": 10
             },
-            "cleared": false
+            "cleared": true
         },
         {
             "enemies": [
                 {
                     "name": "Toxin",
-                    "speed": 3,
+                    "speed": 4,
                     "force": 1,
-                    "frequency": 10,
+                    "frequency": 12,
                     "amountPerLevel": 4
                 },
                 {
                     "name": "Infection",
                     "speed": 2,
                     "force": 1,
-                    "frequency": 8,
+                    "frequency": 10,
                     "amountPerLevel": 10
                 }
             ],
             "allies": [
                 {
                     "name": "Erythrocyte",
-                    "speed": 4,
+                    "speed": 5,
                     "force": 0,
                     "price": 6,
                     "initialC": 2,
@@ -190,7 +190,7 @@
                     "name": "Lymphocyte",
                     "speed": 8,
                     "force": 1,
-                    "price": 10,
+                    "price": 8,
                     "initialC": 0,
                     "timeToSpawn": 0
                 },
@@ -198,7 +198,7 @@
                     "name": "Granulocyte",
                     "speed": 5,
                     "force": 1,
-                    "price": 13,
+                    "price": 11,
                     "initialC": 0,
                     "timeToSpawn": 0
                 }
@@ -211,22 +211,22 @@
                 "force": 8,
                 "money": 10
             },
-            "cleared": false
+            "cleared": true
         },
         {
             "enemies": [
                 {
                     "name": "Toxin",
-                    "speed": 3,
+                    "speed": 4,
                     "force": 1,
-                    "frequency": 10,
+                    "frequency": 12,
                     "amountPerLevel": 6
                 },
                 {
                     "name": "Infection",
                     "speed": 2,
                     "force": 1,
-                    "frequency": 8,
+                    "frequency": 9,
                     "amountPerLevel": 14
                 }
             ],
@@ -235,13 +235,66 @@
                     "name": "Erythrocyte",
                     "speed": 6,
                     "force": 0,
-                    "price": 7,
+                    "price": 5,
                     "initialC": 3,
                     "timeToSpawn": 0
                 },
                 {
                     "name": "Lymphocyte",
                     "speed": 8,
+                    "force": 1,
+                    "price": 9,
+                    "initialC": 0,
+                    "timeToSpawn": 0
+                },
+                {
+                    "name": "Granulocyte",
+                    "speed": 5,
+                    "force": 1,
+                    "price": 12,
+                    "initialC": 0,
+                    "timeToSpawn": 0
+                }
+            ],
+            "mineral": {
+                "initialC": 10,
+                "frequency": 0.5
+            },
+            "heart": {
+                "force": 10,
+                "money": 10
+            },
+            "cleared": true
+        },
+        {
+            "enemies": [
+                {
+                    "name": "Toxin",
+                    "speed": 2,
+                    "force": 1,
+                    "frequency": 11,
+                    "amountPerLevel": 8
+                },
+                {
+                    "name": "Infection",
+                    "speed": 3,
+                    "force": 1,
+                    "frequency": 9,
+                    "amountPerLevel": 15
+                }
+            ],
+            "allies": [
+                {
+                    "name": "Erythrocyte",
+                    "speed": 6,
+                    "force": 0,
+                    "price": 7,
+                    "initialC": 4,
+                    "timeToSpawn": 0
+                },
+                {
+                    "name": "Lymphocyte",
+                    "speed": 4,
                     "force": 1,
                     "price": 10,
                     "initialC": 0,
@@ -258,66 +311,13 @@
             ],
             "mineral": {
                 "initialC": 10,
-                "frequency": 0.5
-            },
-            "heart": {
-                "force": 10,
-                "money": 10
-            },
-            "cleared": false
-        },
-        {
-            "enemies": [
-                {
-                    "name": "Toxin",
-                    "speed": 2,
-                    "force": 1,
-                    "frequency": 9,
-                    "amountPerLevel": 8
-                },
-                {
-                    "name": "Infection",
-                    "speed": 3,
-                    "force": 1,
-                    "frequency": 7,
-                    "amountPerLevel": 15
-                }
-            ],
-            "allies": [
-                {
-                    "name": "Erythrocyte",
-                    "speed": 6,
-                    "force": 0,
-                    "price": 9,
-                    "initialC": 3,
-                    "timeToSpawn": 0
-                },
-                {
-                    "name": "Lymphocyte",
-                    "speed": 4,
-                    "force": 1,
-                    "price": 12,
-                    "initialC": 0,
-                    "timeToSpawn": 0
-                },
-                {
-                    "name": "Granulocyte",
-                    "speed": 5,
-                    "force": 1,
-                    "price": 15,
-                    "initialC": 0,
-                    "timeToSpawn": 0
-                }
-            ],
-            "mineral": {
-                "initialC": 10,
                 "frequency": 0.4
             },
             "heart": {
                 "force": 11,
                 "money": 10
             },
-            "cleared": false
+            "cleared": true
         },
         {
             "enemies": [
@@ -339,17 +339,17 @@
             "allies": [
                 {
                     "name": "Erythrocyte",
-                    "speed": 6,
+                    "speed": 7,
                     "force": 0,
-                    "price": 9,
-                    "initialC": 3,
+                    "price": 7,
+                    "initialC": 4,
                     "timeToSpawn": 0
                 },
                 {
                     "name": "Lymphocyte",
-                    "speed": 4,
+                    "speed": 5,
                     "force": 1,
-                    "price": 12,
+                    "price": 10,
                     "initialC": 0,
                     "timeToSpawn": 0
                 },
@@ -357,7 +357,7 @@
                     "name": "Granulocyte",
                     "speed": 7,
                     "force": 1,
-                    "price": 14,
+                    "price": 12,
                     "initialC": 0,
                     "timeToSpawn": 0
                 }
@@ -370,7 +370,7 @@
                 "force": 13,
                 "money": 50
             },
-            "cleared": false
+            "cleared": true
         },
         {
             "enemies": [
@@ -378,31 +378,31 @@
                     "name": "Toxin",
                     "speed": 4,
                     "force": 1,
-                    "frequency": 10,
+                    "frequency": 11,
                     "amountPerLevel": 12
                 },
                 {
                     "name": "Infection",
                     "speed": 3,
                     "force": 1,
-                    "frequency": 8,
+                    "frequency": 9,
                     "amountPerLevel": 20
                 }
             ],
             "allies": [
                 {
                     "name": "Erythrocyte",
-                    "speed": 7,
+                    "speed": 8,
                     "force": 0,
-                    "price": 8,
-                    "initialC": 3,
+                    "price": 7,
+                    "initialC": 4,
                     "timeToSpawn": 0
                 },
                 {
                     "name": "Lymphocyte",
                     "speed": 4,
                     "force": 1,
-                    "price": 11,
+                    "price": 10,
                     "initialC": 0,
                     "timeToSpawn": 0
                 },
@@ -410,20 +410,20 @@
                     "name": "Granulocyte",
                     "speed": 6,
                     "force": 1,
-                    "price": 13,
+                    "price": 12,
                     "initialC": 0,
                     "timeToSpawn": 0
                 }
             ],
             "mineral": {
                 "initialC": 10,
-                "frequency": 0.4
+                "frequency": 0.3
             },
             "heart": {
-                "force": 7,
+                "force": 6,
                 "money": 40
             },
-            "cleared": false
+            "cleared": true
         },
         {
             "enemies": [
@@ -455,7 +455,7 @@
                     "name": "Lymphocyte",
                     "speed": 5,
                     "force": 1,
-                    "price": 12,
+                    "price": 10,
                     "initialC": 0,
                     "timeToSpawn": 0
                 },
@@ -463,7 +463,7 @@
                     "name": "Granulocyte",
                     "speed": 6,
                     "force": 1,
-                    "price": 14,
+                    "price": 12,
                     "initialC": 0,
                     "timeToSpawn": 0
                 }
@@ -473,25 +473,25 @@
                 "frequency": 0.2
             },
             "heart": {
-                "force": 10,
+                "force": 9,
                 "money": 90
             },
-            "cleared": false
+            "cleared": true
         },
         {
             "enemies": [
                 {
                     "name": "Toxin",
-                    "speed": 5,
+                    "speed": 6,
                     "force": 1,
-                    "frequency": 1,
+                    "frequency": 2,
                     "amountPerLevel": 250
                 },
                 {
                     "name": "Infection",
                     "speed": 5,
                     "force": 1,
-                    "frequency": 1,
+                    "frequency": 2,
                     "amountPerLevel": 200
                 }
             ],
@@ -506,9 +506,9 @@
                 },
                 {
                     "name": "Lymphocyte",
-                    "speed": 5,
+                    "speed": 5.5,
                     "force": 1,
-                    "price": 5,
+                    "price": 7,
                     "initialC": 6,
                     "timeToSpawn": 0
                 },
@@ -516,7 +516,7 @@
                     "name": "Granulocyte",
                     "speed": 6,
                     "force": 1,
-                    "price": 6,
+                    "price": 8,
                     "initialC": 5,
                     "timeToSpawn": 0
                 }
@@ -529,7 +529,7 @@
                 "force": 5,
                 "money": 90
             },
-            "cleared": false
+            "cleared": true
         },
         {
             "enemies": [
@@ -537,7 +537,7 @@
                     "name": "Toxin",
                     "speed": 6,
                     "force": 1,
-                    "frequency": 1.5,
+                    "frequency": 2,
                     "amountPerLevel": 100
                 },
                 {
@@ -553,15 +553,15 @@
                     "name": "Erythrocyte",
                     "speed": 6,
                     "force": 0,
-                    "price": 3,
+                    "price": 2,
                     "initialC": 5,
                     "timeToSpawn": 0
                 },
                 {
                     "name": "Lymphocyte",
-                    "speed": 5.6,
+                    "speed": 5,
                     "force": 1,
-                    "price": 6,
+                    "price": 4,
                     "initialC": 2,
                     "timeToSpawn": 0
                 },
@@ -569,7 +569,7 @@
                     "name": "Granulocyte",
                     "speed": 6,
                     "force": 1,
-                    "price": 8,
+                    "price": 6,
                     "initialC": 2,
                     "timeToSpawn": 0
                 }
