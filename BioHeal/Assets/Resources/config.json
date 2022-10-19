@@ -105,7 +105,7 @@
                 "force": 3,
                 "money": 10
             },
-            "cleared": true
+            "cleared": false 
         },
         {
             "enemies": [
@@ -158,7 +158,7 @@
                 "force": 5,
                 "money": 10
             },
-            "cleared": true
+            "cleared": false
         },
         {
             "enemies": [
@@ -211,7 +211,7 @@
                 "force": 8,
                 "money": 10
             },
-            "cleared": true
+            "cleared": false
         },
         {
             "enemies": [
@@ -264,7 +264,7 @@
                 "force": 10,
                 "money": 10
             },
-            "cleared": true
+            "cleared": false
         },
         {
             "enemies": [
@@ -317,7 +317,7 @@
                 "force": 11,
                 "money": 10
             },
-            "cleared": true
+            "cleared": false
         },
         {
             "enemies": [
@@ -370,7 +370,7 @@
                 "force": 13,
                 "money": 50
             },
-            "cleared": true
+            "cleared": false
         },
         {
             "enemies": [
@@ -423,7 +423,7 @@
                 "force": 6,
                 "money": 40
             },
-            "cleared": true
+            "cleared": false
         },
         {
             "enemies": [
@@ -476,7 +476,7 @@
                 "force": 9,
                 "money": 90
             },
-            "cleared": true
+            "cleared": false
         },
         {
             "enemies": [
@@ -529,7 +529,7 @@
                 "force": 5,
                 "money": 90
             },
-            "cleared": true
+            "cleared": false
         },
         {
             "enemies": [
