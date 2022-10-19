@@ -30,12 +30,14 @@ public class EnemiesPanel : MonoBehaviour
     {
         if (unitType == EntityType.Toxin)
         {
-            --amountToxins;
+            if (amountToxins > 0)
+                --amountToxins;
             textAmountToxins.text = $"{amountToxins}" + $"/" + $"{initialAmountToxins}";
         }
         else if (unitType == EntityType.Infection)
         {
-            --amountInfections;
+            if (amountInfections > 0)
+                --amountInfections;
             textAmountInfections.text = $"{amountInfections}" + $"/" + $"{initialAmountInfections}";
         }
     }
