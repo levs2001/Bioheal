@@ -711,7 +711,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: c6bb8df3abdfc4088b771fe96f0752d4, type: 3}
-    m_FontSize: 20
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -779,7 +779,7 @@ GameObject:
   - component: {fileID: 490126049}
   - component: {fileID: 490126048}
   m_Layer: 5
-  m_Name: BuyLIMFOButton
+  m_Name: BuyLimfoButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -997,7 +997,7 @@ GameObject:
   - component: {fileID: 562354798}
   - component: {fileID: 562354797}
   m_Layer: 5
-  m_Name: BuyGRANULOButton
+  m_Name: BuyGranuloButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1154,8 +1154,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 38.54004, y: -37.880005}
-  m_SizeDelta: {x: 77.67, y: 75.77}
+  m_AnchoredPosition: {x: 99.5, y: -107.50006}
+  m_SizeDelta: {x: 199, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &586879614
 MonoBehaviour:
@@ -1646,7 +1646,7 @@ GameObject:
   - component: {fileID: 725640598}
   - component: {fileID: 725640597}
   m_Layer: 5
-  m_Name: EritroCost
+  m_Name: GranuloCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1756,17 +1756,17 @@ RectTransform:
   m_GameObject: {fileID: 752552205}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.59999996, y: 0.59999996, z: 0.5999999}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 0.5999999}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 586879613}
   m_Father: {fileID: 1816116988}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.3148193, y: 10.301117}
-  m_SizeDelta: {x: 2062.73, y: 911.454}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -20.324173, y: 0.0012588501}
+  m_SizeDelta: {x: 1920.5, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &752552208
 MonoBehaviour:
@@ -3587,13 +3587,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc3694fb182b0a668491927bda819ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textLimfo: {fileID: 0}
-  textGranulo: {fileID: 0}
+  textLimfo: {fileID: 1640194967}
+  textGranulo: {fileID: 725640598}
   textEritro: {fileID: 1302808895}
   textMoneyBase: {fileID: 1111506222}
-  buttonLimfo: {fileID: 0}
+  buttonLimfo: {fileID: 490126046}
   buttonEritro: {fileID: 1854262392}
-  buttonGranulo: {fileID: 0}
+  buttonGranulo: {fileID: 562354795}
 --- !u!1 &1572787525
 GameObject:
   m_ObjectHideFlags: 0
@@ -3663,7 +3663,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: c6bb8df3abdfc4088b771fe96f0752d4, type: 3}
-    m_FontSize: 20
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -3833,7 +3833,7 @@ GameObject:
   - component: {fileID: 1640194967}
   - component: {fileID: 1640194966}
   m_Layer: 5
-  m_Name: EritroCost
+  m_Name: LimfoCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
