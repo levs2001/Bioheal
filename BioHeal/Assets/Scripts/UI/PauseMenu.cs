@@ -102,7 +102,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenLoseLevelMenu() 
     {
-        SetActiveTextImage(ActiveTextImage.LOSE_TEXT);
+        SetActiveTextImage(ActiveTextImage.LOST_TEXT);
         background.GetComponent<Image>().color = LOSE_BACKGROUND_COLOR;
         MenuActions();
         resumeGameButton.SetActive(false); // both resume/goNext and pause buttons are disabled
@@ -110,7 +110,7 @@ public class PauseMenu : MonoBehaviour
 
      public void OpenWinLevelMenu() 
     {
-        SetActiveTextImage(ActiveTextImage.WIN_TEXT);
+        SetActiveTextImage(ActiveTextImage.WON_TEXT);
         background.GetComponent<Image>().color = WIN_BACKGROUND_COLOR;
         MenuActions();
         
@@ -142,7 +142,7 @@ public class PauseMenu : MonoBehaviour
         pauseButton.SetActive(true);
         resumeGameButton.SetActive(false);
 
-        if (currenlyActive.Equals(ActiveTextImage.WIN_TEXT)) // if we're in win menu
+        if (currenlyActive.Equals(ActiveTextImage.WON_TEXT)) // if we're in win menu
         {
             ++Loader.LoaderInstance.CurrentLevel;
             UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.GAME_SCENE);
@@ -189,6 +189,7 @@ public class PauseMenu : MonoBehaviour
         pauseButton.SetActive(true);
         resumeGameButton.SetActive(false);
         // pauseMenuText.text = PAUSE_TEXT;
+        InitTextImages();
         SetActiveTextImage(ActiveTextImage.PAUSE_TEXT);
 
         background.GetComponent<Image>().color = PAUSE_BACKGROUND_COLOR;
@@ -197,8 +198,12 @@ public class PauseMenu : MonoBehaviour
     private void InitTextImages()
     {
         menuTextImages[ActiveTextImage.PAUSE_TEXT] = pauseTextImage;
-        menuTextImages[ActiveTextImage.WIN_TEXT] = winTextImage;
-        menuTextImages[ActiveTextImage.LOSE_TEXT] = loseTextImage;
+        menuTextImages[ActiveTextImage.WON_TEXT] = winTextImage;
+        menuTextImages[ActiveTextImage.LOST_TEXT] = loseTextImage;
+        foreach (var textImage in menuTextImages)
+        {
+            menuTextImages[textImage.Key].SetActive(false);
+        }
     }
 
     private void SetActiveTextImage(ActiveTextImage newActivetextImage)
@@ -209,8 +214,8 @@ public class PauseMenu : MonoBehaviour
     }
     private enum ActiveTextImage
     {
-        PAUSE_TEXT = 1,
-        WIN_TEXT = 2,
-        LOSE_TEXT = 3  
+        PAUSE_TEXT = 0,
+        WON_TEXT = 1,
+        LOST_TEXT = 2  
     } 
 }

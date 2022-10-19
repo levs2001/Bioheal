@@ -4221,9 +4221,9 @@ MonoBehaviour:
   pauseButton: {fileID: 991303901}
   howToPlay: {fileID: 752552205}
   background: {fileID: 12357889}
-  pauseTextImage: {fileID: 0}
-  winTextImage: {fileID: 0}
-  loseTextImage: {fileID: 0}
+  pauseTextImage: {fileID: 1972924797}
+  winTextImage: {fileID: 723140504}
+  loseTextImage: {fileID: 1147061719}
 --- !u!114 &1816116990
 MonoBehaviour:
   m_ObjectHideFlags: 0
