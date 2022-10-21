@@ -5,12 +5,9 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    private const string WIN_TEXT = "you won!";
-    private const string LOSE_TEXT = "you lost!";
-    private const string PAUSE_TEXT = "pause";
     
     private readonly static Color32 LOSE_BACKGROUND_COLOR = new Color32(200,200,200,200);
-    private readonly static Color32 PAUSE_BACKGROUND_COLOR = new Color32(255,255,255,200);
+    private readonly static Color32 PAUSE_BACKGROUND_COLOR = new Color32(255,173,200,200);
     private readonly static Color32 WIN_BACKGROUND_COLOR = PAUSE_BACKGROUND_COLOR;
     
     // private PauseMenuState state = PauseMenuState.Pause;
@@ -23,8 +20,11 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button goToMainMenuButton;
     [SerializeField] private Button retryButton;
     [SerializeField] private GameObject pauseButton;
+    [SerializeField] private GameObject settingsButton;
+    
 
     [SerializeField] private GameObject howToPlay;
+    [SerializeField] private GameObject settings;
     [SerializeField] private GameObject background;
 
     [SerializeField] private GameObject pauseTextImage;
@@ -96,6 +96,7 @@ public class PauseMenu : MonoBehaviour
         howToPlayButton.GetComponent<Button>().interactable = true;
         goToMainMenuButton.GetComponent<Button>().interactable = true;
         retryButton.GetComponent<Button>().interactable = true;
+        settingsButton.GetComponent<Button>().interactable = true;
 
         resumeGameButton.GetComponent<Button>().interactable = true;
     }
@@ -169,6 +170,18 @@ public class PauseMenu : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.GAME_SCENE);
     }
 
+    public void OpenSettings()
+    {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
+        settings.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
+        settings.SetActive(false);
+    }
+
     public void GoToMainMenu()
     {
         isOpened = false;
@@ -184,6 +197,7 @@ public class PauseMenu : MonoBehaviour
     {
         instance = this;
         howToPlay.SetActive(false);
+        settings.SetActive(false);
         pauseMenu.SetActive(false);
         background.SetActive(false);
         pauseButton.SetActive(true);
