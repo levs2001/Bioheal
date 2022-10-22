@@ -104,6 +104,8 @@ public class SoundManager : MonoBehaviour
         MainTheme,
         UnitDead,
         UnitFight,
-        MineralTake
+        MineralTake,
+        WinLevel,
+        LoseLevel
     }
 }
