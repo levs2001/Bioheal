@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    
-    private readonly static Color32 LOSE_BACKGROUND_COLOR = new Color32(200,200,200,200);
+    private readonly static Color32 LOSE_BACKGROUND_COLOR = new Color32(236,143,175,200);
     private readonly static Color32 PAUSE_BACKGROUND_COLOR = new Color32(255,173,200,200);
     private readonly static Color32 WIN_BACKGROUND_COLOR = PAUSE_BACKGROUND_COLOR;
         
