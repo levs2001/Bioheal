@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static SoundManager;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -84,6 +85,9 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0;
         isOpened = true;
 
+        //stop music
+        SoundManager.Instance.StopSound(SoundManager.SoundType.MainTheme);
+
         //all buttons are not available except buttons at PauseMenu
         Object[] buttons = GameObject.FindObjectsOfType(typeof(Button));
         foreach (Button b in buttons)
@@ -126,6 +130,7 @@ public class PauseMenu : MonoBehaviour
     {
         isOpened = false;
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.MainTheme);
 
         Object[] buttons = GameObject.FindObjectsOfType(typeof(Button));
         foreach (Button b in buttons)
