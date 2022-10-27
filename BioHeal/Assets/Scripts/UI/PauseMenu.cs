@@ -74,6 +74,7 @@ public class PauseMenu : MonoBehaviour
     private void MenuActions()
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
+        SoundManager.Instance.StopSound(SoundManager.SoundType.MainTheme);
 
         pauseMenu.SetActive(true);
         background.SetActive(true);
@@ -107,6 +108,7 @@ public class PauseMenu : MonoBehaviour
         background.GetComponent<Image>().color = LOSE_BACKGROUND_COLOR;
         MenuActions();
         resumeGameButton.SetActive(false); // both resume/goNext and pause buttons are disabled
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.LoseLevel);
     }
 
      public void OpenWinLevelMenu() 
@@ -114,7 +116,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuText.text = WIN_TEXT;
         background.GetComponent<Image>().color = WIN_BACKGROUND_COLOR;
         MenuActions();
-        
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.WinLevel);
         //set this level cleared
         Loader.LoaderInstance.SetLevelCleared(Loader.LoaderInstance.CurrentLevel);
 
