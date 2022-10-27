@@ -9,9 +9,7 @@ public class PauseMenu : MonoBehaviour
     private readonly static Color32 LOSE_BACKGROUND_COLOR = new Color32(200,200,200,200);
     private readonly static Color32 PAUSE_BACKGROUND_COLOR = new Color32(255,173,200,200);
     private readonly static Color32 WIN_BACKGROUND_COLOR = PAUSE_BACKGROUND_COLOR;
-    
-    // private PauseMenuState state = PauseMenuState.Pause;
-    
+        
     [SerializeField] private GameObject pauseMenu;
 
     [SerializeField] private Text pauseMenuText;
@@ -21,7 +19,6 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button retryButton;
     [SerializeField] private GameObject pauseButton;
     [SerializeField] private GameObject settingsButton;
-    
 
     [SerializeField] private GameObject howToPlay;
     [SerializeField] private GameObject settings;
@@ -202,7 +199,6 @@ public class PauseMenu : MonoBehaviour
         background.SetActive(false);
         pauseButton.SetActive(true);
         resumeGameButton.SetActive(false);
-        // pauseMenuText.text = PAUSE_TEXT;
         InitTextImages();
         SetActiveTextImage(ActiveTextImage.PAUSE_TEXT);
 
@@ -226,6 +222,7 @@ public class PauseMenu : MonoBehaviour
         menuTextImages[newActivetextImage].SetActive(true);   
         currenlyActive = newActivetextImage;
     }
+
     private enum ActiveTextImage
     {
         PAUSE_TEXT = 0,
