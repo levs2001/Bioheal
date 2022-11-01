@@ -119,6 +119,7 @@ public class PauseMenu : MonoBehaviour
         SoundManager.Instance.PlaySound(SoundManager.SoundType.WinLevel);
         //set this level cleared
         Loader.LoaderInstance.SetLevelCleared(Loader.LoaderInstance.CurrentLevel);
+        Loader.LoaderInstance.UpdateJson();
 
         if (Loader.LoaderInstance.IsItLastLevel() && Loader.LoaderInstance.AreAllLevelsCleared())
         {
