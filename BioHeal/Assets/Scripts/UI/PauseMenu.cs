@@ -6,10 +6,16 @@ using static SoundManager;
 
 public class PauseMenu : MonoBehaviour
 {
-    private readonly static Color32 LOSE_BACKGROUND_COLOR = new Color32(236,143,175,200);
-    private readonly static Color32 PAUSE_BACKGROUND_COLOR = new Color32(255,173,200,200);
+    private const string WIN_TEXT = "you won!";
+    private const string LOSE_TEXT = "you lost!";
+    private const string PAUSE_TEXT = "pause";
+    
+    private readonly static Color32 LOSE_BACKGROUND_COLOR = new Color32(200,200,200,200);
+    private readonly static Color32 PAUSE_BACKGROUND_COLOR = new Color32(255,255,255,200);
     private readonly static Color32 WIN_BACKGROUND_COLOR = PAUSE_BACKGROUND_COLOR;
-        
+    
+    // private PauseMenuState state = PauseMenuState.Pause;
+    
     [SerializeField] private GameObject pauseMenu;
 
     [SerializeField] private Text pauseMenuText;
@@ -18,17 +24,12 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button goToMainMenuButton;
     [SerializeField] private Button retryButton;
     [SerializeField] private GameObject pauseButton;
-    [SerializeField] private GameObject settingsButton;
+    
 
     [SerializeField] private GameObject howToPlay;
-    [SerializeField] private GameObject settings;
     [SerializeField] private GameObject background;
+    
 
-    [SerializeField] private GameObject pauseTextImage;
-    [SerializeField] private GameObject winTextImage;
-    [SerializeField] private GameObject loseTextImage;
-    private Dictionary<ActiveTextImage, GameObject> menuTextImages = new Dictionary<ActiveTextImage, GameObject>();
-    private ActiveTextImage currenlyActive;
     private float scale; //field to remember timeScale
     private bool isOpened = false;
 
@@ -50,7 +51,7 @@ public class PauseMenu : MonoBehaviour
 
     public void EscapeButton()
     {
-        if (currenlyActive.Equals(ActiveTextImage.PAUSE_TEXT)) // shouldnt work in win/lose menus 
+        if (pauseMenuText.text.Equals(PAUSE_TEXT)) // shouldnt work in win/lose menus 
         {
             if (!isOpened)
             {
@@ -65,7 +66,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseButton()
     {
-        SetActiveTextImage(ActiveTextImage.PAUSE_TEXT);
+        pauseMenuText.text = PAUSE_TEXT;
         background.GetComponent<Image>().color = PAUSE_BACKGROUND_COLOR;
         MenuActions();
     }
@@ -97,14 +98,13 @@ public class PauseMenu : MonoBehaviour
         howToPlayButton.GetComponent<Button>().interactable = true;
         goToMainMenuButton.GetComponent<Button>().interactable = true;
         retryButton.GetComponent<Button>().interactable = true;
-        settingsButton.GetComponent<Button>().interactable = true;
 
         resumeGameButton.GetComponent<Button>().interactable = true;
     }
 
     public void OpenLoseLevelMenu() 
     {
-        SetActiveTextImage(ActiveTextImage.LOST_TEXT);
+        pauseMenuText.text = LOSE_TEXT;
         background.GetComponent<Image>().color = LOSE_BACKGROUND_COLOR;
         MenuActions();
         resumeGameButton.SetActive(false); // both resume/goNext and pause buttons are disabled
@@ -113,7 +113,7 @@ public class PauseMenu : MonoBehaviour
 
      public void OpenWinLevelMenu() 
     {
-        SetActiveTextImage(ActiveTextImage.WON_TEXT);
+        pauseMenuText.text = WIN_TEXT;
         background.GetComponent<Image>().color = WIN_BACKGROUND_COLOR;
         MenuActions();
         SoundManager.Instance.PlaySound(SoundManager.SoundType.WinLevel);
@@ -147,7 +147,7 @@ public class PauseMenu : MonoBehaviour
         pauseButton.SetActive(true);
         resumeGameButton.SetActive(false);
 
-        if (currenlyActive.Equals(ActiveTextImage.WON_TEXT)) // if we're in win menu
+        if (pauseMenuText.text.Equals(WIN_TEXT)) // if we're in win menu
         {
             ++Loader.LoaderInstance.CurrentLevel;
             UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.GAME_SCENE);
@@ -174,18 +174,6 @@ public class PauseMenu : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(Loader.GAME_SCENE);
     }
 
-    public void OpenSettings()
-    {
-        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
-        settings.SetActive(true);
-    }
-
-    public void CloseSettings()
-    {
-        SoundManager.Instance.PlaySound(SoundManager.SoundType.AnyTap);
-        settings.SetActive(false);
-    }
-
     public void GoToMainMenu()
     {
         isOpened = false;
@@ -201,39 +189,12 @@ public class PauseMenu : MonoBehaviour
     {
         instance = this;
         howToPlay.SetActive(false);
-        settings.SetActive(false);
         pauseMenu.SetActive(false);
         background.SetActive(false);
         pauseButton.SetActive(true);
         resumeGameButton.SetActive(false);
-        InitTextImages();
-        SetActiveTextImage(ActiveTextImage.PAUSE_TEXT);
+        pauseMenuText.text = PAUSE_TEXT;
 
         background.GetComponent<Image>().color = PAUSE_BACKGROUND_COLOR;
     }
-
-    private void InitTextImages()
-    {
-        menuTextImages[ActiveTextImage.PAUSE_TEXT] = pauseTextImage;
-        menuTextImages[ActiveTextImage.WON_TEXT] = winTextImage;
-        menuTextImages[ActiveTextImage.LOST_TEXT] = loseTextImage;
-        foreach (var textImage in menuTextImages)
-        {
-            menuTextImages[textImage.Key].SetActive(false);
-        }
-    }
-
-    private void SetActiveTextImage(ActiveTextImage newActivetextImage)
-    {  
-        menuTextImages[currenlyActive].SetActive(false);
-        menuTextImages[newActivetextImage].SetActive(true);   
-        currenlyActive = newActivetextImage;
-    }
-
-    private enum ActiveTextImage
-    {
-        PAUSE_TEXT = 0,
-        WON_TEXT = 1,
-        LOST_TEXT = 2  
-    } 
 }
